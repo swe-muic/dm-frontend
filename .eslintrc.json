@@ -1,0 +1,71 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"],
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        },
+        "jest": {
+            "version": "29"
+          }
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "standard-with-typescript",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "esnext"
+    ],
+    "parserOptions": {
+        "project": ["./tsconfig.json"],
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+
+    "rules": {
+        "indent": ["warn", "tab"],
+        "quotes": ["error", "single"],
+        "semi": [1, "always"],
+        "sort-imports": ["error", {
+            "ignoreDeclarationSort": true,
+            "ignoreCase": true
+        }],
+        "no-duplicate-imports": ["error"],
+        "no-unused-vars": "error",
+        "no-restricted-syntax": [
+        "error",
+        {
+            "selector": "CallExpression[callee.name='require']",
+            "message": "require() is not allowed, except for in some specific cases. Please use import() instead."
+        }
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "import/no-dynamic-require": "off",
+        "import/no-commonjs": "error"
+    }
+}
