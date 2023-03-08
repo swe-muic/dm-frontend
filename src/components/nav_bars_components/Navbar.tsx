@@ -5,13 +5,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import TextField from '@mui/material/TextField';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+// eslint-disable-next-line import/extensions,import/no-unresolved
+import UserIcon from './userIconButton';
 
 export default function Navbar(): React.ReactElement {
+	const graphTitle = 'GRAPH TITLE';
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
@@ -25,7 +27,15 @@ export default function Navbar(): React.ReactElement {
 						<MenuIcon />
 					</IconButton>
 
-					<TextField id='standard-basic' label='GRAPH TITLE' variant='filled' />
+					<TextField
+						id='standard-basic'
+						variant='standard'
+						defaultValue={graphTitle}
+						sx={{
+							input: { color: 'white' },
+							label: { color: 'white' },
+						}}
+					/>
 
 					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
 						<BorderColorOutlinedIcon />
@@ -42,10 +52,7 @@ export default function Navbar(): React.ReactElement {
 					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
 						<DeleteOutlineOutlinedIcon />
 					</IconButton>
-
-					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-						<AccountCircle />
-					</IconButton>
+					<UserIcon />
 				</Toolbar>
 			</AppBar>
 		</Box>

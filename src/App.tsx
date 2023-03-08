@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Nav from './components/Navbar';
+import Nav from './components/nav_bars_components/Navbar';
 
 function App(): React.ReactElement {
 	const [currentValue, setCurrentValue] = useState(2);
