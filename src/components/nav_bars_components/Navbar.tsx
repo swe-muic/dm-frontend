@@ -6,11 +6,10 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import TextField from '@mui/material/TextField';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-// eslint-disable-next-line import/extensions,import/no-unresolved
 import UserIcon from './userIconButton';
+import DeleteIcon from './deleteIconButton';
 
 export default function Navbar(): React.ReactElement {
 	const graphTitle = 'GRAPH TITLE';
@@ -48,10 +47,7 @@ export default function Navbar(): React.ReactElement {
 					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
 						<SaveOutlinedIcon />
 					</IconButton>
-
-					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-						<DeleteOutlineOutlinedIcon />
-					</IconButton>
+					<DeleteIcon />
 					<UserIcon />
 				</Toolbar>
 			</AppBar>
