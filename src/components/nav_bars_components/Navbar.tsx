@@ -2,14 +2,13 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import TextField from '@mui/material/TextField';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import UserIcon from './userIconButton';
 import DeleteIcon from './deleteIconButton';
+import SaveIcon from './saveIconButton';
+import NavBarTitle from './navBarTitle';
+import EditBarIcon from './editIconButton';
+import MenuIcon from './menuIconButton';
 
 export default function Navbar(): React.ReactElement {
 	const graphTitle = 'GRAPH TITLE';
@@ -22,10 +21,7 @@ export default function Navbar(): React.ReactElement {
 				}}
 			>
 				<Toolbar>
-					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-						<MenuIcon />
-					</IconButton>
-
+					<MenuIcon />
 					<TextField
 						id='standard-basic'
 						variant='standard'
@@ -36,17 +32,9 @@ export default function Navbar(): React.ReactElement {
 						}}
 					/>
 
-					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-						<BorderColorOutlinedIcon />
-					</IconButton>
-
-					<Typography variant='h6' component='div' align={'center'} sx={{ flexGrow: 1 }}>
-						Deezmos
-					</Typography>
-
-					<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-						<SaveOutlinedIcon />
-					</IconButton>
+					<EditBarIcon />
+					<NavBarTitle />
+					<SaveIcon />
 					<DeleteIcon />
 					<UserIcon />
 				</Toolbar>
