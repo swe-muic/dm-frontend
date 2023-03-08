@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Navbar';
 
 function App(): React.ReactElement {
 	const [currentValue, setCurrentValue] = useState(2);
@@ -9,7 +10,10 @@ function App(): React.ReactElement {
 	};
 
 	return (
+
 		<div className='App'>
+			<Nav />
+			<h1>Hello world</h1>
 			<header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
