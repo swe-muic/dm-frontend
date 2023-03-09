@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,9 +9,16 @@ import SaveIcon from './saveIconButton';
 import NavBarTitle from './navBarTitle';
 import EditBarIcon from './editIconButton';
 import MenuIcon from './menuIconButton';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 export default function Navbar(): React.ReactElement {
+	const [isLogIn, setIsLogin] = useState(false);
 	const graphTitle = 'GRAPH TITLE';
+	const handleClick = (): void => {
+		setIsLogin(!isLogIn);
+	};
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
@@ -34,9 +41,24 @@ export default function Navbar(): React.ReactElement {
 
 					<EditBarIcon />
 					<NavBarTitle />
-					<SaveIcon />
-					<DeleteIcon />
-					<UserIcon />
+
+					{isLogIn ? (
+						<Stack direction='row'>
+							<SaveIcon />
+							<DeleteIcon />
+							<UserIcon />
+						</Stack>
+					) : (
+						<Stack spacing={4} direction='row'>
+							<Button color='inherit' onClick={handleClick}>
+								REGISTER
+							</Button>
+
+							<Button color='inherit' onClick={handleClick}>
+								LOGIN
+							</Button>
+						</Stack>
+					)}
 				</Toolbar>
 			</AppBar>
 		</Box>
