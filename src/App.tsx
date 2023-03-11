@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/NavBar/NavBar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+// import {AuthContextProvider} from "./context/AuthContext";
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from './config/firebaseConfig';
+import AuthRoute from './components/AuthRoute';
+import Graphs from './pages/Graphs';
+
+initializeApp(firebaseConfig);
 
 function App(): React.ReactElement {
 	const [currentValue, setCurrentValue] = useState(2);
@@ -10,9 +19,22 @@ function App(): React.ReactElement {
 	};
 
 	return (
+		<div>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path='/graphs'
+						element={
+							<AuthRoute>
+								<Graphs />
+							</AuthRoute>
+						}
+					/>
+					<Route path='/' element={<Home />} />
+					<Route path='/login' element={<Login />} />
+				</Routes>
+			</BrowserRouter>
 		<div className='App'>
-			<Navbar />
-
 			<header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
@@ -21,7 +43,7 @@ function App(): React.ReactElement {
 				<a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
 					Learn React
 				</a>
-				<button data-testid='app-button' onClick={onButtonClick}></button>
+				<button onClick={onButtonClick}></button>
 				<p data-testid='app-res'>Result = {currentValue}</p>
 			</header>
 		</div>
