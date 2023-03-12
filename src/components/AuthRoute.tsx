@@ -17,8 +17,9 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
 		AuthCheck();
 		return () => AuthCheck();
 	}, [auth]);
+
 	const AuthCheck = onAuthStateChanged(auth, (user) => {
-		if (user != null) {
+		if (user) {
 			setLoading(false);
 		} else {
 			console.log('unauthorized access');

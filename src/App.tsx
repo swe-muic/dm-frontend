@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 // import {AuthContextProvider} from "./context/AuthContext";
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './config/firebaseConfig';
+import { firebaseConfig } from './config/FirebaseConfig';
 import AuthRoute from './components/AuthRoute';
 import Graphs from './pages/Graphs';
 
