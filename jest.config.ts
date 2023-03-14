@@ -9,4 +9,6 @@ export default {
 	},
 	testMatch: ['**/*.test.tsx'],
 	setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+	collectCoverage: true,
+	coverageReporters: ['lcov', 'text', 'cobertura'],
 };
