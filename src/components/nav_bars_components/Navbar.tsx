@@ -115,14 +115,38 @@ export default function Navbar(): React.ReactElement {
 									</IconButton>
 									<Modal open={open} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
 										<Box sx={style}>
-											<Typography id='modal-modal-title' variant='h6' component='h2'>
-												Are you sure you want to delete this graph?
+											<Typography
+												id='modal-modal-title'
+												variant='h6'
+												component='h2'
+												fontSize={38}
+												align={'center'}
+												style={{ marginTop: 30 }}
+											>
+												Are you sure you want
 											</Typography>
-											<Stack spacing={4} direction='row' justifyContent='center'>
-												<Button variant='outlined' onClick={handleClose}>
+											<Typography id='modal-modal-title' variant='h6' component='h2' fontSize={38} align={'center'}>
+												to delete this graph?
+											</Typography>
+											<Stack
+												spacing={4}
+												direction='row'
+												justifyContent={'center'}
+												alignContent={'center'}
+												style={{ margin: 50 }}
+											>
+												<Button
+													variant='outlined'
+													onClick={handleClose}
+													sx={{ height: 51, width: 222, borderColor: '#043551', color: '#043551', borderRadius: '6px' }}
+												>
 													CANCEL
 												</Button>
-												<Button variant='contained' onClick={handleClose}>
+												<Button
+													variant='contained'
+													onClick={handleClose}
+													sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}
+												>
 													DELETE
 												</Button>
 											</Stack>
