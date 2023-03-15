@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import TextField from '@mui/material/TextField';
 import UserIcon from './nav_bar_button/userIconButton';
-import DeleteIcon from './nav_bar_button/deleteIconButton';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import Typography from '@mui/material/Typography';
 import NavBarTitle from './navBarTitle';
 import MenuIcon from './nav_bar_button/menuIconButton';
 import Button from '@mui/material/Button';
@@ -12,12 +13,20 @@ import Stack from '@mui/material/Stack';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-
+import Modal from '@mui/material/Modal';
+import { style } from './nav_bar_modal/modal';
 export default function Navbar(): React.ReactElement {
 	const [isLogIn, setIsLogin] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
 	const [buttonText, setButtonText] = useState('GRAPH TITLE');
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = (): void => {
+		setOpen(true);
+	};
+	const handleClose = (): void => {
+		setOpen(false);
+	};
 	const handleLoginRegisClick = (): void => {
 		setIsLogin(!isLogIn);
 	};
@@ -92,7 +101,35 @@ export default function Navbar(): React.ReactElement {
 							>
 								<SaveOutlinedIcon />
 							</IconButton>
-							{isSave ? <DeleteIcon /> : null}
+							{isSave ? (
+								<div>
+									<IconButton
+										size='large'
+										edge='start'
+										color='inherit'
+										aria-label='menu'
+										sx={{ mr: 2 }}
+										onClick={handleOpen}
+									>
+										<DeleteOutlineOutlinedIcon />
+									</IconButton>
+									<Modal open={open} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+										<Box sx={style}>
+											<Typography id='modal-modal-title' variant='h6' component='h2'>
+												Are you sure you want to delete this graph?
+											</Typography>
+											<Stack spacing={4} direction='row' justifyContent='center'>
+												<Button variant='outlined' onClick={handleClose}>
+													CANCEL
+												</Button>
+												<Button variant='contained' onClick={handleClose}>
+													DELETE
+												</Button>
+											</Stack>
+										</Box>
+									</Modal>
+								</div>
+							) : null}
 							<UserIcon />
 						</Stack>
 					) : (
