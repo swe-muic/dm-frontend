@@ -6,7 +6,7 @@ on:
       - main
       - fix-sq-cov
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
 
 env:
   NODE_VERSION: "16.x"
@@ -36,6 +36,12 @@ jobs:
           name: coverage-report
           path: test-report.xml
           retention-days: 7
+      - name: Upload coverage report artifact pt2
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          retention-days: 7
 
   sonarqube:
     # runs after test-and-coverage job
@@ -52,6 +58,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage-report
+      - name: Download coverage report artifact pt2
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-lcov
 
       - name: SonarQube Scan
         uses: sonarsource/sonarcloud-github-action@master
