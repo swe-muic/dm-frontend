@@ -62,7 +62,7 @@
     "@storybook/addon-essentials": "^7.0.0-rc.1",
     "@storybook/addon-interactions": "^7.0.0-rc.1",
     "@storybook/addon-links": "^7.0.0-rc.1",
-    "@storybook/blocks": "^7.0.0-rc.1",
+    "@storybook/blocks": "^7.0.0-rc.3",
     "@storybook/preset-create-react-app": "^7.0.0-rc.1",
     "@storybook/react": "^7.0.0-rc.1",
     "@storybook/react-webpack5": "^7.0.0-rc.1",
