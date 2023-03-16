@@ -11,4 +11,5 @@ export default {
 	setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 	collectCoverage: true,
 	coverageReporters: ['lcov', 'text', 'cobertura'],
+	testResultsProcessor: 'jest-sonar-reporter',
 };
