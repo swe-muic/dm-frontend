@@ -14,5 +14,6 @@ test('test onClick', () => {
 	act(() => {
 		screen.getByRole('button').click();
 	});
+	// const
 	expect(screen.getByTestId('app-res')).toHaveTextContent('4');
 });
