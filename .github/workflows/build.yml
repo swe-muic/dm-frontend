@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix-sq-cov
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -28,12 +29,12 @@ jobs:
 
       - name: Test with Jest
         run: |
-          npm run test -- --coverage --runInBand
+          npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: coverage/lcov.info
+          path: test-report.xml
           retention-days: 7
 
   sonarqube:
