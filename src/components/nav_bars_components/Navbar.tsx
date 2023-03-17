@@ -32,15 +32,11 @@ export default function Navbar(): React.ReactElement {
 	};
 
 	const handleSaveIconClick = (): void => {
-		if (!isSave) {
-			setIsSave(!isSave);
-		}
+		setIsSave(true);
 	};
 
 	const handleEditGraphName = (): void => {
-		if (isLogIn) {
-			setIsEdit(!isEdit);
-		}
+		setIsEdit(!isEdit);
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
