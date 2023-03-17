@@ -37,16 +37,9 @@ export default function Navbar(): React.ReactElement {
 		}
 	};
 
-	const handleSetText = (): void => {
-		if (isLogIn) {
-			setDisplayText(buttonText);
-		}
-	};
-
 	const handleEditGraphName = (): void => {
 		if (isLogIn) {
 			setIsEdit(!isEdit);
-			handleSetText();
 		}
 	};
 
