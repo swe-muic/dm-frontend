@@ -19,7 +19,7 @@ export default function Navbar(): React.ReactElement {
 	const [isLogIn, setIsLogin] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
-	const [buttonText, setButtonText] = useState('GRAPH TITLE');
+	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = (): void => {
 		setOpen(true);
@@ -39,7 +39,7 @@ export default function Navbar(): React.ReactElement {
 
 	const handleSetText = (): void => {
 		if (isLogIn) {
-			setButtonText(buttonText);
+			setDisplayText(buttonText);
 		}
 	};
 
@@ -51,7 +51,7 @@ export default function Navbar(): React.ReactElement {
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-		setButtonText(event.target.value);
+		setDisplayText(event.target.value);
 	};
 
 	return (
