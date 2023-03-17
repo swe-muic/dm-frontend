@@ -10,7 +10,6 @@ function App(): React.ReactElement {
 	};
 
 	return (
-
 		<div className='App'>
 			<Nav />
 			<h1>Hello world</h1>
@@ -22,7 +21,7 @@ function App(): React.ReactElement {
 				<a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
 					Learn React
 				</a>
-				<button onClick={onButtonClick}></button>
+				<button data-testid='app-button' onClick={onButtonClick}></button>
 				<p data-testid='app-res'>Result = {currentValue}</p>
 			</header>
 		</div>
