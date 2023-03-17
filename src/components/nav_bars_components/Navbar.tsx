@@ -90,7 +90,7 @@ export default function Navbar(): React.ReactElement {
 					<NavBarTitle />
 
 					{isLogIn ? (
-						<Stack direction='row' style={{ position: 'absolute', right: '0%' }}>
+						<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
 							<IconButton
 								size='large'
 								edge='start'
@@ -157,7 +157,7 @@ export default function Navbar(): React.ReactElement {
 							<UserIcon />
 						</Stack>
 					) : (
-						<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '0%' }}>
+						<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '1.25%' }}>
 							<Button color='inherit' onClick={handleLoginRegisClick}>
 								REGISTER
 							</Button>
