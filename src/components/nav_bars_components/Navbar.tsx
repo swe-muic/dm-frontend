@@ -58,12 +58,12 @@ export default function Navbar(): React.ReactElement {
 				<Toolbar>
 					<MenuIcon />
 					{!isEdit ? (
-						<Button color='inherit' onDoubleClick={handleEditGraphName}>
+						<Button data-testid='graph-name-text-button' color='inherit' onDoubleClick={handleEditGraphName}>
 							{buttonText}
 						</Button>
 					) : (
 						<TextField
-							id='standard-basic'
+							inputProps={{ 'data-testid': 'text-display-input' }}
 							variant='standard'
 							defaultValue={buttonText}
 							onChange={handleChange}
@@ -75,6 +75,7 @@ export default function Navbar(): React.ReactElement {
 					)}
 					{isLogIn ? (
 						<IconButton
+							data-testid='edit-icon-button'
 							size='large'
 							edge='start'
 							color='inherit'
@@ -91,6 +92,7 @@ export default function Navbar(): React.ReactElement {
 					{isLogIn ? (
 						<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
 							<IconButton
+								data-testid='save-icon-button'
 								size='large'
 								edge='start'
 								color='inherit'
@@ -103,6 +105,7 @@ export default function Navbar(): React.ReactElement {
 							{isSave ? (
 								<div>
 									<IconButton
+										data-testid='delete-icon-button'
 										size='large'
 										edge='start'
 										color='inherit'
@@ -112,10 +115,15 @@ export default function Navbar(): React.ReactElement {
 									>
 										<DeleteOutlineOutlinedIcon />
 									</IconButton>
-									<Modal open={open} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+									<Modal
+										open={open}
+										aria-labelledby='modal-modal-title'
+										aria-describedby='modal-modal-description'
+										data-testid='delete-modal'
+									>
 										<Box sx={style}>
 											<Typography
-												id='modal-modal-title'
+												data-testid='modal-modal-title'
 												variant='h6'
 												component='h2'
 												fontSize={38}
@@ -135,6 +143,7 @@ export default function Navbar(): React.ReactElement {
 												style={{ margin: 50 }}
 											>
 												<Button
+													id='cancel-button'
 													variant='outlined'
 													onClick={handleClose}
 													sx={{ height: 51, width: 222, borderColor: '#043551', color: '#043551', borderRadius: '6px' }}
@@ -142,6 +151,7 @@ export default function Navbar(): React.ReactElement {
 													CANCEL
 												</Button>
 												<Button
+													data-testid='delete-button'
 													variant='contained'
 													onClick={handleClose}
 													sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}
@@ -157,11 +167,11 @@ export default function Navbar(): React.ReactElement {
 						</Stack>
 					) : (
 						<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-							<Button color='inherit' onClick={handleLoginRegisClick}>
+							<Button data-testid='register-button' color='inherit' onClick={handleLoginRegisClick}>
 								REGISTER
 							</Button>
 
-							<Button color='inherit' onClick={handleLoginRegisClick}>
+							<Button data-testid='login-button' color='inherit' onClick={handleLoginRegisClick}>
 								LOGIN
 							</Button>
 						</Stack>

@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 import { act } from 'react-dom/test-utils';
+import Navbar from './components/nav_bars_components/Navbar';
 
 test('renders learn react link', () => {
 	render(<App />);
