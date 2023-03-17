@@ -34,6 +34,11 @@ export default function Navbar(): React.ReactElement {
 	const handleSaveIconClick = (): void => {
 		if (!isSave) {
 			setIsSave(!isSave);
+		}
+	};
+
+	const handleSetText = (): void => {
+		if (isLogIn) {
 			setButtonText(buttonText);
 		}
 	};
@@ -41,6 +46,7 @@ export default function Navbar(): React.ReactElement {
 	const handleEditGraphName = (): void => {
 		if (isLogIn) {
 			setIsEdit(!isEdit);
+			handleSetText();
 		}
 	};
 
