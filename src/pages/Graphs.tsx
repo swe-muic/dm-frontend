@@ -1,12 +1,8 @@
-/* eslint-disable */
-
 import React from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-export interface IGraphsProps {}
-
-const Graphs: React.FunctionComponent<IGraphsProps> = () => {
+const Graphs: React.FunctionComponent = () => {
 	const auth = getAuth();
 	const navigate = useNavigate();
 	return (
@@ -14,8 +10,9 @@ const Graphs: React.FunctionComponent<IGraphsProps> = () => {
 			<h1>This is the My Graphs section, where your saved graphs are stored</h1>
 			<button
 				onClick={() => {
-					signOut(auth);
-					navigate('/');
+					void signOut(auth).then(() => {
+						navigate('/');
+					});
 				}}
 			>
 				Sign Out

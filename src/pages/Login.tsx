@@ -1,17 +1,13 @@
-/* eslint-disable*/
-
 import React, { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-export interface ILoginProps {}
-
 const Login: React.FunctionComponent = () => {
 	const auth = getAuth();
 	const navigate = useNavigate();
 	const [authentication, setAuthentication] = useState(false);
-	const signInWithGoogle = async () => {
+	const signInWithGoogle = async (): Promise<void> => {
 		setAuthentication(true);
 		signInWithPopup(auth, new GoogleAuthProvider())
 			.then((response) => {
@@ -27,7 +23,12 @@ const Login: React.FunctionComponent = () => {
 		<div>
 			<h1>This is the login page</h1>
 			<div>
-				<GoogleButton onClick={() => signInWithGoogle()} disabled={authentication} />
+				<GoogleButton
+					onClick={() => {
+						void signInWithGoogle();
+					}}
+					disabled={authentication}
+				/>
 			</div>
 		</div>
 	);
