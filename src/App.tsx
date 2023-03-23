@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+/* eslint-disable */
+import React, { useEffect, useRef, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Nav from './components/nav_bars_components/Navbar';
+import functionPlot from 'function-plot';
+import Plot from './components/graph_components/GraphComponent';
 
 function App(): React.ReactElement {
 	const [currentValue, setCurrentValue] = useState(2);
@@ -9,10 +12,21 @@ function App(): React.ReactElement {
 		setCurrentValue((currentValue) => 2 * currentValue);
 	};
 
+	const data = [
+		{
+			fn: '2 * x * x * x + 2',
+			graphType: 'interval',
+			color: 'orange',
+		},
+	];
+
 	return (
 		<div className='App'>
 			<Nav />
-			<h1>Hello world</h1>
+			<script src='./components/graph_components/GraphComponent'></script>
+			{/*<div id='root'></div>*/}
+			{/*<Plot data={data} />*/}
+
 			<header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
