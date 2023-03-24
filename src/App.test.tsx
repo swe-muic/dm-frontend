@@ -12,7 +12,7 @@ test('renders learn react link', () => {
 test('test onClick', () => {
 	render(<App />);
 	act(() => {
-		screen.getByRole('button').click();
+		screen.getByTestId('app-button').click();
 	});
 	// const
 	expect(screen.getByTestId('app-res')).toHaveTextContent('4');
