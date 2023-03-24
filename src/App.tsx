@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/NavBar/NavBar';
 
 function App(): React.ReactElement {
 	const [currentValue, setCurrentValue] = useState(2);
@@ -10,6 +11,8 @@ function App(): React.ReactElement {
 
 	return (
 		<div className='App'>
+			<Navbar />
+
 			<header className='App-header'>
 				<img src={logo} className='App-logo' alt='logo' />
 				<p>
@@ -18,7 +21,7 @@ function App(): React.ReactElement {
 				<a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
 					Learn React
 				</a>
-				<button onClick={onButtonClick}></button>
+				<button data-testid='app-button' onClick={onButtonClick}></button>
 				<p data-testid='app-res'>Result = {currentValue}</p>
 			</header>
 		</div>
