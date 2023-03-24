@@ -52,6 +52,7 @@
         }],
         "no-duplicate-imports": ["error"],
         "no-unused-vars": "error",
+        "import/prefer-default-export": "error",
         "no-restricted-syntax": [
         "error",
         {

@@ -20,11 +20,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": [
     "src",
     "jest.config.ts",
-    "sassTransform.cjs"
+    "sassTransform.cjs",
+    "webpack.config.ts"
   ],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
