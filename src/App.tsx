@@ -14,17 +14,15 @@ function App(): React.ReactElement {
 
 	const data = [
 		{
-			fn: '2 * x * x * x + 2',
-			graphType: 'interval',
-			color: 'orange',
+			fn: 'x+2',
+			graphType: 'polyline',
+			color: 'red',
 		},
 	];
 
 	return (
 		<div className='App'>
 			<Nav />
-			<script src='./components/graph_components/GraphComponent'></script>
-			{/*<div id='root'></div>*/}
 			{/*<Plot data={data} />*/}
 
 			<header className='App-header'>
