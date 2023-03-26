@@ -29,8 +29,14 @@ jobs:
           --log-opt max-size=10m
           --log-opt max-file=3
     steps:
+      - name: Get container ID and name
+        run: |
+          CONTAINER_ID=$(docker ps --filter name=minio --quiet)
+          echo "Minio container ID: $CONTAINER_ID"
+          
+          CONTAINER_NAME=$(docker ps --filter id=$CONTAINER_ID --format "{{.Names}}")
+          echo "Minio container name: $CONTAINER_NAME"
       - uses: actions/checkout@v3
-
       - name: Set up Typescript
         uses: actions/setup-node@v3
         with:
