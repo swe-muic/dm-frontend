@@ -21,7 +21,7 @@ jobs:
         image: minio/minio
         ports:
           - 9000:9000
-        environment:
+        env:
           MINIO_ACCESS_KEY: ${{ env.REACT_APP_MINIO_ROOT_USER }}
           MINIO_SECRET_KEY: ${{ env.REACT_APP_MINIO_ROOT_PASSWORD }}
           MINIO_REGION: us-east-1
