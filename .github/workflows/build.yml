@@ -32,7 +32,7 @@ jobs:
         run: npm ci
       - name: Test with Jest
         env:
-          REACT_APP_MINIO_ENDPOINT: http://localhost:9000
+          REACT_APP_MINIO_ENDPOINT: http://minio:9000
         run: |
           npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
