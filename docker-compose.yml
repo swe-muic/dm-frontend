@@ -1,0 +1,17 @@
+# do not run this file, this is for testing purposes on github actions
+# run the docker-compose file in backend repo instead
+version: '3'
+
+services:
+  minio:
+    image: minio/minio
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    networks:
+      - test-net
+
+networks:
+  test-net:
+    driver: bridge
