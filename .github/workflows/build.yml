@@ -9,8 +9,8 @@ on:
 
 env:
   NODE_VERSION: "18.x"
-  REACT_APP_MINIO_ROOT_USER: ${{ secrets.MINIO_ROOT_USER }}
-  REACT_APP_MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
+  MINIO_ROOT_USER: ${{ secrets.REACT_APP_MINIO_ROOT_USER }}
+  MINIO_ROOT_PASSWORD: ${{ secrets.REACT_APP_MINIO_ROOT_USER }}
 
 jobs:
   test-and-coverage:
@@ -21,15 +21,15 @@ jobs:
         ports:
           - 9000:9000
         env:
-          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ROOT_USER }}
-          MINIO_SECRET_KEY: ${{ secrets.MINIO_ROOT_PASSWORD }}
+          MINIO_ACCESS_KEY: ${{ env.MINIO_ROOT_USER
+          MINIO_SECRET_KEY: ${{ env.MINIO_ROOT_PASSWORD }}
         options: >-
           --health-cmd "curl -f http://localhost:9000/minio/health/live"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Typescript
         uses: actions/setup-node@v3
@@ -45,13 +45,13 @@ jobs:
         run: |
           npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: test-report.xml
           retention-days: 7
       - name: Upload coverage report artifact pt2
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-lcov
           path: coverage/lcov.info
@@ -63,17 +63,17 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
 
       - name: Download coverage report artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: coverage-report
       - name: Download coverage report artifact pt2
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: coverage-lcov
 
