@@ -9,10 +9,26 @@ on:
 
 env:
   NODE_VERSION: "18.x"
+  REACT_APP_MINIO_ROOT_USER: ${{ secrets.MINIO_ROOT_USER }}
+  REACT_APP_MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
 
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
+    services:
+      minio:
+        image: minio/minio
+        ports:
+          - 9000:9000
+          - 9001:9001
+        env:
+          MINIO_ROOT_USER: ${{ secrets.MINIO_ROOT_USER }}
+          MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
+        options: >-
+          --health-cmd "curl -f http://localhost:9000/minio/health/live"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
 
