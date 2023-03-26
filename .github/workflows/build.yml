@@ -30,7 +30,7 @@ jobs:
           --log-driver=local
           --log-opt max-size=10m
           --log-opt max-file=3
-        args: ["server", "/data"]
+          --name minio
     steps:
       - uses: actions/checkout@v3
       - name: Debug environment variables
