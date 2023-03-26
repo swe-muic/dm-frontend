@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import GoogleButton from 'react-google-button';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../config/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import login_background from '../images/login_background.png';
 
 const Login: React.FunctionComponent = () => {
-	const auth = getAuth();
+	const thisAuth = auth;
 	const navigate = useNavigate();
 	const [authentication, setAuthentication] = useState(false);
 	const signInWithGoogle = async (): Promise<void> => {
 		setAuthentication(true);
-		signInWithPopup(auth, new GoogleAuthProvider())
+		signInWithPopup(thisAuth, new GoogleAuthProvider())
 			.then((response) => {
-				console.log(response.user.uid);
+				console.log(response.user.uid); //
 				navigate('/graphs');
 			})
 			.catch((error) => {

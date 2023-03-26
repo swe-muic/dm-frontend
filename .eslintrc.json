@@ -8,7 +8,8 @@
         "import/resolver": {
             "node": {
                 "paths": ["src"],
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
             }
         },
         "jest": {
@@ -27,7 +28,10 @@
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "prettier",
-        "esnext"
+        "esnext",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
     ],
     "parserOptions": {
         "project": ["./tsconfig.json"],
