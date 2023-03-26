@@ -21,7 +21,7 @@ jobs:
         ports:
           - 9000:9000
         env:
-          MINIO_ACCESS_KEY: ${{ env.MINIO_ROOT_USER
+          MINIO_ACCESS_KEY: ${{ env.MINIO_ROOT_USER }}
           MINIO_SECRET_KEY: ${{ env.MINIO_ROOT_PASSWORD }}
         options: >-
           --health-cmd "curl -f http://localhost:9000/minio/health/live"
