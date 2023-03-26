@@ -1,7 +1,7 @@
 interface MinioObjectInterface {
 	Bucket: string;
 	Key: string;
-	Body: string | Blob;
+	Body: string | Uint8Array;
 	ContentType: string;
 	ACL?: string;
 	ContentDisposition?: string;
