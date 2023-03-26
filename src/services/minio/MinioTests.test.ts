@@ -3,6 +3,8 @@ import { createBucket } from './CreateBucketService';
 import { uploadScreenshotToMinio } from './InsertObjectService';
 import { retrieveObjectService } from './RetrieveObjectService';
 import minioClient from './MinioClient';
+import { S3 } from '@aws-sdk/client-s3';
+import { MinioConfig } from '../../config/MinioConfig';
 describe('Test MinIo', () => {
 	const bucketName = 'test-bucket';
 	let blob: Blob;
@@ -32,6 +34,15 @@ describe('Test MinIo', () => {
 		expect(result2).toBe(false);
 	});
 
+	test('create bucket with wrong API key', async () => {
+		const minioOldSecretKey = MinioConfig.credentials.secretAccessKey;
+		MinioConfig.credentials.secretAccessKey = 'wrong-key';
+		const newMinioClient = new S3(MinioConfig);
+		const result = await createBucket(bucketName, newMinioClient);
+		expect(result).toBe(false);
+		MinioConfig.credentials.secretAccessKey = minioOldSecretKey;
+	});
+
 	/* NOTE: in order to actually implement the screenshot you need to use html2canvas
 	await html2canvas(document.body).then(async (canvas) => {
 		canvas.toBlob((blob) => {
@@ -45,6 +56,23 @@ describe('Test MinIo', () => {
 		await minioClient.deleteObject({ Bucket: bucketName, Key: `${fileName}.png` });
 	});
 
+	test('Try uploading screenshot to non-existing bucket', async () => {
+		const bucketName = 'non-existing-bucket';
+		const result = await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, 'test-file');
+		expect(result).toBe(false);
+		await minioClient.deleteBucket({ Bucket: bucketName });
+	});
+
+	test('try uploading image with wrong API key', async () => {
+		const minioOldSecretKey = MinioConfig.credentials.secretAccessKey;
+		MinioConfig.credentials.secretAccessKey = 'wrong-key';
+		const uploadClient = new S3(MinioConfig);
+		const fileName = 'test-file';
+		const result = await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, fileName, uploadClient);
+		expect(result).toBe(false);
+		MinioConfig.credentials.secretAccessKey = minioOldSecretKey;
+	});
+
 	test('Test retrieve object from MinIo', async () => {
 		const fileName = 'test-file';
 		await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, fileName);
@@ -52,5 +80,10 @@ describe('Test MinIo', () => {
 		const result = await retrieveObjectService(bucketName, fileName);
 		expect(result).toMatch(/^blob/);
 		await minioClient.deleteObject({ Bucket: bucketName, Key: `${fileName}.png` });
+	});
+
+	test('Test retrieve object from non-existing bucket', async () => {
+		const result = await retrieveObjectService('non-existing-bucket', 'test-file');
+		expect(result).toBe('');
 	});
 });
