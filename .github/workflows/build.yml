@@ -16,6 +16,8 @@ jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
     services:
+      test-net:
+        driver: bridge
       minio:
         image: minio/minio
         ports:
@@ -92,7 +94,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-networks:
-  test-net:
-    driver: bridge
