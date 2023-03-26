@@ -1,14 +1,18 @@
 # do not run this file, this is for testing purposes on github actions
 # run the docker-compose file in backend repo instead
-version: '3'
+version: '3.8'
 
 services:
   minio:
-    image: minio/minio
+    image: minio/minio:latest
     environment:
-      - MINIO_ACCESS_KEY=${{ secrets.REACT_APP_MINIO_ROOT_USER }}
-      - MINIO_SECRET_KEY=${{ secrets.REACT_APP_MINIO_ROOT_PASSWORD }}
-      - MINIO_REGION=us-east-1
+      MINIO_ACCESS_KEY: ${{
+        secrets.REACT_APP_MINIO_ROOT_USER
+      }}
+      MINIO_SECRET_KEY: ${{
+        secrets.REACT_APP_MINIO_ROOT_PASSWORD
+      }}
+      MINIO_REGION: us-east-1
     ports:
       - "9000:9000"
     networks:
