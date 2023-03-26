@@ -15,27 +15,11 @@ env:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
-    services:
-      minio:
-        image: minio/minio
-        env:
-          MINIO_ACCESS_KEY: access_key
-          MINIO_SECRET_KEY: secret_key
-          MINIO_REGION: us-east-1
-        ports:
-          - 9000:9000
-        options: >-
-          --name minio
-          --network test-net
-          --network-alias minio
     steps:
       - uses: actions/checkout@v3
-      - name: Debug environment variables
-        run: |
-          echo "NODE_VERSION: $NODE_VERSION"
-          echo "REACT_APP_MINIO_ROOT_USER: $REACT_APP_MINIO_ROOT_USER"
-          echo "REACT_APP_MINIO_ROOT_PASSWORD: $REACT_APP_MINIO_ROOT_PASSWORD"
-          echo "REACT_APP_MINIO_ENDPOINT: $REACT_APP_MINIO_ENDPOINT"
+      - name: Start Minio service
+        run: docker-compose up -d
+        working-directory: ./path/to/docker-compose.yml
       - name: Set up Typescript
         uses: actions/setup-node@v3
         with:
@@ -47,7 +31,7 @@ jobs:
         run: npm ci
       - name: Test with Jest
         env:
-          REACT_APP_MINIO_ENDPOINT: http://minio:9000
+          REACT_APP_MINIO_ENDPOINT: http://localhost:9000
         run: |
           npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
@@ -62,9 +46,6 @@ jobs:
           name: coverage-lcov
           path: coverage/lcov.info
           retention-days: 7
-    networks:
-      test-net:
-        driver: bridge
 
   sonarqube:
     # runs after test-and-coverage job
