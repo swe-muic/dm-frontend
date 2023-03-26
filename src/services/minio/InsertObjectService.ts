@@ -25,7 +25,6 @@ export const uploadScreenshotToMinio: (
 			ContentDisposition: `attachment; filename= ${replacedSlashes} .png`,
 			overwrite: true,
 		};
-		// await minioClient.putObject(objectParams);
 		const command = new PutObjectCommand(objectParams);
 
 		await client.send(command);
