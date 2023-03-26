@@ -11,7 +11,7 @@ env:
   NODE_VERSION: "18.x"
   REACT_APP_MINIO_ROOT_USER: ${{ secrets.REACT_APP_MINIO_ROOT_USER }}
   REACT_APP_MINIO_ROOT_PASSWORD: ${{ secrets.REACT_APP_MINIO_ROOT_PASSWORD }}
-  REACT_APP_MINIO_ENDPOINT: ${{ secrets.REACT_APP_MINIO_ENDPOINT }}
+  REACT_APP_MINIO_ENDPOINT: http://minio:9000
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
