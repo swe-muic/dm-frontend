@@ -20,7 +20,6 @@ jobs:
         image: minio/minio
         ports:
           - 9000:9000
-          - 9001:9001
         env:
           MINIO_ROOT_USER: ${{ secrets.MINIO_ROOT_USER }}
           MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
