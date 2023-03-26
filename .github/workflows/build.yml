@@ -24,10 +24,10 @@ jobs:
           MINIO_ACCESS_KEY: ${{ env.REACT_APP_MINIO_ROOT_USER }}
           MINIO_SECRET_KEY: ${{ env.REACT_APP_MINIO_ROOT_PASSWORD }}
         options: >-
-          --health-cmd "curl -f http://localhost:9000/minio/health/live"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+#          --health-cmd "curl -f http://localhost:9000/minio/health/live"
+#          --health-interval 10s
+#          --health-timeout 5s
+#          --health-retries 5
           --entrypoint "/bin/sh"
           --log-driver=local
           --log-opt max-size=10m
