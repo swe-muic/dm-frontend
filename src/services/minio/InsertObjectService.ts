@@ -1,19 +1,21 @@
 import minioClient from './MinioClient';
 import type MinioObjectInterface from '../../interface/minio/minioObjectInterface';
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, type S3 } from '@aws-sdk/client-s3';
 
 /* eslint-disable import/prefer-default-export */
 export const uploadScreenshotToMinio: (
 	screenshot: Blob,
 	bucketName: string,
 	fileName: string,
-) => Promise<boolean> = async (screenshot: Blob, bucketName: string, fileName: string) => {
+	client?: S3,
+) => Promise<boolean> = async (screenshot: Blob, bucketName: string, fileName: string, client?: S3) => {
+	client = client ?? minioClient;
 	const replacedSlashes = fileName.replace('/', '__');
 	const arrayBuffer = await screenshot.arrayBuffer();
 	const uint8Array = new Uint8Array(arrayBuffer);
 
 	try {
-		await minioClient.headBucket({ Bucket: bucketName });
+		await client.headBucket({ Bucket: bucketName });
 		const objectParams: MinioObjectInterface = {
 			Bucket: bucketName,
 			Key: `${fileName}.png`,
@@ -26,12 +28,11 @@ export const uploadScreenshotToMinio: (
 		// await minioClient.putObject(objectParams);
 		const command = new PutObjectCommand(objectParams);
 
-		await minioClient.send(command);
+		await client.send(command);
 		return true;
 	} catch (error: unknown) {
-		console.log(error);
-		if (error instanceof Error && 'statusCode' in error && error.statusCode === 404) {
-			await minioClient.createBucket({ Bucket: bucketName });
+		if (error instanceof Error && error.name === 'NotFound') {
+			await client.createBucket({ Bucket: bucketName });
 		}
 		return false;
 	}

@@ -16,7 +16,7 @@ export const retrieveObjectService: (bucketName: string, fileName: string) => Pr
 		const blob = await new Response(stream).blob();
 		return URL.createObjectURL(blob);
 	} catch (error: unknown) {
-		console.log('cannot retrieve', error);
+		console.error('cannot retrieve', error);
 		return '';
 	}
 };
