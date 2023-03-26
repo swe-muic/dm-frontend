@@ -19,6 +19,8 @@ describe('Test MinIo', () => {
 			.then(async (b) => {
 				blob = b;
 			});
+
+		console.log(MinioConfig);
 	});
 
 	test('Test create bucket that does not exist', async () => {
