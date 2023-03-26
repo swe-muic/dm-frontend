@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "^18.15.3",
     "aws-sdk": "^2.1342.0",
+    "firebase": "^9.17.2",
     "html2canvas": "^1.4.1",
     "firebase": "^9.17.2",
     "function-plot": "^1.23.2",
@@ -25,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --setupFiles dotenv/config",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts",
     "prepare": "husky install",
@@ -62,7 +63,9 @@
     ]
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.299.0",
     "@babel/core": "^7.21.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.0",

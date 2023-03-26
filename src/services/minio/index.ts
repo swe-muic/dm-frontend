@@ -1,5 +1,5 @@
-import { createBucket } from './createBucketService';
-import { uploadScreenshotToMinio } from './insertObjectService';
-import { retrieveObject } from './retrieveObject';
+import { createBucket } from './CreateBucketService';
+import { uploadScreenshotToMinio } from './InsertObjectService';
+import { retrieveObjectService } from './RetrieveObjectService';
 
-export default { createBucket, uploadScreenshotToMinio, retrieveObject };
+export default { createBucket, uploadScreenshotToMinio, retrieveObject: retrieveObjectService };
