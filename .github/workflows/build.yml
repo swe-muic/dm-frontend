@@ -15,7 +15,7 @@ env:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
-    services:
+    container:
       minio:
         image: minio/minio
         ports:
@@ -32,9 +32,6 @@ jobs:
           --name minio
           --network test-net
           --network-alias minio
-    networks:
-      test-net:
-        driver: bridge
     steps:
       - uses: actions/checkout@v3
       - name: Debug environment variables
