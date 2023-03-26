@@ -15,9 +15,10 @@ env:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
-    services:
+    networks:
       test-net:
         driver: bridge
+    services:
       minio:
         image: minio/minio
         ports:
