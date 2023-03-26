@@ -11,7 +11,6 @@ env:
   NODE_VERSION: "18.x"
   REACT_APP_MINIO_ROOT_USER: ${{ secrets.REACT_APP_MINIO_ROOT_USER }}
   REACT_APP_MINIO_ROOT_PASSWORD: ${{ secrets.REACT_APP_MINIO_ROOT_PASSWORD }}
-  REACT_APP_MINIO_ENDPOINT: http://minio:9000
 
 jobs:
   test-and-coverage:
@@ -49,6 +48,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test with Jest
+        env:
+          REACT_APP_MINIO_ENDPOINT: http://minio:9000
         run: |
           npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
