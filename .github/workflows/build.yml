@@ -20,7 +20,7 @@ jobs:
       - name: Start Minio service
         run: |
           docker-compose up -d
-          ./wait-for-it.sh localhost:9000
+          ./wait-for-it.sh localhost:9000 --timeout=120 --strict -- echo "Minio is up"
       - name: Set up Typescript
         uses: actions/setup-node@v3
         with:
