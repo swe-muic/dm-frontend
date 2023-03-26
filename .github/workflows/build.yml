@@ -15,22 +15,19 @@ env:
 jobs:
   test-and-coverage:
     runs-on: ubuntu-20.04
-    container:
-      image: minio/minio
-      ports:
-        - 9000:9000
-      env:
-        MINIO_ACCESS_KEY: ${{ env.REACT_APP_MINIO_ROOT_USER }}
-        MINIO_SECRET_KEY: ${{ env.REACT_APP_MINIO_ROOT_PASSWORD }}
-        MINIO_REGION: us-east-1
-      options: >-
-        --entrypoint "/bin/sh"
-        --log-driver=local
-        --log-opt max-size=10m
-        --log-opt max-file=3
-        --name minio
-        --network test-net
-        --network-alias minio
+    services:
+      minio:
+        image: minio/minio
+        env:
+          MINIO_ACCESS_KEY: access_key
+          MINIO_SECRET_KEY: secret_key
+          MINIO_REGION: us-east-1
+        ports:
+          - 9000:9000
+        options: >-
+          --name minio
+          --network test-net
+          --network-alias minio
     steps:
       - uses: actions/checkout@v3
       - name: Debug environment variables
@@ -65,6 +62,9 @@ jobs:
           name: coverage-lcov
           path: coverage/lcov.info
           retention-days: 7
+    networks:
+      test-net:
+        driver: bridge
 
   sonarqube:
     # runs after test-and-coverage job
