@@ -16,9 +16,13 @@ const Graphs: React.FunctionComponent = () => {
 				<Button
 					data-testid={'sign-out'}
 					onClick={() => {
-						void signOut(thisAuth).then(() => {
-							navigate('/');
-						});
+						signOut(thisAuth)
+							.then(() => {
+								navigate('/');
+							})
+							.catch((error) => {
+								console.warn(error);
+							});
 					}}
 				>
 					Sign Out
