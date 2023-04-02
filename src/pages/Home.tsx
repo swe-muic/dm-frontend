@@ -1,8 +1,16 @@
+/* eslint-disable */
 import React from 'react';
+import Plot from '../components/Graph/GraphComponent';
 
+const data = [
+	{
+		fn: 'x^2',
+	},
+];
 const Home: React.FunctionComponent = () => (
 	<div>
-		<h1>This is the home page</h1>
+		<Plot data={data} />
+		{/*<h1>This is the home page</h1>*/}
 	</div>
 );
 
