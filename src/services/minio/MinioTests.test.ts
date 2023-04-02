@@ -6,7 +6,6 @@ import minioClient from './MinioClient';
 import { S3 } from '@aws-sdk/client-s3';
 import { MinioConfig } from '../../config/MinioConfig';
 
-// FIXME: unskip all tests when you have a minio server running
 describe('Test MinIo', () => {
 	const bucketName = 'test-bucket';
 	let blob: Blob;
@@ -23,7 +22,7 @@ describe('Test MinIo', () => {
 			});
 	});
 
-	test.skip('Test create bucket that does not exist', async () => {
+	test('Test create bucket that does not exist', async () => {
 		const anotherBucketName = 'non-existing-bucket';
 		const result = await createBucket(anotherBucketName);
 		expect(result).toBe(true);
@@ -51,14 +50,14 @@ describe('Test MinIo', () => {
 
 	instead of using the fetch url below
  	*/
-	test.skip('Test upload screenshot to MinIo', async () => {
+	test('Test upload screenshot to MinIo', async () => {
 		const fileName = 'test-file';
 		const result = await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, fileName);
 		expect(result).toBe(true);
 		await minioClient.deleteObject({ Bucket: bucketName, Key: `${fileName}.png` });
 	});
 
-	test.skip('Try uploading screenshot to non-existing bucket', async () => {
+	test('Try uploading screenshot to non-existing bucket', async () => {
 		const bucketName = 'non-existing-bucket';
 		const result = await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, 'test-file');
 		expect(result).toBe(false);
@@ -75,7 +74,7 @@ describe('Test MinIo', () => {
 		MinioConfig.credentials.secretAccessKey = minioOldSecretKey;
 	});
 
-	test.skip('Test retrieve object from MinIo', async () => {
+	test('Test retrieve object from MinIo', async () => {
 		const fileName = 'test-file';
 		await uploadScreenshotToMinio(blob ?? new Blob(), bucketName, fileName);
 

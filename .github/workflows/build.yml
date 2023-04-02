@@ -17,22 +17,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Start Minio service
-        run: |
-          docker-compose up -d
-          ./wait-for-it.sh localhost:9000 --timeout=120 --strict -- echo "Minio is up"
-      - name: Set up Typescript
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: package-lock.json
-
       - name: Install dependencies
         run: npm ci
       - name: Test with Jest
         env:
-          REACT_APP_MINIO_ENDPOINT: http://minio:9000
+          REACT_APP_MINIO_ENDPOINT: http://20.187.86.81:9000
         run: |
           npm run test -- --coverage --runInBand --testResultsProcessor=jest-sonar-reporter
       - name: Upload coverage report artifact
