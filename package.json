@@ -11,6 +11,8 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "^18.15.3",
+    "firebase": "^9.17.2",
+    "function-plot": "^1.23.2",
     "aws-sdk": "^2.1342.0",
     "firebase": "^9.17.2",
     "html2canvas": "^1.4.1",
