@@ -52,7 +52,7 @@ const Plot = ({ data, options }: PlotProps) => {
 		}
 	}, [data, options]);
 
-	return <div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 10 }}></div>;
+	return <div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }}></div>;
 };
 
 export default Plot;
