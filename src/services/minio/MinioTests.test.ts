@@ -47,7 +47,6 @@ describe('Test MinIo', () => {
 	/* NOTE: in order to actually implement the screenshot you need to use html2canvas
 	await html2canvas(document.body).then(async (canvas) => {
 		canvas.toBlob((blob) => {
-
 	instead of using the fetch url below
  	*/
 	test('Test upload screenshot to MinIo', async () => {

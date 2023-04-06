@@ -13,12 +13,12 @@ interface PlotProps {
 const Plot = ({ data, options }: PlotProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const legendItems = document.getElementsByClassName('top-right-legend');
-	Array.from(legendItems).forEach((legendItem) => {
-		(legendItem as HTMLElement).style.display = 'none';
-	});
-
 	useEffect(() => {
+		const legendItems = document.getElementsByClassName('top-right-legend');
+		Array.from(legendItems).forEach((legendItem) => {
+			(legendItem as HTMLElement).style.display = 'none';
+		});
+
 		try {
 			if (containerRef.current) {
 				functionPlot({
