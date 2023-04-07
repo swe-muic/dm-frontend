@@ -1,16 +1,17 @@
-/* eslint-disable */
-import React, { useRef, useEffect } from 'react';
-// @ts-ignore
-import functionPlot, { FunctionPlotDatum } from 'function-plot';
-// @ts-ignore
-import { FunctionPlotOptions } from 'function-plot/dist/types';
+import React, { useEffect, useRef } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import functionPlot, { type FunctionPlotDatum } from 'function-plot';
+import { type FunctionPlotOptions } from 'function-plot/dist/types';
 
-interface PlotProps {
+export interface PlotProps {
 	data: FunctionPlotDatum[];
 	options?: Partial<FunctionPlotOptions>;
 }
 
-const Plot = ({ data, options }: PlotProps) => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+
+export default function Plot({ data, options }: PlotProps): React.ReactElement {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -19,40 +20,22 @@ const Plot = ({ data, options }: PlotProps) => {
 			(legendItem as HTMLElement).style.display = 'none';
 		});
 
-		try {
-			if (containerRef.current) {
-				functionPlot({
-					...options,
-					tip: {
-						xLine: true,
-						yLine: true,
-					},
-					target: containerRef.current,
-					grid: true,
-					width: window.innerWidth,
-					height: window.innerHeight,
+		if (containerRef.current != null) {
+			functionPlot({
+				...options,
+				tip: {
+					xLine: true,
+					yLine: true,
+				},
+				target: containerRef.current,
+				grid: true,
+				width: window.innerWidth,
+				height: window.innerHeight,
 
-					data,
-				});
-			}
-		} catch (e) {
-			if (containerRef.current) {
-				functionPlot({
-					...options,
-					tip: {
-						xLine: true,
-						yLine: true,
-					},
-					target: containerRef.current,
-					grid: true,
-					width: window.innerWidth,
-					height: window.innerHeight,
-				});
-			}
+				data,
+			});
 		}
 	}, [data, options]);
 
 	return <div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }}></div>;
-};
-
-export default Plot;
+}
