@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import functionPlot, { type FunctionPlotDatum } from 'function-plot';
-import { type FunctionPlotOptions } from 'function-plot/dist/types';
+import functionPlot from 'function-plot';
+import { type FunctionPlotDatum, type FunctionPlotOptions } from 'function-plot/dist/types';
 
 export interface PlotProps {
 	data: FunctionPlotDatum[];
