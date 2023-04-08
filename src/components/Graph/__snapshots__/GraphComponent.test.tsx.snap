@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Plot component should render correctly 1`] = `
+<div
+  data-testid="plot-container"
+  style="width: 100%; height: 100%; margin-top: 15px;"
+/>
+`;
