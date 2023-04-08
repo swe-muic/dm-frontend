@@ -9,8 +9,6 @@ export interface PlotProps {
 	options?: Partial<FunctionPlotOptions>;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-
 export default function Plot({ data, options }: PlotProps): React.ReactElement {
 	const containerRef = useRef<HTMLDivElement>(null);
 
