@@ -54,4 +54,23 @@ describe('Plot', () => {
 			expect(getComputedStyle(legendItem).display).toBe('none');
 		});
 	});
+
+	// eslint-disable-next-line no-undef
+	test('hides all legend items', () => {
+		// Create an array of dummy legend items
+		const legendItems = [document.createElement('div'), document.createElement('div'), document.createElement('div')];
+		legendItems.forEach((legendItem) => {
+			legendItem.className = 'top-right-legend';
+			document.body.appendChild(legendItem);
+		});
+
+		// Render the Plot component
+		render(<Plot data={[]} />);
+
+		// Check that the display style property of all legend items is 'none'
+		legendItems.forEach((legendItem) => {
+			// eslint-disable-next-line no-undef
+			expect(legendItem.style.display).toBe('none');
+		});
+	});
 });
