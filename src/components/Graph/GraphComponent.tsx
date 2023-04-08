@@ -35,5 +35,7 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement {
 		}
 	}, [data, options]);
 
-	return <div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }}></div>;
+	return (
+		<div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }} data-testid='plot-container'></div>
+	);
 }

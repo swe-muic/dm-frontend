@@ -54,4 +54,12 @@ describe('Plot', () => {
 			expect(legendItem.style.display).toBe('none');
 		});
 	});
+
+	it('should render with a non-null containerRef', () => {
+		const { container } = render(<Plot data={[]} />);
+		const plotDiv = container.querySelector('div');
+		expect(plotDiv).not.toBeNull();
+		expect(plotDiv?.getAttribute('ref')).toBeNull();
+		expect(plotDiv?.getAttribute('ref')).toBeDefined();
+	});
 });
