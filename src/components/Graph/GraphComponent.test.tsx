@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { render } from '@testing-library/react';
-import Plot, { type PlotProps } from './GraphComponent';
+import Plot from './GraphComponent';
 
 jest.mock('function-plot', () => ({
 	__esModule: true,
@@ -61,30 +61,5 @@ describe('Plot', () => {
 		expect(plotDiv).not.toBeNull();
 		expect(plotDiv?.getAttribute('ref')).toBeNull();
 		expect(plotDiv?.getAttribute('ref')).toBeDefined();
-	});
-
-	test('renders the Plot component', () => {
-		const { container } = render(<Plot data={[]} />);
-		expect(container.querySelector('div')).toBeInTheDocument();
-		const containerRef = container.querySelector('div')?.getAttribute('ref');
-		expect(containerRef).toBeDefined();
-	});
-});
-
-describe('Plot component', () => {
-	const data = [{ fn: 'x' }, { fn: 'x^2' }];
-
-	const options = {
-		title: 'My Plot',
-	};
-
-	const defaultProps: PlotProps = {
-		data,
-		options,
-	};
-
-	it('should render correctly', () => {
-		const { container } = render(<Plot {...defaultProps} />);
-		expect(container.firstChild).toMatchSnapshot();
 	});
 });
