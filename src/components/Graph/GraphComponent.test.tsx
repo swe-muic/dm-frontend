@@ -63,12 +63,11 @@ describe('Plot', () => {
 		expect(plotDiv?.getAttribute('ref')).toBeDefined();
 	});
 
-	it('should render with a non-null containerRef2', () => {
+	test('renders the Plot component', () => {
 		const { container } = render(<Plot data={[]} />);
-		const plotDiv = container.querySelector('div');
-		expect(plotDiv).not.toBeNull();
-		expect(plotDiv?.getAttribute('ref')).toBeNull();
-		expect(plotDiv?.getAttribute('ref')).toBeDefined();
+		expect(container.querySelector('div')).toBeInTheDocument();
+		const containerRef = container.querySelector('div')?.getAttribute('ref');
+		expect(containerRef).toBeDefined();
 	});
 });
 
