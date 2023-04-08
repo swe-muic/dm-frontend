@@ -17,7 +17,6 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement {
 		Array.from(legendItems).forEach((legendItem) => {
 			(legendItem as HTMLElement).style.display = 'none';
 		});
-
 		if (containerRef.current != null) {
 			functionPlot({
 				...options,

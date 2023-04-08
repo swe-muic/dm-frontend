@@ -56,6 +56,14 @@ describe('Plot', () => {
 	});
 
 	it('should render with a non-null containerRef', () => {
+		const { container } = render(<Plot data={data} />);
+		const plotDiv = container.querySelector('div');
+		expect(plotDiv).not.toBeNull();
+		expect(plotDiv?.getAttribute('ref')).toBeNull();
+		expect(plotDiv?.getAttribute('ref')).toBeDefined();
+	});
+
+	it('should render with a non-null containerRef2', () => {
 		const { container } = render(<Plot data={[]} />);
 		const plotDiv = container.querySelector('div');
 		expect(plotDiv).not.toBeNull();
