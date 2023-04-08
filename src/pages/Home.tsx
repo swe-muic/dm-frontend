@@ -1,6 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-
 import Plot from '../components/Graph/GraphComponent';
 
 const data = [
