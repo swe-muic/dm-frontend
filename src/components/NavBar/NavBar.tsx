@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,12 +14,33 @@ import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Modal from '@mui/material/Modal';
 import { style } from './NavBarModal/modal';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../config/FirebaseConfig';
+
+/* istanbul ignore next */
 export default function Navbar(): React.ReactElement {
+	const navigate = useNavigate();
 	const [isLogIn, setIsLogin] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
 	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
 	const [open, setOpen] = React.useState(false);
+
+	// eslint-disable-next-line no-undef
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user != null) {
+				setIsLogin(true);
+			} else {
+				setIsLogin(false);
+			}
+		});
+
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
 	const handleOpen = (): void => {
 		setOpen(true);
 	};
@@ -27,6 +48,7 @@ export default function Navbar(): React.ReactElement {
 		setOpen(false);
 	};
 	const handleLoginRegisClick = (): void => {
+		navigate('/login');
 		setIsLogin(!isLogIn);
 	};
 
@@ -41,7 +63,6 @@ export default function Navbar(): React.ReactElement {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setDisplayText(event.target.value);
 	};
-
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar

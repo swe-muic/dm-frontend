@@ -14,7 +14,7 @@ const Login: React.FunctionComponent = () => {
 		signInWithPopup(thisAuth, new GoogleAuthProvider())
 			.then((response) => {
 				console.log(response.user.uid); //
-				navigate('/graphs');
+				navigate('/');
 			})
 			.catch((error) => {
 				console.log(error);

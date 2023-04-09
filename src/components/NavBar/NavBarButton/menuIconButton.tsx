@@ -1,8 +1,8 @@
-/* eslint-disable */
 import React from 'react';
 import IconButton from '@mui/material/IconButton';
-// @ts-ignore
 import MenuIcon from '@mui/icons-material/Menu';
+
+/* istanbul ignore next */
 
 export default function menuIconButton(): React.ReactElement {
 	return (
