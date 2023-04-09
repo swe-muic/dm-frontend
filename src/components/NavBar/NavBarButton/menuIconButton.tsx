@@ -4,7 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Drawer } from '@mui/material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Stack from '@mui/material/Stack';
 /* istanbul ignore next */
 
 export default function menuIconButton(): React.ReactElement {
@@ -26,15 +27,25 @@ export default function menuIconButton(): React.ReactElement {
 			</IconButton>
 			<Drawer
 				anchor='left'
+				variant='persistent'
 				open={isDrawerOpen}
 				onClose={() => {
 					setIsDrawerOpen(false);
 				}}
 			>
 				<Box p={2} width='500px' textAlign='center' role='presentation'>
-					<Typography variant='h6' component='div'>
-						Input Equation
-					</Typography>
+					<Stack direction='row'>
+						<Typography variant='h6' component='div'>
+							Input Equation
+						</Typography>
+						<IconButton
+							onClick={() => {
+								setIsDrawerOpen(false);
+							}}
+						>
+							<ArrowBackIosNewIcon />
+						</IconButton>
+					</Stack>
 				</Box>
 			</Drawer>
 		</div>
