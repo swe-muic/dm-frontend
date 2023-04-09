@@ -20,6 +20,15 @@ describe('Test MinIo', () => {
 			.then(async (b) => {
 				blob = b;
 			});
+
+		try {
+			await minioClient.headBucket({ Bucket: 'non-existing-bucket' });
+			await minioClient.deleteBucket({ Bucket: 'non-existing-bucket' });
+		} catch (error: unknown) {
+			console.log('non-existing-bucket does not exist');
+		}
+
+		await minioClient.deleteObject({ Bucket: bucketName, Key: 'test-file.png' });
 	});
 
 	test('Test create bucket that does not exist', async () => {
