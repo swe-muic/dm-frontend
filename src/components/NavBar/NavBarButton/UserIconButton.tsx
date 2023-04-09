@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../../../config/FirebaseConfig';
 import { signOut } from 'firebase/auth';
 
-function userIconButton(): React.ReactElement {
+function UserIconButton(): React.ReactElement {
 	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -67,6 +67,4 @@ function userIconButton(): React.ReactElement {
 	);
 }
 
-const userIconButtonFC: React.FunctionComponent = () => userIconButton();
-
-export default userIconButtonFC;
+export default UserIconButton;
