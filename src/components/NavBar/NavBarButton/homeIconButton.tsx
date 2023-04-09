@@ -3,9 +3,8 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 
-export default function homeIconButton(): React.ReactElement {
+const homeIconButton: React.FunctionComponent = () => {
 	const navigate = useNavigate();
-
 	return (
 		<IconButton
 			color='inherit'
@@ -16,4 +15,6 @@ export default function homeIconButton(): React.ReactElement {
 			<HomeIcon />
 		</IconButton>
 	);
-}
+};
+
+export default homeIconButton;

@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const style = {
+const style = {
 	position: 'absolute' as const,
 	top: '50%',
 	left: '50%',
@@ -12,3 +11,5 @@ export const style = {
 	p: 4,
 	borderRadius: '58px',
 };
+
+export default style;
