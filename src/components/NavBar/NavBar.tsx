@@ -3,20 +3,24 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import TextField from '@mui/material/TextField';
-import UserIcon from './NavBarButton/userIconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Typography from '@mui/material/Typography';
-import MenuIcon from './NavBarButton/menuIconButton';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Modal from '@mui/material/Modal';
-import style from './NavBarModal/modal';
+import style from './NavBarModal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
-import HomeIconButton from '../NavBar/NavBarButton/homeIconButton';
+import loadable from '@loadable/component';
+
+/* eslint-disable @typescript-eslint/promise-function-async */
+const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
+const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
+const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
+/* eslint-enable @typescript-eslint/promise-function-async */
 
 /* istanbul ignore next */
 

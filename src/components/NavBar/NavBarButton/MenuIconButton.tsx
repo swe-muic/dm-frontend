@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 
-function menuIconButton(): React.ReactElement {
+function MenuIconButton(): React.ReactElement {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [numFields, setNumFields] = useState(1);
 	const [equations, setEquations] = useState(['']);
@@ -83,7 +83,4 @@ function menuIconButton(): React.ReactElement {
 		</div>
 	);
 }
-
-const menuIconButtonFC: React.FunctionComponent = () => menuIconButton();
-
-export default menuIconButtonFC;
+export default MenuIconButton;

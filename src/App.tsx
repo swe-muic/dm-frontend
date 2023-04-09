@@ -11,6 +11,7 @@ import loadable from '@loadable/component';
 const Home = loadable(() => import('./pages/Home'));
 const Login = loadable(() => import('./pages/Login'));
 const Graphs = loadable(() => import('./pages/Graphs'));
+/* eslint-enable @typescript-eslint/promise-function-async */
 
 initializeApp(firebaseConfig);
 
