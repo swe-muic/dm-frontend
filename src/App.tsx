@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './config/FirebaseConfig';
 import AuthRoute from './components/AuthRoute';
-import Graphs from './pages/Graphs';
+import loadable from '@loadable/component';
+
+// this is intentional (for lazy-loading)
+/* eslint-disable @typescript-eslint/promise-function-async */
+const Home = loadable(() => import('./pages/Home'));
+const Login = loadable(() => import('./pages/Login'));
+const Graphs = loadable(() => import('./pages/Graphs'));
 
 initializeApp(firebaseConfig);
 
@@ -23,7 +27,7 @@ function App(): React.ReactElement {
 							</AuthRoute>
 						}
 					/>
-					<Route path='/' element={<Home />} />
+					<Route index element={<Home />} />
 					<Route path='/login' element={<Login />} />
 				</Routes>
 			</BrowserRouter>
