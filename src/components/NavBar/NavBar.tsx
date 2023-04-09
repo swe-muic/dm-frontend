@@ -14,6 +14,7 @@ import Modal from '@mui/material/Modal';
 import style from './NavBarModal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
+
 import loadable from '@loadable/component';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
@@ -22,22 +23,22 @@ const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
 const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
 /* eslint-enable @typescript-eslint/promise-function-async */
 
-/* istanbul ignore next */
-
 export interface NavbarProps {
 	currentPage: string;
+	forceLogin?: boolean;
 }
 
 export default function Navbar(props: NavbarProps): React.ReactElement {
+	const { currentPage, forceLogin } = props;
 	const navigate = useNavigate();
-	const [isLogIn, setIsLogin] = useState(false);
+	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
 	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
 	const [open, setOpen] = React.useState(false);
-	const { currentPage } = props;
 
 	// eslint-disable-next-line no-undef
+	/* istanbul ignore next */
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
 			if (user != null) {
@@ -183,7 +184,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 													style={{ margin: 50 }}
 												>
 													<Button
-														id='cancel-button'
+														data-testid='cancel-button'
 														variant='outlined'
 														onClick={handleClose}
 														sx={{

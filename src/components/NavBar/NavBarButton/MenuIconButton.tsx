@@ -28,6 +28,7 @@ function MenuIconButton(): React.ReactElement {
 	return (
 		<div>
 			<IconButton
+				data-testid='menu-icon-button'
 				size='large'
 				edge='start'
 				color='inherit'
@@ -39,20 +40,14 @@ function MenuIconButton(): React.ReactElement {
 			>
 				<MenuIcon />
 			</IconButton>
-			<Drawer
-				anchor='left'
-				variant='persistent'
-				open={isDrawerOpen}
-				onClose={() => {
-					setIsDrawerOpen(false);
-				}}
-			>
+			<Drawer data-testid='drawer' anchor='left' variant='persistent' open={isDrawerOpen}>
 				<Box p={2} width='500px' textAlign='center' role='presentation'>
 					<Stack direction='row' alignItems='center' justifyContent='space-between'>
 						<Typography variant='h6' component='div'>
 							Input Equation
 						</Typography>
 						<IconButton
+							data-testid='back-button'
 							onClick={() => {
 								setIsDrawerOpen(false);
 							}}
@@ -74,7 +69,7 @@ function MenuIconButton(): React.ReactElement {
 								/>
 							</Box>
 						))}
-						<IconButton onClick={addField}>
+						<IconButton data-testid='add-button' onClick={addField}>
 							<AddIcon />
 						</IconButton>
 					</Box>
