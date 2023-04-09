@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
 
-const homeIconButton: React.FunctionComponent = () => {
+function homeIconButton(): React.ReactElement {
 	const navigate = useNavigate();
 	return (
 		<IconButton
@@ -15,6 +15,7 @@ const homeIconButton: React.FunctionComponent = () => {
 			<HomeIcon />
 		</IconButton>
 	);
-};
+}
 
-export default homeIconButton;
+const homeIconButtonFC: React.FunctionComponent = () => homeIconButton();
+export default homeIconButtonFC;
