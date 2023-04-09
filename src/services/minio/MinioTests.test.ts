@@ -25,7 +25,7 @@ describe('Test MinIo', () => {
 			await minioClient.headBucket({ Bucket: 'non-existing-bucket' });
 			await minioClient.deleteBucket({ Bucket: 'non-existing-bucket' });
 		} catch (error: unknown) {
-			console.log('non-existing-bucket does not exist');
+			console.log('non-existing-bucket does not exist', error);
 		}
 
 		await minioClient.deleteObject({ Bucket: bucketName, Key: 'test-file.png' });
