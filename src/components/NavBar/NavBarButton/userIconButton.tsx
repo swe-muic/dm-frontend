@@ -5,8 +5,8 @@ import { Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../../config/FirebaseConfig';
 import { signOut } from 'firebase/auth';
-/* istanbul ignore next */
-export default function userIconButton(): React.ReactElement {
+
+const userIconButton: React.FunctionComponent = () => {
 	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -61,4 +61,6 @@ export default function userIconButton(): React.ReactElement {
 			</Menu>
 		</IconButton>
 	);
-}
+};
+
+export default userIconButton;

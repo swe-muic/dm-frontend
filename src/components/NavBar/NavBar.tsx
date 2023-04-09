@@ -13,7 +13,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Modal from '@mui/material/Modal';
-import { style } from './NavBarModal/modal';
+import style from './NavBarModal/modal';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
 import HomeIconButton from '../NavBar/NavBarButton/homeIconButton';
