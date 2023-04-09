@@ -4,6 +4,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../config/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import login_background from '../images/login_background.png';
+import Navbar from '../components/NavBar/NavBar';
 
 const Login: React.FunctionComponent = () => {
 	const thisAuth = auth;
@@ -14,7 +15,7 @@ const Login: React.FunctionComponent = () => {
 		signInWithPopup(thisAuth, new GoogleAuthProvider())
 			.then((response) => {
 				console.log(response.user.uid); //
-				navigate('/graphs');
+				navigate('/');
 			})
 			.catch((error) => {
 				console.log(error);
@@ -23,8 +24,7 @@ const Login: React.FunctionComponent = () => {
 	};
 	const loginStyle = {
 		background: `url(${login_background})`,
-		height: '100vh',
-		marginTop: '10px',
+		height: '94vh',
 		color: 'white',
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
@@ -33,15 +33,18 @@ const Login: React.FunctionComponent = () => {
 		justifyContent: 'center',
 	};
 	return (
-		<div style={loginStyle}>
-			<div>
-				<h1>Login</h1>
-				<GoogleButton
-					onClick={() => {
-						void signInWithGoogle();
-					}}
-					disabled={authentication}
-				/>
+		<div>
+			<Navbar currentPage={'login'} />
+			<div style={loginStyle}>
+				<div>
+					<h1>Login</h1>
+					<GoogleButton
+						onClick={() => {
+							void signInWithGoogle();
+						}}
+						disabled={authentication}
+					/>
+				</div>
 			</div>
 		</div>
 	);
