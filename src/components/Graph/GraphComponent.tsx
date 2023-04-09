@@ -1,58 +1,42 @@
-/* eslint-disable */
-import React, { useRef, useEffect } from 'react';
-// @ts-ignore
-import functionPlot, { FunctionPlotDatum } from 'function-plot';
-// @ts-ignore
-import { FunctionPlotOptions } from 'function-plot/dist/types';
+import React, { useEffect, useRef, useState } from 'react';
+import functionPlot from 'function-plot';
+import { type FunctionPlotDatum, type FunctionPlotOptions } from 'function-plot/dist/types';
 
-interface PlotProps {
+export interface PlotProps {
 	data: FunctionPlotDatum[];
 	options?: Partial<FunctionPlotOptions>;
 }
-
-const Plot = ({ data, options }: PlotProps) => {
+export default function Plot({ data, options }: PlotProps): React.ReactElement {
 	const containerRef = useRef<HTMLDivElement>(null);
+	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		const legendItems = document.getElementsByClassName('top-right-legend');
 		Array.from(legendItems).forEach((legendItem) => {
 			(legendItem as HTMLElement).style.display = 'none';
 		});
+		if (containerRef.current != null && mounted) {
+			functionPlot({
+				...options,
+				tip: {
+					xLine: true,
+					yLine: true,
+				},
+				target: containerRef.current,
+				grid: true,
+				width: window.innerWidth,
+				height: window.innerHeight,
 
-		try {
-			if (containerRef.current) {
-				functionPlot({
-					...options,
-					tip: {
-						xLine: true,
-						yLine: true,
-					},
-					target: containerRef.current,
-					grid: true,
-					width: window.innerWidth,
-					height: window.innerHeight,
-
-					data,
-				});
-			}
-		} catch (e) {
-			if (containerRef.current) {
-				functionPlot({
-					...options,
-					tip: {
-						xLine: true,
-						yLine: true,
-					},
-					target: containerRef.current,
-					grid: true,
-					width: window.innerWidth,
-					height: window.innerHeight,
-				});
-			}
+				data,
+			});
 		}
-	}, [data, options]);
+	}, [data, options, mounted]);
 
-	return <div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }}></div>;
-};
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-export default Plot;
+	return (
+		<div ref={containerRef} style={{ width: '100%', height: '100%', marginTop: 15 }} data-testid='plot-container'></div>
+	);
+}
