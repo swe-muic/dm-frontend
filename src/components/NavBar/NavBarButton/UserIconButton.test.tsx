@@ -5,8 +5,8 @@ import { act } from 'react-dom/test-utils';
 import UserIconButton from './UserIconButton';
 import React from 'react';
 
-describe('Navbar', () => {
-	test('navigates to login page on login/register click', () => {
+describe('Navbar User Icon Button', () => {
+	test('navigates to my graphs page', () => {
 		render(
 			<BrowserRouter>
 				<UserIconButton />
@@ -24,7 +24,7 @@ describe('Navbar', () => {
 });
 
 describe('UserIconButton component', () => {
-	it('closes the menu when clicked outside the component', () => {
+	it('closes the menu when clicked user icon button', () => {
 		render(
 			<BrowserRouter>
 				<UserIconButton />

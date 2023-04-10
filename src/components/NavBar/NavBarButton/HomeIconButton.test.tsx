@@ -6,7 +6,7 @@ import HomeIconButton from './HomeIconButton';
 import React from 'react';
 
 describe('Navbar', () => {
-	test('navigates to login page on login/register click', () => {
+	test('navigates to home page ', () => {
 		render(
 			<BrowserRouter>
 				<HomeIconButton />

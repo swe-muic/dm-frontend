@@ -5,8 +5,8 @@ import { act } from 'react-dom/test-utils';
 import DeleteIconButton from './DeleteIconButton';
 import React from 'react';
 
-describe('Navbar', () => {
-	test('close modal', () => {
+describe('Navbar Delete Icon Button', () => {
+	test('open and close modal', () => {
 		render(
 			<BrowserRouter>
 				<DeleteIconButton />

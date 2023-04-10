@@ -33,22 +33,11 @@ describe('MenuIconButton', () => {
 
 test('drawer should close when back button is clicked', () => {
 	render(<MenuIconButton />);
-
-	// Open the drawer
 	const menuButton = screen.getByLabelText('menu');
 	fireEvent.click(menuButton);
-
-	// Check that the drawer is visible
 	const drawer = screen.getByTestId('drawer');
 	expect(drawer).toBeVisible();
-
-	// Click the back button
 	const backButton = screen.getByTestId('back-button');
 	fireEvent.click(backButton);
-
-	// Check that the drawer is no longer visible
-	// expect(drawer).not.toBeVisible();
-
-	// Check that isDrawerOpen state is false
 	expect(screen.getByTestId('menu-icon-button')).toBeInTheDocument();
 });
