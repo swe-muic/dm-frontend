@@ -2,104 +2,25 @@ import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import IconButton from '@mui/material/IconButton';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
 import getBackgroundColor from './NavBarColor/NavBarBackGroundSelector';
-
+import chekIsItEdit from './SubComponentFromNavBar/EditOrTextField';
+import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
+import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
 const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
 const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
-const DeleteIcon = loadable(() => import('./NavBarButton/DeleteIconButton'));
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 export interface NavbarProps {
 	currentPage: string;
 	forceLogin?: boolean;
-}
-
-export function chekIsItEdit(
-	isEdit: boolean,
-	handleEditGraphName: () => void,
-	buttonText: string,
-	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-): React.ReactElement {
-	return !isEdit ? (
-		<Button data-testid='graph-name-text-button' color='inherit' onDoubleClick={handleEditGraphName}>
-			{buttonText}
-		</Button>
-	) : (
-		<TextField
-			inputProps={{ 'data-testid': 'text-display-input' }}
-			variant='standard'
-			defaultValue={buttonText}
-			onChange={handleChange}
-			sx={{
-				input: { color: 'white' },
-				label: { color: 'white' },
-			}}
-		/>
-	);
-}
-
-export function checkIsItLogin(isLogIn: boolean, handleEditGraphName: () => void): React.ReactElement | null {
-	return isLogIn ? (
-		<IconButton
-			data-testid='edit-icon-button'
-			size='large'
-			edge='start'
-			color='inherit'
-			aria-label='menu'
-			sx={{ mr: 2 }}
-			onClick={handleEditGraphName}
-		>
-			<BorderColorOutlinedIcon />
-		</IconButton>
-	) : null;
-}
-
-export function checkIsLogin(
-	isLogIn: boolean,
-	handleSaveIconClick: () => void,
-	isSave: boolean,
-	handleLoginRegisClick: () => void,
-): React.ReactElement {
-	return isLogIn ? (
-		<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-			<IconButton
-				data-testid='save-icon-button'
-				size='large'
-				edge='start'
-				color='inherit'
-				aria-label='menu'
-				sx={{ mr: 2 }}
-				onClick={handleSaveIconClick}
-			>
-				<SaveOutlinedIcon />
-			</IconButton>
-			{isSave ? <DeleteIcon data-testid='delete-icon-buttons' /> : null}
-			<UserIcon />
-		</Stack>
-	) : (
-		<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-			<Button data-testid='register-button' color='inherit' onClick={handleLoginRegisClick}>
-				REGISTER
-			</Button>
-
-			<Button data-testid='login-button' color='inherit' onClick={handleLoginRegisClick}>
-				LOGIN
-			</Button>
-		</Stack>
-	);
 }
 
 export default function Navbar(props: NavbarProps): React.ReactElement {
