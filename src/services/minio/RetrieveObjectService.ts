@@ -1,8 +1,7 @@
 import minioClient from './MinioClient';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 
-/* eslint-disable import/prefer-default-export */
-export const retrieveObjectService: (bucketName: string, fileName: string) => Promise<string> = async (
+const RetrieveObjectService: (bucketName: string, fileName: string) => Promise<string> = async (
 	bucketName,
 	fileName,
 ) => {
@@ -20,3 +19,5 @@ export const retrieveObjectService: (bucketName: string, fileName: string) => Pr
 		return '';
 	}
 };
+
+export default RetrieveObjectService;
