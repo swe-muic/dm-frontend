@@ -6,8 +6,10 @@ import Typography from '@mui/material/Typography';
 import { Drawer } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+import { addStyles, EditableMathField } from 'react-mathquill';
 import AddIcon from '@mui/icons-material/Add';
+
+addStyles();
 
 function MenuIconButton(): React.ReactElement {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -20,6 +22,7 @@ function MenuIconButton(): React.ReactElement {
 	};
 
 	const handleChange = (index: number, value: string): void => {
+		console.warn(index, value);
 		const newEquations = [...equations];
 		newEquations[index] = value;
 		setEquations(newEquations);
@@ -58,14 +61,14 @@ function MenuIconButton(): React.ReactElement {
 					<Box mt={2}>
 						{equations.map((equation, index) => (
 							<Box key={index} mb={2}>
-								<TextField
-									label={`Equation ${index + 1}`}
-									variant='outlined'
-									fullWidth
-									value={equation}
-									onChange={(e) => {
-										handleChange(index, e.target.value);
+								<EditableMathField
+									aria-label={`Equation ${index + 1}`}
+									latex={equation}
+									aria-valuetext={equation}
+									onChange={(mathField) => {
+										handleChange(index, mathField.latex());
 									}}
+									config={{ spaceBehavesLikeTab: true }}
 								/>
 							</Box>
 						))}
