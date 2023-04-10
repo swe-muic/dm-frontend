@@ -62,8 +62,16 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 	const handleEditGraphName = (): void => {
 		setIsEdit(!isEdit);
 	};
+
+	function getBackgroundColor(): string {
+		if (currentPage === 'home') {
+			return '#043551';
+		}
+		return '#494B4D';
+	}
+
 	const appBarStyle = {
-		background: currentPage === 'home' ? '#043551' : '#494B4D', // change background color based on the currentPage
+		background: getBackgroundColor(), // change background color based on the currentPage
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
