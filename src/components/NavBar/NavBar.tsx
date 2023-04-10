@@ -67,6 +67,41 @@ export function checkIsItLogin(isLogIn: boolean, handleEditGraphName: () => void
 	) : null;
 }
 
+export function checkIsLogin(
+	isLogIn: boolean,
+	handleSaveIconClick: () => void,
+	isSave: boolean,
+	handleLoginRegisClick: () => void,
+): React.ReactElement {
+	return isLogIn ? (
+		<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
+			<IconButton
+				data-testid='save-icon-button'
+				size='large'
+				edge='start'
+				color='inherit'
+				aria-label='menu'
+				sx={{ mr: 2 }}
+				onClick={handleSaveIconClick}
+			>
+				<SaveOutlinedIcon />
+			</IconButton>
+			{isSave ? <DeleteIcon data-testid='delete-icon-buttons' /> : null}
+			<UserIcon />
+		</Stack>
+	) : (
+		<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '1.25%' }}>
+			<Button data-testid='register-button' color='inherit' onClick={handleLoginRegisClick}>
+				REGISTER
+			</Button>
+
+			<Button data-testid='login-button' color='inherit' onClick={handleLoginRegisClick}>
+				LOGIN
+			</Button>
+		</Stack>
+	);
+}
+
 export default function Navbar(props: NavbarProps): React.ReactElement {
 	const { currentPage, forceLogin } = props;
 	const navigate = useNavigate();
@@ -131,35 +166,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 						</Stack>
 					) : null}
 
-					{currentPage === 'home' ? (
-						isLogIn ? (
-							<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-								<IconButton
-									data-testid='save-icon-button'
-									size='large'
-									edge='start'
-									color='inherit'
-									aria-label='menu'
-									sx={{ mr: 2 }}
-									onClick={handleSaveIconClick}
-								>
-									<SaveOutlinedIcon />
-								</IconButton>
-								{isSave ? <DeleteIcon data-testid='delete-icon-buttons' /> : null}
-								<UserIcon />
-							</Stack>
-						) : (
-							<Stack spacing={4} direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-								<Button data-testid='register-button' color='inherit' onClick={handleLoginRegisClick}>
-									REGISTER
-								</Button>
-
-								<Button data-testid='login-button' color='inherit' onClick={handleLoginRegisClick}>
-									LOGIN
-								</Button>
-							</Stack>
-						)
-					) : null}
+					{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
 				</Toolbar>
 			</AppBar>
 		</Box>
