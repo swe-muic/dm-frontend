@@ -2,6 +2,21 @@ import minioClient from './MinioClient';
 import type MinioObjectInterface from '../../interface/minio/MinioObjectInterface';
 import { PutObjectCommand, type S3 } from '@aws-sdk/client-s3';
 
+/*
+This function uploads a screenshot to minio (takes a blob and converts it to a uint8Array that can be downloaded as PNG from minio)
+	@param screenshot: Blob
+	@param bucketName: string
+	@param fileName: string
+	@param client: S3
+	@return Promise<boolean> whether the screenshot has been uploaded or not
+
+	Blob: used when getting a screenshot from html2canvas via
+		html2canvas(document.body).then((canvas) => {
+			const screenshot = canvas.toBlob((blob) => {
+				// plug the blob into this function
+			});
+		});
+ */
 const UploadScreenshotToMinio: (
 	screenshot: Blob,
 	bucketName: string,
