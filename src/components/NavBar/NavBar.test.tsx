@@ -5,6 +5,8 @@ import { act } from 'react-dom/test-utils';
 import Navbar from './NavBar';
 import React from 'react';
 import DeleteIconButton from './NavBarButton/DeleteIconButton';
+import HomeIconButton from './NavBarButton/HomeIconButton';
+import MenuIconButton from './NavBarButton/MenuIconButton';
 describe('Navbar', () => {
 	test('navigates to login page on login/register click', () => {
 		render(
@@ -18,6 +20,38 @@ describe('Navbar', () => {
 			fireEvent.click(loginRegisButton);
 		});
 		expect(window.location.pathname).toBe('/login');
+	});
+
+	test('home icon button test', () => {
+		render(
+			<BrowserRouter>
+				<Navbar currentPage='graphs' forceLogin={true} />
+			</BrowserRouter>,
+		);
+
+		render(
+			<BrowserRouter>
+				<HomeIconButton />
+			</BrowserRouter>,
+		);
+		const homeButton = screen.getByTestId('home-button');
+		expect(homeButton).toBeInTheDocument();
+	});
+
+	test('menu icon button test', () => {
+		render(
+			<BrowserRouter>
+				<Navbar currentPage='home' forceLogin={true} />
+			</BrowserRouter>,
+		);
+
+		render(
+			<BrowserRouter>
+				<MenuIconButton />
+			</BrowserRouter>,
+		);
+		const homeButton = screen.getByTestId('menu-icon-button');
+		expect(homeButton).toBeInTheDocument();
 	});
 
 	test('delete and modal test', () => {
