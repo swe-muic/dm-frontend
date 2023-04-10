@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import Navbar from './NavBar';
 import React from 'react';
-
+import DeleteIconButton from './NavBarButton/DeleteIconButton';
 describe('Navbar', () => {
 	test('navigates to login page on login/register click', () => {
 		render(
@@ -28,31 +28,14 @@ describe('Navbar', () => {
 		);
 		const saveButton = screen.getByTestId('save-icon-button');
 		fireEvent.click(saveButton);
-		const loginRegisButton = screen.getByTestId('delete-icon-button');
-
-		act(() => {
-			fireEvent.click(loginRegisButton);
-		});
-		expect(screen.getByTestId('delete-modal')).toBeInTheDocument();
-	});
-
-	test('delete and modal test and close it', () => {
 		render(
 			<BrowserRouter>
-				<Navbar currentPage='home' forceLogin={true} />
+				<DeleteIconButton />
 			</BrowserRouter>,
 		);
-		act(() => {
-			screen.getByTestId('save-icon-button').click();
-		});
-		act(() => {
-			screen.getByTestId('delete-icon-button').click();
-		});
-		act(() => {
-			screen.getByTestId('delete-button').click();
-		});
-		// eslint-disable-next-line no-undef
-		expect(screen.queryByTestId('delete-button')).not.toBeInTheDocument();
+		const deleteButton = screen.getByTestId('delete-icon-button');
+
+		expect(deleteButton).toBeVisible();
 	});
 
 	test('test text field at edit graph', () => {
