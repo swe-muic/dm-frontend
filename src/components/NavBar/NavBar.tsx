@@ -26,6 +26,13 @@ export interface NavbarProps {
 	forceLogin?: boolean;
 }
 
+export function getBackgroundColor(page: string): string {
+	if (page === 'home') {
+		return '#043551';
+	}
+	return '#494B4D';
+}
+
 export default function Navbar(props: NavbarProps): React.ReactElement {
 	const { currentPage, forceLogin } = props;
 	const navigate = useNavigate();
@@ -63,15 +70,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsEdit(!isEdit);
 	};
 
-	function getBackgroundColor(): string {
-		if (currentPage === 'home') {
-			return '#043551';
-		}
-		return '#494B4D';
-	}
-
 	const appBarStyle = {
-		background: getBackgroundColor(), // change background color based on the currentPage
+		background: getBackgroundColor(currentPage), // change background color based on the currentPage
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
