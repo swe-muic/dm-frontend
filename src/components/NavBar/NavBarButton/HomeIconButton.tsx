@@ -7,6 +7,7 @@ function HomeIconButton(): React.ReactElement {
 	const navigate = useNavigate();
 	return (
 		<IconButton
+			data-testid='home-button'
 			color='inherit'
 			onClick={() => {
 				navigate('/');
