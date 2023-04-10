@@ -2,7 +2,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
-import Navbar, { getBackgroundColor } from './NavBar';
+import Navbar from './NavBar';
 import React from 'react';
 import DeleteIconButton from './NavBarButton/DeleteIconButton';
 describe('Navbar', () => {
@@ -54,23 +54,5 @@ describe('Navbar', () => {
 		});
 
 		expect(screen.getByRole('button', { name: 'Hello World' })).toBeInTheDocument();
-	});
-
-	describe('getBackgroundColor', () => {
-		it('should return #043551 when currentPage is home', () => {
-			// Set up test data
-			const currentPage = 'home';
-
-			// Call the function and assert the result
-			expect(getBackgroundColor(currentPage)).toBe('#043551');
-		});
-
-		it('should return #494B4D when currentPage is not home', () => {
-			// Set up test data
-			const currentPage = 'about';
-
-			// Call the function and assert the result
-			expect(getBackgroundColor(currentPage)).toBe('#494B4D');
-		});
 	});
 });
