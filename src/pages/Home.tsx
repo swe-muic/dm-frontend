@@ -3,7 +3,7 @@ import Plot from '../components/Graph/GraphComponent';
 import Navbar from '../components/NavBar/NavBar';
 
 const Home: React.FunctionComponent = () => (
-	<div>
+	<div data-testid={'home-page'}>
 		<Navbar currentPage={'home'} />
 		<Plot data={[]} />
 	</div>

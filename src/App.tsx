@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './config/FirebaseConfig';
 import AuthRoute from './components/AuthRoute';
@@ -18,7 +18,7 @@ initializeApp(firebaseConfig);
 function App(): React.ReactElement {
 	return (
 		<div>
-			<BrowserRouter>
+			<MemoryRouter>
 				<Routes>
 					<Route
 						path='/graphs'
@@ -31,7 +31,7 @@ function App(): React.ReactElement {
 					<Route index element={<Home />} />
 					<Route path='/login' element={<Login />} />
 				</Routes>
-			</BrowserRouter>
+			</MemoryRouter>
 		</div>
 	);
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -68,28 +68,26 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setDisplayText(event.target.value);
 	};
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position='static' style={appBarStyle}>
-				<Toolbar>
-					{currentPage === 'home' ? <MenuIcon /> : <HomeIconButton />}
+		<AppBar position='static' style={appBarStyle}>
+			<Toolbar>
+				{currentPage === 'home' ? <MenuIcon /> : <HomeIconButton />}
 
-					{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
+				{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
 
-					{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
+				{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
 
-					<Typography variant='h6' component='div' sx={{ flexGrow: 1 }} style={{ position: 'absolute', right: '50%' }}>
-						Deezmos
-					</Typography>
+				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }} style={{ position: 'absolute', right: '50%' }}>
+					Deezmos
+				</Typography>
 
-					{currentPage === 'graphs' ? (
-						<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
-							<UserIcon />
-						</Stack>
-					) : null}
+				{currentPage === 'graphs' ? (
+					<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
+						<UserIcon />
+					</Stack>
+				) : null}
 
-					{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
-				</Toolbar>
-			</AppBar>
-		</Box>
+				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
+			</Toolbar>
+		</AppBar>
 	);
 }
