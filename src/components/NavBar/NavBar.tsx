@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
+import getBackgroundColor from './NavBarColor/NavBarBackGroundSelector';
 
 import loadable from '@loadable/component';
 
@@ -26,11 +27,44 @@ export interface NavbarProps {
 	forceLogin?: boolean;
 }
 
-export function getBackgroundColor(page: string): string {
-	if (page === 'home') {
-		return '#043551';
-	}
-	return '#494B4D';
+export function chekIsItEdit(
+	isEdit: boolean,
+	handleEditGraphName: () => void,
+	buttonText: string,
+	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+): React.ReactElement {
+	return !isEdit ? (
+		<Button data-testid='graph-name-text-button' color='inherit' onDoubleClick={handleEditGraphName}>
+			{buttonText}
+		</Button>
+	) : (
+		<TextField
+			inputProps={{ 'data-testid': 'text-display-input' }}
+			variant='standard'
+			defaultValue={buttonText}
+			onChange={handleChange}
+			sx={{
+				input: { color: 'white' },
+				label: { color: 'white' },
+			}}
+		/>
+	);
+}
+
+export function checkIsItLogin(isLogIn: boolean, handleEditGraphName: () => void): React.ReactElement | null {
+	return isLogIn ? (
+		<IconButton
+			data-testid='edit-icon-button'
+			size='large'
+			edge='start'
+			color='inherit'
+			aria-label='menu'
+			sx={{ mr: 2 }}
+			onClick={handleEditGraphName}
+		>
+			<BorderColorOutlinedIcon />
+		</IconButton>
+	) : null;
 }
 
 export default function Navbar(props: NavbarProps): React.ReactElement {
@@ -83,40 +117,9 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 				<Toolbar>
 					{currentPage === 'home' ? <MenuIcon /> : <HomeIconButton />}
 
-					{currentPage === 'home' ? (
-						!isEdit ? (
-							<Button data-testid='graph-name-text-button' color='inherit' onDoubleClick={handleEditGraphName}>
-								{buttonText}
-							</Button>
-						) : (
-							<TextField
-								inputProps={{ 'data-testid': 'text-display-input' }}
-								variant='standard'
-								defaultValue={buttonText}
-								onChange={handleChange}
-								sx={{
-									input: { color: 'white' },
-									label: { color: 'white' },
-								}}
-							/>
-						)
-					) : null}
+					{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
 
-					{currentPage === 'home' ? (
-						isLogIn ? (
-							<IconButton
-								data-testid='edit-icon-button'
-								size='large'
-								edge='start'
-								color='inherit'
-								aria-label='menu'
-								sx={{ mr: 2 }}
-								onClick={handleEditGraphName}
-							>
-								<BorderColorOutlinedIcon />
-							</IconButton>
-						) : null
-					) : null}
+					{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
 
 					<Typography variant='h6' component='div' sx={{ flexGrow: 1 }} style={{ position: 'absolute', right: '50%' }}>
 						Deezmos
