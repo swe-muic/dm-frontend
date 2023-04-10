@@ -1,8 +1,14 @@
 import minioClient from './MinioClient';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 
-/* eslint-disable import/prefer-default-export */
-export const retrieveObjectService: (bucketName: string, fileName: string) => Promise<string> = async (
+/*
+This service retrieves an object from minio
+	@param bucketName: string
+	@param fileName: string the name of the file (without the extension - by invariant when uploading
+	, extension is always .png
+	@return Promise<string> the url of the object (empty string if it cannot be retrieved)
+ */
+const RetrieveObjectService: (bucketName: string, fileName: string) => Promise<string> = async (
 	bucketName,
 	fileName,
 ) => {
@@ -20,3 +26,5 @@ export const retrieveObjectService: (bucketName: string, fileName: string) => Pr
 		return '';
 	}
 };
+
+export default RetrieveObjectService;

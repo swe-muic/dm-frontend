@@ -1,11 +1,13 @@
 import minioClient from './MinioClient';
 import { type S3 } from '@aws-sdk/client-s3';
 
-/* eslint-disable import/prefer-default-export */
-export const createBucket: (bucketName: string, client?: S3) => Promise<boolean> = async (
-	bucketName: string,
-	client?: S3,
-) => {
+/*
+This function creates a bucket if it does not exist
+	@param bucketName: string
+	@param client: S3
+	@return Promise<boolean> whether the bucket has been created or not
+ */
+const CreateBucket: (bucketName: string, client?: S3) => Promise<boolean> = async (bucketName: string, client?: S3) => {
 	client = client ?? minioClient;
 	try {
 		await client.headBucket({ Bucket: bucketName });
@@ -18,3 +20,5 @@ export const createBucket: (bucketName: string, client?: S3) => Promise<boolean>
 		return false;
 	}
 };
+
+export default CreateBucket;
