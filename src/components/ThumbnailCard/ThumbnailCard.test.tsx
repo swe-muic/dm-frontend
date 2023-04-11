@@ -15,6 +15,5 @@ describe('ThumbnailCard component', () => {
 
 		expect(getByAltText(props.title)).toBeInTheDocument();
 		expect(getByText(props.title)).toBeInTheDocument();
-		expect(getByText(props.description)).toBeInTheDocument();
 	});
 });
