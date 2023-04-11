@@ -7,7 +7,7 @@ addStyles();
 export interface MathFieldProps {
 	equation: string;
 	index: number;
-	handleChange: (index: number, value: string) => void;
+	handleChange: (value: string) => void;
 }
 
 function MathField(props: MathFieldProps): React.ReactElement {
@@ -20,7 +20,7 @@ function MathField(props: MathFieldProps): React.ReactElement {
 			latex={equation}
 			aria-valuetext={equation}
 			onChange={(mathField) => {
-				handleChange(index, mathField.latex());
+				handleChange(mathField.latex());
 			}}
 			config={{ spaceBehavesLikeTab: true }}
 		/>
