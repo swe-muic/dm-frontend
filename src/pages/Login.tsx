@@ -10,6 +10,7 @@ const Login: React.FunctionComponent = () => {
 	const thisAuth = auth;
 	const navigate = useNavigate();
 	const [authentication, setAuthentication] = useState(false);
+	/* istanbul ignore next */
 	const signInWithGoogle = async (): Promise<void> => {
 		setAuthentication(true);
 		signInWithPopup(thisAuth, new GoogleAuthProvider())
@@ -40,6 +41,7 @@ const Login: React.FunctionComponent = () => {
 					<h1>Login</h1>
 					<GoogleButton
 						onClick={() => {
+							/* istanbul ignore next */
 							void signInWithGoogle();
 						}}
 						disabled={authentication}

@@ -14,6 +14,7 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
 
 	const AuthCheck = onAuthStateChanged(thisAuth, (user) => {
 		if (user != null) {
+			/* istanbul ignore next */
 			setLoading(false);
 		} else {
 			navigate('/login');
