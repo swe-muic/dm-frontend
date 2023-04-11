@@ -46,7 +46,7 @@ interface GraphValidationErrorResponse {
 export default function Navbar(props: NavbarProps): React.ReactElement {
 	const { currentPage, forceLogin } = props;
 	const navigate = useNavigate();
-	const [gid, setGid] = useState(0);
+	const [gid, setGid] = useState(-1);
 	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
