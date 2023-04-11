@@ -15,7 +15,7 @@ This function returns all of the specified user's graphs
 const GetAllUserGraphs = async (ownerId: number): Promise<GraphInterface[]> => {
 	const response = await fetch(`${BASE_URL}/api/viewset/graphs/`);
 	const graphData: GraphResponse = await response.json();
-	const filteredGraphs: GraphInterface[] = graphData.data.filter((graph) => graph.owner === ownerId);
+	const filteredGraphs: GraphInterface[] = graphData.data.filter((graph) => Number(graph.owner) === ownerId);
 	return filteredGraphs;
 };
 
