@@ -7,10 +7,10 @@ import React from 'react';
 
 // TODO: remove .skip later
 describe.skip('Navbar Delete Icon Button', () => {
-	test('open and close modal', () => {
+	test.skip('open and close modal', () => {
 		render(
 			<BrowserRouter>
-				<DeleteIconButton />
+				<DeleteIconButton graphId={0} />
 			</BrowserRouter>,
 		);
 
