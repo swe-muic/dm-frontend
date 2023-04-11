@@ -13,6 +13,7 @@ jest.mock('function-plot', () => ({
 	default: jest.fn(),
 }));
 jest.mock('./images/login_background.png', () => './images/login_background.png');
+jest.mock('./services/minio/RetrieveObjectService');
 
 describe('Routes', () => {
 	it('should render the correct component for the /graphs route', () => {
