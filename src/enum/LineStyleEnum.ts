@@ -1,6 +1,6 @@
 enum LineStyleEnum {
 	SOLID = 'polyline',
-	DASHED = 'scatter',
+	DOTTED = 'scatter',
 }
 
 export default LineStyleEnum;

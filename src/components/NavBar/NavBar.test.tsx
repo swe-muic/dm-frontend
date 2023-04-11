@@ -47,7 +47,7 @@ describe('Navbar', () => {
 
 		render(
 			<BrowserRouter>
-				<MenuIconButton />
+				<MenuIconButton equations={[]} setEquations={jest.fn} />
 			</BrowserRouter>,
 		);
 		const homeButton = screen.getByTestId('menu-icon-button');

@@ -10,6 +10,7 @@ import chekIsItEdit from './SubComponentFromNavBar/EditOrTextField';
 import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
 import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
+import type FunctionInterface from '@/interfaces/FunctionInterface';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -20,10 +21,12 @@ const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
 export interface NavbarProps {
 	currentPage: string;
 	forceLogin?: boolean;
+	equations?: FunctionInterface[];
+	setEquations?: (equations: FunctionInterface[]) => void;
 }
 
 export default function Navbar(props: NavbarProps): React.ReactElement {
-	const { currentPage, forceLogin } = props;
+	const { currentPage, forceLogin, setEquations, equations } = props;
 	const navigate = useNavigate();
 	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
@@ -63,13 +66,21 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		background: getBackgroundColor(currentPage), // change background color based on the currentPage
 	};
 
+	const noSetEquations: (equations: FunctionInterface[]) => void = (_) => {
+		throw new Error('setEquations is not defined');
+	};
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setDisplayText(event.target.value);
 	};
 	return (
 		<AppBar position='static' style={appBarStyle}>
 			<Toolbar>
-				{currentPage === 'home' ? <MenuIcon /> : <HomeIconButton />}
+				{currentPage === 'home' ? (
+					<MenuIcon equations={equations ?? []} setEquations={setEquations ?? noSetEquations} />
+				) : (
+					<HomeIconButton />
+				)}
 
 				{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
 

@@ -5,6 +5,7 @@ import LineStyling from '../../../style/LineStyling';
 import IconButton from '@mui/material/IconButton';
 import { HexColorPicker } from 'react-colorful';
 import Box from '@mui/material/Box';
+import LineStyleEnum from '../../../enum/LineStyleEnum';
 
 export interface LineStyleProp {
 	color: string;
@@ -17,7 +18,7 @@ export interface LineStyleProp {
 function LineStylePopover(props: LineStyleProp): React.ReactElement {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 	const { color, index, lineStyle, handleColorChange, handleLineStyleChange } = props;
-	const defaultRadioValue = lineStyle === 'polyline' ? 'polyline' : 'scatter';
+	const defaultRadioValue = lineStyle === LineStyleEnum.SOLID ? LineStyleEnum.SOLID : LineStyleEnum.DOTTED;
 	const [checked, setChecked] = React.useState(false);
 
 	const handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void = (event) => {
@@ -67,8 +68,8 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 								setChecked(!checked);
 							}}
 						>
-							<FormControlLabel value='polyline' control={<Radio />} label='Solid' />
-							<FormControlLabel value='scatter' control={<Radio />} label='Dotted' />
+							<FormControlLabel value={LineStyleEnum.SOLID} control={<Radio />} label='Solid' />
+							<FormControlLabel value={LineStyleEnum.DOTTED} control={<Radio />} label='Dotted' />
 						</RadioGroup>
 					</FormControl>
 				</Box>

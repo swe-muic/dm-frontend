@@ -34,6 +34,9 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement {
 
 	useEffect(() => {
 		setMounted(true);
+		return () => {
+			setMounted(false);
+		};
 	}, []);
 
 	return (
