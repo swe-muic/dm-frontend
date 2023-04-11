@@ -85,9 +85,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					</Stack>
 				) : null}
 
-					{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
-				</Toolbar>
-			</AppBar>
-		</Box>
+				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
+			</Toolbar>
+		</AppBar>
 	);
 }
