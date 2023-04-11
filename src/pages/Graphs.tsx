@@ -71,6 +71,7 @@ const Graphs: React.FunctionComponent = () => {
 							navigate('/');
 						})
 						.catch((error) => {
+							/* istanbul ignore next */
 							console.warn(error);
 						});
 				}}
