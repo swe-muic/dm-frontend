@@ -1,5 +1,5 @@
 import minioClient from './MinioClient';
-import type MinioObjectInterface from '../../interface/minio/MinioObjectInterface';
+import type MinioObjectInterface from '../../interfaces/MinioObjectInterface';
 import { PutObjectCommand, type S3 } from '@aws-sdk/client-s3';
 
 /*
