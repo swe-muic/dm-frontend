@@ -13,7 +13,7 @@ import LineStyleEnum from '../../../enum/LineStyleEnum';
 import FieldEnum from '../../../enum/FieldEnum';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
-const Function = loadable(() => import('../../FunctionDrawer/Function'));
+const Function = loadable(() => import('../../FunctionDrawer/Equation'));
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 function MenuIconButton(): React.ReactElement {
