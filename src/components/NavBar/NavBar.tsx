@@ -15,17 +15,12 @@ import loadable from '@loadable/component';
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
 const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
 const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
-// let GRAPH_ID: number;
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 export interface NavbarProps {
 	currentPage: string;
 	forceLogin?: boolean;
 }
-//
-// export interface GraphIdProps {
-// 	graphId: number
-// }
 
 interface Graph {
 	id: number;
@@ -85,7 +80,6 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 				mode: 'cors',
 				headers: {
 					'Content-Type': 'application/json',
-					// Add any other headers you need, such as authorization headers
 				},
 			});
 
@@ -145,7 +139,6 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		}
 		const graphDetail: GraphDetailResponse = await response.json();
 		setGid(graphDetail.data.id);
-		// gid = graphDetail.data.id;
 		console.log(graphDetail.data);
 	};
 
