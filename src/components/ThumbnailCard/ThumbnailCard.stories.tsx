@@ -14,6 +14,5 @@ export const Primary: Story = {
 	args: {
 		image: 'https://via.placeholder.com/300',
 		title: 'Example Title',
-		description: 'Example description.',
 	},
 };
