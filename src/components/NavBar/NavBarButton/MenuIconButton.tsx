@@ -16,16 +16,20 @@ import FieldEnum from '../../../enum/FieldEnum';
 const Function = loadable(() => import('../../FunctionDrawer/Equation'));
 /* eslint-enable @typescript-eslint/promise-function-async */
 
-function MenuIconButton(): React.ReactElement {
-	const newEquation: FunctionInterface = { equation: '', index: 0, color: '#000000', lineStyle: LineStyleEnum.SOLID };
+export interface MenuIconProps {
+	equations: FunctionInterface[];
+	setEquations: (equations: FunctionInterface[]) => void;
+}
 
+function MenuIconButton(props: MenuIconProps): React.ReactElement {
+	const { equations, setEquations } = props;
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [numFields, setNumFields] = useState(1);
-	const [equations, setEquations] = useState([{ ...newEquation }]);
+	const newEquation: FunctionInterface = { equation: '', color: 'black', lineStyle: LineStyleEnum.SOLID, index: 0 };
 
 	const addField = (): void => {
 		setNumFields(numFields + 1);
-		setEquations([...equations, { ...newEquation }]);
+		setEquations([...equations, { ...newEquation, index: equations.length }]);
 	};
 
 	const handleInputChanges: (field: FieldEnum) => (index: number, value: string | LineStyleEnum) => void =
