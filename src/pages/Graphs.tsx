@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Navbar from '../components/NavBar/NavBar';
 import ThumbnailGrid from '../components/ThumbnailGrid/ThumbnailGrid';
 import RetrieveObjectService from '../services/minio/RetrieveObjectService';
+import GetAllUserGraphs from '../services/api/GetAllUserGraphsService';
 
 interface Image {
 	image: string;
@@ -13,52 +14,33 @@ interface Image {
 	linkUrl: string;
 }
 
-const images: Image[] = [
-	{
-		image: 'https://via.placeholder.com/500x500.png',
-		title: 'Image 1',
-		linkUrl: '/',
-	},
-	{
-		image: 'https://via.placeholder.com/500x500.png',
-		title: 'Image 2',
-		linkUrl: '/',
-	},
-	{
-		image: 'https://via.placeholder.com/500x500.png',
-		title: 'Image 3',
-		linkUrl: '/',
-	},
-];
-
-const getImagesWithUrls = async (images: Image[]): Promise<Image[]> => {
-	const urls = await Promise.all(
-		images.map(async (img) => {
-			const url = await RetrieveObjectService('test-bucket', 'stars');
-			return url;
-		}),
-	);
-
-	return images.map((img, idx) => ({
-		...img,
-		image: urls[idx].length === 0 ? 'https://via.placeholder.com/500x500.png' : urls[idx],
-	}));
-};
-
 const Graphs: React.FunctionComponent = () => {
 	const thisAuth = auth;
 	const navigate = useNavigate();
 
-	const [imagesWithUrls, setImagesWithUrls] = useState<Image[]>([]);
+	const [images, setImages] = useState<Image[]>([]);
 
 	useEffect(() => {
-		getImagesWithUrls(images)
-			.then((imagesWithUrls) => {
-				setImagesWithUrls(imagesWithUrls);
-			})
-			.catch((error) => {
-				console.error('Error fetching images with URLs:', error);
-			});
+		const fetchImages = async (): Promise<void> => {
+			try {
+				const userGraphs = await GetAllUserGraphs(1);
+				console.log(userGraphs);
+				const imagesWithUrls: Image[] = await Promise.all(
+					userGraphs.map(async (graph) => {
+						const url = await RetrieveObjectService(`user-${graph.owner}-bucket`, graph.preview);
+						return {
+							image: url.length === 0 ? 'https://via.placeholder.com/500x500.png' : url,
+							title: graph.name,
+							linkUrl: `/?graph_id=${graph.id}`,
+						};
+					}),
+				);
+				setImages(imagesWithUrls);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		void fetchImages();
 	}, []);
 
 	const headerContainerStyle = {
@@ -74,7 +56,7 @@ const Graphs: React.FunctionComponent = () => {
 	const containerStyle = {
 		display: 'flex',
 		justifyContent: 'center',
-		paddingLeft: '11%',
+		paddingLeft: '12%',
 		paddingRight: '11%',
 	};
 
@@ -95,7 +77,7 @@ const Graphs: React.FunctionComponent = () => {
 				}}
 			></Button>
 			<div style={containerStyle}>
-				<ThumbnailGrid images={imagesWithUrls} columns={4} />
+				<ThumbnailGrid images={images} columns={4} />
 			</div>
 		</div>
 	);
