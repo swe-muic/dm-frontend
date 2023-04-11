@@ -6,6 +6,12 @@ import type FunctionInterface from '@/interfaces/FunctionInterface';
 describe('MenuIconButton', () => {
 	const component = <MenuIconButton equations={[]} setEquations={jest.fn} />;
 
+	const mockSetEquation = jest.fn();
+	jest.mock('react', () => ({
+		...jest.requireActual('react'),
+		useState: (initialValue: FunctionInterface) => [initialValue, mockSetEquation],
+	}));
+
 	it('should render the component', () => {
 		const { getByLabelText } = render(component);
 		expect(getByLabelText('menu')).toBeInTheDocument();
@@ -18,14 +24,7 @@ describe('MenuIconButton', () => {
 	});
 
 	it('should add a new equation field when the add button is clicked', () => {
-		const mockSetEquation = jest.fn();
-		jest.mock('react', () => ({
-			...jest.requireActual('react'),
-			useState: (initialValue: FunctionInterface) => [initialValue, mockSetEquation],
-		}));
-
 		const { getByLabelText, getByTestId } = render(<MenuIconButton equations={[]} setEquations={mockSetEquation} />);
-
 		fireEvent.click(getByLabelText('menu'));
 		fireEvent.click(getByTestId('add-button'));
 		expect(mockSetEquation).toHaveBeenCalled();
