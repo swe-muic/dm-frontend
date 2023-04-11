@@ -12,9 +12,9 @@ const LineStylePopover = loadable(() => import('./LineStylePopover/LineStylePopo
 export interface FunctionProp {
 	equation: FunctionInterface;
 	index: number;
-	handleInputChange: (index: number, value: string) => void;
-	handleColorChange: (index: number, value: string) => void;
-	handleLineStyleChange: (index: number, value: string) => void;
+	handleInputChange: (value: string) => void;
+	handleColorChange: (value: string) => void;
+	handleLineStyleChange: (value: string) => void;
 }
 
 function Equation(props: FunctionProp): React.ReactElement {
@@ -26,7 +26,6 @@ function Equation(props: FunctionProp): React.ReactElement {
 				<LineStylePopover
 					color={equation.color}
 					lineStyle={equation.lineStyle}
-					index={index}
 					handleColorChange={handleColorChange}
 					handleLineStyleChange={handleLineStyleChange}
 				/>

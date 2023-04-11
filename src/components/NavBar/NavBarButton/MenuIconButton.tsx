@@ -13,7 +13,7 @@ import LineStyleEnum from '../../../enum/LineStyleEnum';
 import FieldEnum from '../../../enum/FieldEnum';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
-const Function = loadable(() => import('../../FunctionDrawer/Equation'));
+const Equation = loadable(() => import('../../FunctionDrawer/Equation'));
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 export interface MenuIconProps {
@@ -32,8 +32,8 @@ function MenuIconButton(props: MenuIconProps): React.ReactElement {
 		setEquations([...equations, { ...newEquation, index: equations.length }]);
 	};
 
-	const handleInputChanges: (field: FieldEnum) => (index: number, value: string | LineStyleEnum) => void =
-		(field) => (index, value) => {
+	const handleInputChanges: (field: FieldEnum) => (index: number) => (value: string | LineStyleEnum) => void =
+		(field) => (index) => (value) => {
 			const newEquations = [...equations];
 			if (field === FieldEnum.LINE_STYLE) {
 				newEquations[index][field] = value as LineStyleEnum;
@@ -76,12 +76,12 @@ function MenuIconButton(props: MenuIconProps): React.ReactElement {
 					<Box mt={2}>
 						{equations.map((equation, index) => (
 							<Box data-testid={`equation-${index + 1}`} key={equation.index} mb={2}>
-								<Function
+								<Equation
 									equation={equation}
 									index={index}
-									handleInputChange={handleInputChanges(FieldEnum.EQUATION)}
-									handleColorChange={handleInputChanges(FieldEnum.COLOR)}
-									handleLineStyleChange={handleInputChanges(FieldEnum.LINE_STYLE)}
+									handleInputChange={handleInputChanges(FieldEnum.EQUATION)(index)}
+									handleColorChange={handleInputChanges(FieldEnum.COLOR)(index)}
+									handleLineStyleChange={handleInputChanges(FieldEnum.LINE_STYLE)(index)}
 								/>
 							</Box>
 						))}

@@ -8,6 +8,7 @@ import LineStyleEnum from '../enum/LineStyleEnum';
 const Home: React.FunctionComponent = () => {
 	const [equations, setEquations] = useState<FunctionInterface[]>([]);
 	const [plotData, setPlotData] = useState<FunctionPlotDatum[]>([]);
+	const [showPlot, setShowPlot] = useState<boolean>(true);
 	const newEquation: FunctionInterface = {
 		equation: '',
 		color: 'black',
@@ -16,16 +17,25 @@ const Home: React.FunctionComponent = () => {
 	};
 
 	const handleSetEquations: (newEquations: FunctionInterface[]) => void = (newEquations) => {
-		setEquations(newEquations);
-		setPlotData(
-			equations
-				.filter((equations) => equations.equation.length > 0)
-				.map((equation) => ({
-					fn: equation.equation, // TODO: get parsed equation from backend
-					color: equation.color,
-					graphType: equation.lineStyle,
-				})),
-		);
+		setEquations([...newEquations]);
+		new Promise((resolve) => setTimeout(resolve, 100))
+			.then(() => {
+				setPlotData(
+					equations
+						.filter((equations) => equations.equation.length > 0)
+						.map((equation) => ({
+							fn: equation.equation, // TODO: get parsed equation from backend
+							color: equation.color,
+							graphType: equation.lineStyle,
+							nSamples: equation.lineStyle === LineStyleEnum.DOTTED ? 150 : undefined,
+						})),
+				);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+		setShowPlot(false);
+		setShowPlot(true);
 	};
 
 	if (equations.length === 0) {
@@ -35,7 +45,7 @@ const Home: React.FunctionComponent = () => {
 	return (
 		<div data-testid={'home-page'}>
 			<Navbar currentPage={'home'} equations={equations} setEquations={handleSetEquations} />
-			<Plot data={plotData} />
+			{showPlot && <Plot data={plotData} key={'plot-graph'} />}
 		</div>
 	);
 };

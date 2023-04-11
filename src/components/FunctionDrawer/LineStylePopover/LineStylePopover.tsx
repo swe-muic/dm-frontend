@@ -10,14 +10,13 @@ import LineStyleEnum from '../../../enum/LineStyleEnum';
 export interface LineStyleProp {
 	color: string;
 	lineStyle: string;
-	index: number;
-	handleColorChange: (index: number, value: string) => void;
-	handleLineStyleChange: (index: number, value: string) => void;
+	handleColorChange: (value: string) => void;
+	handleLineStyleChange: (value: string) => void;
 }
 
 function LineStylePopover(props: LineStyleProp): React.ReactElement {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-	const { color, index, lineStyle, handleColorChange, handleLineStyleChange } = props;
+	const { color, lineStyle, handleColorChange, handleLineStyleChange } = props;
 	const defaultRadioValue = lineStyle === LineStyleEnum.SOLID ? LineStyleEnum.SOLID : LineStyleEnum.DOTTED;
 	const [checked, setChecked] = React.useState(false);
 
@@ -50,7 +49,7 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 					<HexColorPicker
 						color={color}
 						onChange={(newColor) => {
-							handleColorChange(index, newColor);
+							handleColorChange(newColor);
 						}}
 					/>
 					<FormControl>
@@ -64,7 +63,7 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 							aria-checked={checked}
 							defaultChecked={checked}
 							onChange={(event) => {
-								handleLineStyleChange(index, event.target.value);
+								handleLineStyleChange(event.target.value);
 								setChecked(!checked);
 							}}
 						>
