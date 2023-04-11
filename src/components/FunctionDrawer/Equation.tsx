@@ -17,7 +17,7 @@ export interface FunctionProp {
 	handleLineStyleChange: (index: number, value: string) => void;
 }
 
-function Function(props: FunctionProp): React.ReactElement {
+function Equation(props: FunctionProp): React.ReactElement {
 	const { equation, index, handleInputChange, handleColorChange, handleLineStyleChange } = props;
 
 	return (
@@ -38,4 +38,4 @@ function Function(props: FunctionProp): React.ReactElement {
 	);
 }
 
-export default Function;
+export default Equation;
