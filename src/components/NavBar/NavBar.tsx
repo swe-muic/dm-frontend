@@ -189,7 +189,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 				{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
 
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }} style={{ position: 'absolute', right: '50%' }}>
-					Deezmos
+					Deezmoz
 				</Typography>
 
 				{currentPage === 'graphs' ? (
