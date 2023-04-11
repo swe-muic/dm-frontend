@@ -38,8 +38,7 @@ describe('Home component', () => {
 				<Navbar currentPage={'home'} />
 			</BrowserRouter>,
 		);
-		// const navbarElement = screen.getByTestId('navbar');
-		//
+
 		expect(container).toBeInTheDocument();
 	});
 
