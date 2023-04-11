@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
+import deleteGraph from '../../../services/api/DeleteGraphService';
 
 export default function DeleteIconButton(props: { graphId: number }): React.ReactElement {
 	const [open, setOpen] = React.useState(false);
@@ -15,26 +16,6 @@ export default function DeleteIconButton(props: { graphId: number }): React.Reac
 	};
 	const handleClose = (): void => {
 		setOpen(false);
-	};
-
-	const handleDelete = async (graphId: number): Promise<void> => {
-		try {
-			console.log(`print graphID number ${graphId}`);
-			const response = await fetch(`http://127.0.0.1:8000/api/viewset/graphs/${graphId}/`, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			if (!response.ok) {
-				const errorResponse = await response.json();
-				throw new Error(errorResponse.message);
-			}
-			console.log(response.json());
-		} catch (e) {
-			console.log(e);
-		}
 	};
 
 	return (
@@ -89,7 +70,7 @@ export default function DeleteIconButton(props: { graphId: number }): React.Reac
 							data-testid='delete-button'
 							variant='contained'
 							onClick={(event: React.MouseEvent<HTMLElement>) => {
-								void handleDelete(props.graphId);
+								void deleteGraph(props.graphId);
 								window.location.reload();
 							}}
 							sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}
