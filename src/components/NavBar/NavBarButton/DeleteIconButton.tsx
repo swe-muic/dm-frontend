@@ -90,7 +90,7 @@ export default function DeleteIconButton(props: { graphId: number }): React.Reac
 							variant='contained'
 							onClick={(event: React.MouseEvent<HTMLElement>) => {
 								void handleDelete(props.graphId);
-								// window.location.reload();
+								window.location.reload();
 							}}
 							sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}
 						>
