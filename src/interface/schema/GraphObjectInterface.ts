@@ -1,4 +1,4 @@
-interface Graph {
+interface GraphInterface {
 	id: number;
 	name: string;
 	preview: string;
@@ -7,4 +7,4 @@ interface Graph {
 	updated: string;
 }
 
-export default Graph;
+export default GraphInterface;
