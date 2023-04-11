@@ -1,4 +1,4 @@
-const isGraphExist = async (graphId: number): Promise<boolean> => {
+const GraphExists = async (graphId: number): Promise<boolean> => {
 	try {
 		const response = await fetch(`http://127.0.0.1:8000/api/viewset/graphs/${graphId}/`, {
 			method: 'GET',
@@ -20,4 +20,4 @@ const isGraphExist = async (graphId: number): Promise<boolean> => {
 	return false;
 };
 
-export default isGraphExist;
+export default GraphExists;
