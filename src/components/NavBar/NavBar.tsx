@@ -15,6 +15,8 @@ import loadable from '@loadable/component';
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
 const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
 const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
+let GRAPH_ID: number;
+
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 export interface NavbarProps {
@@ -23,6 +25,7 @@ export interface NavbarProps {
 }
 
 interface Graph {
+	id: number;
 	name: string;
 	preview: string;
 	owner: string;
@@ -121,7 +124,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 			throw new Error(errorResponse.message);
 		}
 		const graphDetail: GraphDetailResponse = await response.json();
-		console.log(graphDetail);
+		console.log(graphDetail.data);
 	};
 
 	const createGraph = async (): Promise<void> => {
@@ -144,7 +147,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 			throw new Error(errorResponse.message);
 		}
 		const graphDetail: GraphDetailResponse = await response.json();
-		console.log(graphDetail);
+		GRAPH_ID = graphDetail.data.id;
+		console.log(graphDetail.data);
 	};
 
 	const handleSaveIconClick = async (): Promise<void> => {
@@ -152,10 +156,10 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsSave(true);
 		if (user != null) {
 			console.log(user);
-			const isExist = await isGraphExist(777);
+			const isExist = await isGraphExist(GRAPH_ID);
 			console.log(isExist);
 			if (isExist) {
-				await updateGraph(777);
+				await updateGraph(GRAPH_ID);
 			} else {
 				await createGraph();
 			}
