@@ -6,13 +6,13 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
 import getBackgroundColor from './NavBarColor/NavBarBackGroundSelector';
-import chekIsItEdit from './SubComponentFromNavBar/EditOrTextField';
+import checkIsItEdit from './SubComponentFromNavBar/EditOrTextField';
 import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
 import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
-import createGraph from '../../services/api/CreateGraphService';
-import isGraphExist from '../../services/api/CheckGraphExistsService';
-import updateGraph from '../../services/api/UpdateGraphService';
+import CreateGraph from '../../services/api/CreateGraphService';
+import GraphExists from '../../services/api/CheckGraphExistsService';
+import UpdateGraph from '../../services/api/UpdateGraphService';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -61,12 +61,12 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		if (user != null) {
 			const uid = user.uid;
 			console.log(user);
-			const isExist = await isGraphExist(gid);
+			const isExist = await GraphExists(gid);
 			console.log(isExist);
 			if (isExist) {
-				await updateGraph(buttonText, gid, uid);
+				await UpdateGraph(buttonText, gid, uid);
 			} else {
-				const newGraphId = await createGraph(buttonText, uid);
+				const newGraphId = await CreateGraph(buttonText, uid);
 				setGid(newGraphId);
 			}
 		} else {
@@ -90,7 +90,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 			<Toolbar>
 				{currentPage === 'home' ? <MenuIcon /> : <HomeIconButton />}
 
-				{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
+				{currentPage === 'home' ? checkIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
 
 				{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
 

@@ -19,7 +19,7 @@ interface GraphValidationErrorResponse {
 	data: Graph;
 }
 
-const updateGraph = async (buttonText: string, graphId: number, ownerId: string): Promise<void> => {
+const UpdateGraph = async (buttonText: string, graphId: number, ownerId: string): Promise<void> => {
 	const dateTimeNow = new Date();
 	const graphReq = {
 		name: buttonText,
@@ -42,4 +42,4 @@ const updateGraph = async (buttonText: string, graphId: number, ownerId: string)
 	const graphDetail: GraphDetailResponse = await response.json();
 	console.log(graphDetail.data);
 };
-export default updateGraph;
+export default UpdateGraph;

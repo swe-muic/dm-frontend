@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
-import deleteGraph from '../../../services/api/DeleteGraphService';
+import DeleteGraph from '../../../services/api/DeleteGraphService';
 
 export default function DeleteIconButton(props: { graphId: number }): React.ReactElement {
 	const [open, setOpen] = React.useState(false);
@@ -70,7 +70,7 @@ export default function DeleteIconButton(props: { graphId: number }): React.Reac
 							data-testid='delete-button'
 							variant='contained'
 							onClick={(event: React.MouseEvent<HTMLElement>) => {
-								void deleteGraph(props.graphId);
+								void DeleteGraph(props.graphId);
 								window.location.reload();
 							}}
 							sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}

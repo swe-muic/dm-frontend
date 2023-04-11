@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-export default function chekIsItEdit(
+export default function checkIsItEdit(
 	isEdit: boolean,
 	handleEditGraphName: () => void,
 	buttonText: string,

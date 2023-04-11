@@ -1,4 +1,4 @@
-const deleteGraph = async (graphId: number): Promise<void> => {
+const DeleteGraph = async (graphId: number): Promise<void> => {
 	try {
 		const response = await fetch(`http://127.0.0.1:8000/api/viewset/graphs/${graphId}/`, {
 			method: 'DELETE',
@@ -17,4 +17,4 @@ const deleteGraph = async (graphId: number): Promise<void> => {
 	}
 };
 
-export default deleteGraph;
+export default DeleteGraph;

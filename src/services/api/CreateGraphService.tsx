@@ -19,7 +19,7 @@ interface GraphValidationErrorResponse {
 	data: Graph;
 }
 
-const createGraph = async (buttonText: string, ownerId: string): Promise<number> => {
+const CreateGraph = async (buttonText: string, ownerId: string): Promise<number> => {
 	const graphReq = {
 		name: buttonText,
 		preview: 'minio_bucket_test',
@@ -38,9 +38,8 @@ const createGraph = async (buttonText: string, ownerId: string): Promise<number>
 		throw new Error(errorResponse.message);
 	}
 	const graphDetail: GraphDetailResponse = await response.json();
-	// setGid(graphDetail.data.id);
 	console.log(graphDetail.data);
 	return graphDetail.data.id;
 };
 
-export default createGraph;
+export default CreateGraph;
