@@ -15,14 +15,17 @@ import loadable from '@loadable/component';
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
 const MenuIcon = loadable(() => import('./NavBarButton/MenuIconButton'));
 const UserIcon = loadable(() => import('./NavBarButton/UserIconButton'));
-let GRAPH_ID: number;
-
+// let GRAPH_ID: number;
 /* eslint-enable @typescript-eslint/promise-function-async */
 
 export interface NavbarProps {
 	currentPage: string;
 	forceLogin?: boolean;
 }
+//
+// export interface GraphIdProps {
+// 	graphId: number
+// }
 
 interface Graph {
 	id: number;
@@ -33,12 +36,6 @@ interface Graph {
 	updated: string;
 }
 
-// interface GraphRequest {
-// 	name: string;
-// 	preview: 'minio_bucket_test';
-// 	owner: string;
-// }
-//
 interface GraphDetailResponse {
 	status: number;
 	message: string;
@@ -54,6 +51,7 @@ interface GraphValidationErrorResponse {
 export default function Navbar(props: NavbarProps): React.ReactElement {
 	const { currentPage, forceLogin } = props;
 	const navigate = useNavigate();
+	const [gid, setGid] = useState(0);
 	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
@@ -128,7 +126,6 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 	};
 
 	const createGraph = async (): Promise<void> => {
-		// const dateTimeNow = new Date();
 		const graphReq = {
 			name: buttonText,
 			preview: 'minio_bucket_test',
@@ -147,7 +144,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 			throw new Error(errorResponse.message);
 		}
 		const graphDetail: GraphDetailResponse = await response.json();
-		GRAPH_ID = graphDetail.data.id;
+		setGid(graphDetail.data.id);
+		// gid = graphDetail.data.id;
 		console.log(graphDetail.data);
 	};
 
@@ -156,10 +154,10 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsSave(true);
 		if (user != null) {
 			console.log(user);
-			const isExist = await isGraphExist(GRAPH_ID);
+			const isExist = await isGraphExist(gid);
 			console.log(isExist);
 			if (isExist) {
-				await updateGraph(GRAPH_ID);
+				await updateGraph(gid);
 			} else {
 				await createGraph();
 			}
@@ -199,7 +197,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 				) : null}
 
 				{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
+				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick, gid) : null}
 			</Toolbar>
 		</AppBar>
 	);
