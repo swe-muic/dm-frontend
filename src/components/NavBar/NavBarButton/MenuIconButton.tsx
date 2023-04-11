@@ -6,27 +6,38 @@ import Typography from '@mui/material/Typography';
 import { Drawer } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
-import { addStyles, EditableMathField } from 'react-mathquill';
 import AddIcon from '@mui/icons-material/Add';
+import loadable from '@loadable/component';
+import type FunctionInterface from '../../../interfaces/FunctionInterface';
+import LineStyleEnum from '../../../enum/LineStyleEnum';
+import FieldEnum from '../../../enum/FieldEnum';
 
-addStyles();
+/* eslint-disable @typescript-eslint/promise-function-async */
+const Function = loadable(() => import('../../FunctionDrawer/Function'));
+/* eslint-enable @typescript-eslint/promise-function-async */
 
 function MenuIconButton(): React.ReactElement {
+	const newEquation: FunctionInterface = { equation: '', index: 0, color: '#000000', lineStyle: LineStyleEnum.SOLID };
+
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [numFields, setNumFields] = useState(1);
-	const [equations, setEquations] = useState(['']);
+	const [equations, setEquations] = useState([{ ...newEquation }]);
 
 	const addField = (): void => {
 		setNumFields(numFields + 1);
-		setEquations([...equations, '']);
+		setEquations([...equations, { ...newEquation }]);
 	};
 
-	const handleChange = (index: number, value: string): void => {
-		console.warn(index, value);
-		const newEquations = [...equations];
-		newEquations[index] = value;
-		setEquations(newEquations);
-	};
+	const handleInputChanges: (field: FieldEnum) => (index: number, value: string | LineStyleEnum) => void =
+		(field) => (index, value) => {
+			const newEquations = [...equations];
+			if (field === FieldEnum.LINE_STYLE) {
+				newEquations[index][field] = value as LineStyleEnum;
+			} else {
+				newEquations[index][field] = value;
+			}
+			setEquations(newEquations);
+		};
 
 	return (
 		<div>
@@ -60,15 +71,13 @@ function MenuIconButton(): React.ReactElement {
 					</Stack>
 					<Box mt={2}>
 						{equations.map((equation, index) => (
-							<Box key={index} mb={2}>
-								<EditableMathField
-									aria-label={`Equation ${index + 1}`}
-									latex={equation}
-									aria-valuetext={equation}
-									onChange={(mathField) => {
-										handleChange(index, mathField.latex());
-									}}
-									config={{ spaceBehavesLikeTab: true }}
+							<Box data-testid={`equation-${index + 1}`} key={equation.index} mb={2}>
+								<Function
+									equation={equation}
+									index={index}
+									handleInputChange={handleInputChanges(FieldEnum.EQUATION)}
+									handleColorChange={handleInputChanges(FieldEnum.COLOR)}
+									handleLineStyleChange={handleInputChanges(FieldEnum.LINE_STYLE)}
 								/>
 							</Box>
 						))}

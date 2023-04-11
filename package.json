@@ -18,11 +18,13 @@
     "html2canvas": "^1.4.1",
     "node-fetch": "^3.3.1",
     "react": "^18.2.0",
+    "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
     "react-mathquill": "^1.0.3",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "util": "^0.12.5",
     "web-vitals": "^3.3.0"
   },
   "scripts": {

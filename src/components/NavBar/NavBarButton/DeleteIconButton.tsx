@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Box from '@mui/material/Box';
-import style from '../NavBarModal/Modal';
+import style from '../../../style/Modal';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
