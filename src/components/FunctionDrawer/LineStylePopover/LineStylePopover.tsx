@@ -1,6 +1,6 @@
 import React from 'react';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
-import { FormControl, FormControlLabel, Popover, Radio, RadioGroup } from '@mui/material';
+import { FormControl, FormControlLabel, FormLabel, Popover, Radio, RadioGroup } from '@mui/material';
 import LineStyling from '../../../style/LineStyling';
 import IconButton from '@mui/material/IconButton';
 import { HexColorPicker } from 'react-colorful';
@@ -53,6 +53,9 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 						}}
 					/>
 					<FormControl>
+						<FormLabel style={{ fontWeight: 'bolder', alignSelf: 'center' }} sx={{ mt: 2 }}>
+							Select Line Style
+						</FormLabel>
 						<RadioGroup
 							aria-labelledby='line-style-radio-group'
 							value={defaultRadioValue}
