@@ -8,7 +8,7 @@
         "import/resolver": {
             "node": {
                 "paths": ["src"],
-                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"],
                 "moduleDirectory": ["node_modules", "src/"]
             }
         },
@@ -51,6 +51,7 @@
             "ignoreCase": true
         }],
         "no-duplicate-imports": ["error"],
+        "import/no-unresolved": ["error", { "ignore": ["^mathjs$"] }],
         "no-unused-vars": "error",
         "import/prefer-default-export": "error",
         "no-restricted-syntax": [

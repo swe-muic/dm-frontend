@@ -8,6 +8,9 @@ import RetrieveParsedEquationsService from '../services/api/RetrieveParsedEquati
 import { isErrorResponseInterface } from '../interfaces/response/ErrorResponseInterface';
 import { useSearchParams } from 'react-router-dom';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { parse } from 'mathjs';
+
 const Home: React.FunctionComponent = () => {
 	const [equations, setEquations] = useState<FunctionInterface[]>([]);
 	const [plotData, setPlotData] = useState<FunctionPlotDatum[]>([]);
@@ -30,17 +33,24 @@ const Home: React.FunctionComponent = () => {
 		return splittedExpression[splittedExpression.length - 1].replace(/\s/g, '');
 	}
 
-	function isPlottable(fn: string): boolean {
+	function isPlottableHelper(fn: string, x: number): boolean {
 		try {
 			// Try to evaluate the function with x = 0
 			// eslint-disable-next-line no-eval
-			const result = eval(`(function(x) { return ${fn}; })(0)`);
-			// Check whether the result is a number
-			return typeof result === 'number' && isFinite(result);
+			const f = parse(fn).compile();
+
+			// Test the function at x=0
+			const evaluatedF = f.evaluate({ x });
+			return typeof evaluatedF === 'number' && !Number.isNaN(evaluatedF);
 		} catch (error) {
-			// If there was an error evaluating the function, it is not plottable
+			console.log(error);
 			return false;
 		}
+	}
+
+	function isPlottable(fn: string): boolean {
+		const xValues = [-100, -10, -1, 0, 1, 10, 100];
+		return xValues.some((x) => isPlottableHelper(fn, x));
 	}
 
 	const handlePlotData: () => Promise<void> = async () => {
