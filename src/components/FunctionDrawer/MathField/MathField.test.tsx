@@ -6,7 +6,7 @@ import MathField, { type MathFieldProps } from './MathField';
 describe('Test MathField', () => {
 	it('should update the equation when the input changes', () => {
 		let equation = 'x^2';
-		const handleChange = jest.fn((index: number, value: string) => {
+		const handleChange = jest.fn((value: string) => {
 			equation = value;
 		});
 		const props: MathFieldProps = {
@@ -22,7 +22,7 @@ describe('Test MathField', () => {
 	});
 
 	let equation = '2x + 3 = 7';
-	const handleChange = jest.fn((index: number, value: string) => {
+	const handleChange = jest.fn((value: string) => {
 		equation = value;
 	});
 	const props: MathFieldProps = {
