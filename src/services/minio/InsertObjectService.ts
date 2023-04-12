@@ -1,5 +1,5 @@
 import minioClient from './MinioClient';
-import type MinioObjectInterface from '../../interface/minio/MinioObjectInterface';
+import type MinioObjectInterface from '../../interfaces/MinioObjectInterface';
 import { PutObjectCommand, type S3 } from '@aws-sdk/client-s3';
 
 /*
@@ -24,10 +24,10 @@ const UploadScreenshotToMinio: (
 	client?: S3,
 ) => Promise<boolean> = async (screenshot: Blob, bucketName: string, fileName: string, client?: S3) => {
 	client = client ?? minioClient;
-	const replacedSlashes = fileName.replace('/', '__');
+	const replacedSlashes = fileName.toLowerCase().replace('/', '__');
 	const arrayBuffer = await screenshot.arrayBuffer();
 	const uint8Array = new Uint8Array(arrayBuffer);
-
+	bucketName = bucketName.toLowerCase();
 	try {
 		await client.headBucket({ Bucket: bucketName });
 		const objectParams: MinioObjectInterface = {
@@ -52,4 +52,3 @@ const UploadScreenshotToMinio: (
 };
 
 export default UploadScreenshotToMinio;
-// export uploadScreenshotToMinio;

@@ -6,24 +6,42 @@ import Typography from '@mui/material/Typography';
 import { Drawer } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
+import loadable from '@loadable/component';
+import type FunctionInterface from '../../../interfaces/FunctionInterface';
+import LineStyleEnum from '../../../enum/LineStyleEnum';
+import FieldEnum from '../../../enum/FieldEnum';
 
-function MenuIconButton(): React.ReactElement {
+/* eslint-disable @typescript-eslint/promise-function-async */
+const Equation = loadable(() => import('../../FunctionDrawer/Equation'));
+/* eslint-enable @typescript-eslint/promise-function-async */
+
+export interface MenuIconProps {
+	equations: FunctionInterface[];
+	setEquations: (equations: FunctionInterface[]) => void;
+}
+
+function MenuIconButton(props: MenuIconProps): React.ReactElement {
+	const { equations, setEquations } = props;
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [numFields, setNumFields] = useState(1);
-	const [equations, setEquations] = useState(['']);
+	const newEquation: FunctionInterface = { equation: '', color: '#000000', lineStyle: LineStyleEnum.SOLID, index: 0 };
 
 	const addField = (): void => {
 		setNumFields(numFields + 1);
-		setEquations([...equations, '']);
+		setEquations([...equations, { ...newEquation, index: equations.length }]);
 	};
 
-	const handleChange = (index: number, value: string): void => {
-		const newEquations = [...equations];
-		newEquations[index] = value;
-		setEquations(newEquations);
-	};
+	const handleInputChanges: (field: FieldEnum) => (index: number) => (value: string | LineStyleEnum) => void =
+		(field) => (index) => (value) => {
+			const newEquations = [...equations];
+			if (field === FieldEnum.LINE_STYLE) {
+				newEquations[index][field] = value as LineStyleEnum;
+			} else {
+				newEquations[index][field] = value;
+			}
+			setEquations([...newEquations]);
+		};
 
 	return (
 		<div>
@@ -57,15 +75,13 @@ function MenuIconButton(): React.ReactElement {
 					</Stack>
 					<Box mt={2}>
 						{equations.map((equation, index) => (
-							<Box key={index} mb={2}>
-								<TextField
-									label={`Equation ${index + 1}`}
-									variant='outlined'
-									fullWidth
-									value={equation}
-									onChange={(e) => {
-										handleChange(index, e.target.value);
-									}}
+							<Box data-testid={`equation-${index + 1}`} key={equation.index} mb={2}>
+								<Equation
+									equation={equation}
+									index={index}
+									handleInputChange={handleInputChanges(FieldEnum.EQUATION)(index)}
+									handleColorChange={handleInputChanges(FieldEnum.COLOR)(index)}
+									handleLineStyleChange={handleInputChanges(FieldEnum.LINE_STYLE)(index)}
 								/>
 							</Box>
 						))}

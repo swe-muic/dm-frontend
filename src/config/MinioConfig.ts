@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+// No point in testing this file.
+/* istanbul ignore file */
 export const MinioConfig = {
 	endpoint: process.env.REACT_APP_MINIO_ENDPOINT ?? 'http://localhost:9000',
 	forcePathStyle: true,

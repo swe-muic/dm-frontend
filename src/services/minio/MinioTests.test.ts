@@ -23,7 +23,7 @@ describe('Test MinIo', () => {
 	});
 
 	test('Test create bucket that does not exist', async () => {
-		const anotherBucketName = 'non-existing-bucket';
+		const anotherBucketName = 'non-existing-bucket-should-fail';
 		const result = await CreateBucketService(anotherBucketName);
 		expect(result).toBe(true);
 
@@ -57,8 +57,8 @@ describe('Test MinIo', () => {
 	});
 
 	test('Try uploading screenshot to non-existing bucket', async () => {
-		const bucketName = 'non-existing-bucket';
-		const result = await UploadScreenshotToMinio(blob ?? new Blob(), bucketName, 'test-file');
+		const bucketName = 'non-existing-bucket-it-should-fail';
+		const result = await UploadScreenshotToMinio(blob ?? new Blob(), bucketName, 'test-file-which-doesnt-exist');
 		expect(result).toBe(false);
 		await MinioClient.deleteBucket({ Bucket: bucketName });
 	});
@@ -83,7 +83,7 @@ describe('Test MinIo', () => {
 	});
 
 	test('Test retrieve object from non-existing bucket', async () => {
-		const result = await RetrieveObjectService('non-existing-bucket', 'test-file');
+		const result = await RetrieveObjectService('non-existing-bucket', 'test-file-whch-doesnt-exist');
 		expect(result).toBe('');
 	});
 });

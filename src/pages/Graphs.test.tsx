@@ -5,6 +5,9 @@ import Graphs from './Graphs';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 
+jest.mock('../services/minio/RetrieveObjectService');
+jest.mock('../services/minio/InsertObjectService');
+
 it('renders the Navbar component with the currentPage prop set to "home"', () => {
 	render(
 		<BrowserRouter>

@@ -2,13 +2,14 @@ import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Box from '@mui/material/Box';
-import style from '../NavBarModal/Modal';
+import style from '../../../style/Modal';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
+import DeleteGraph from '../../../services/api/DeleteGraphService';
 
-export default function DeleteIconButton(): React.ReactElement {
+export default function DeleteIconButton(props: { graphId: number }): React.ReactElement {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = (): void => {
 		setOpen(true);
@@ -68,7 +69,10 @@ export default function DeleteIconButton(): React.ReactElement {
 						<Button
 							data-testid='delete-button'
 							variant='contained'
-							onClick={handleClose}
+							onClick={(event: React.MouseEvent<HTMLElement>) => {
+								void DeleteGraph(props.graphId);
+								window.location.reload();
+							}}
 							sx={{ height: 51, width: 222, bgcolor: '#043551', borderRadius: '6px' }}
 						>
 							DELETE

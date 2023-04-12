@@ -2,42 +2,61 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import MenuIconButton from './MenuIconButton';
+import type FunctionInterface from '../../../interfaces/FunctionInterface';
+import LineStyleEnum from '../../../enum/LineStyleEnum';
 
 describe('MenuIconButton', () => {
+	const component = <MenuIconButton equations={[]} setEquations={jest.fn} />;
+
+	const mockSetEquation = jest.fn();
+	jest.mock('react', () => ({
+		...jest.requireActual('react'),
+		useState: (initialValue: FunctionInterface) => [initialValue, mockSetEquation],
+	}));
+
 	it('should render the component', () => {
-		const { getByLabelText } = render(<MenuIconButton />);
+		const { getByLabelText } = render(component);
 		expect(getByLabelText('menu')).toBeInTheDocument();
 	});
 
 	it('should open the drawer when the menu icon button is clicked', () => {
-		const { getByLabelText, getByRole } = render(<MenuIconButton />);
+		const { getByLabelText, getByRole } = render(component);
 		fireEvent.click(getByLabelText('menu'));
 		expect(getByRole('presentation')).toBeVisible();
 	});
 
 	it('should add a new equation field when the add button is clicked', () => {
-		const { getByLabelText, getAllByLabelText, getByTestId } = render(<MenuIconButton />);
+		const { getByLabelText, getByTestId } = render(<MenuIconButton equations={[]} setEquations={mockSetEquation} />);
 		fireEvent.click(getByLabelText('menu'));
 		fireEvent.click(getByTestId('add-button'));
-		expect(getAllByLabelText(/Equation \d+/)).toHaveLength(2);
+		expect(mockSetEquation).toHaveBeenCalled();
 	});
 
-	it('should update the value of an equation field when the user types', () => {
-		const { getByLabelText } = render(<MenuIconButton />);
-		fireEvent.click(getByLabelText('menu'));
-		const equationField = getByLabelText('Equation 1');
-		fireEvent.change(equationField, { target: { value: '2+2' } });
-		expect(equationField).toHaveValue('2+2');
+	it('should render function properly', () => {
+		const { getByTestId } = render(
+			<MenuIconButton
+				equations={[
+					{
+						equation: '',
+						color: '#000000',
+						lineStyle: LineStyleEnum.SOLID,
+						index: 1,
+					},
+				]}
+				setEquations={mockSetEquation}
+			/>,
+		);
+		expect(getByTestId('equation-1')).toBeInTheDocument();
 	});
-});
 
-test('drawer should close when back button is clicked', () => {
-	render(<MenuIconButton />);
-	const menuButton = screen.getByLabelText('menu');
-	fireEvent.click(menuButton);
-	const drawer = screen.getByTestId('drawer');
-	expect(drawer).toBeVisible();
-	const backButton = screen.getByTestId('back-button');
-	fireEvent.click(backButton);
-	expect(screen.getByTestId('menu-icon-button')).toBeInTheDocument();
+	it('drawer should close when back button is clicked', () => {
+		render(component);
+		const menuButton = screen.getByLabelText('menu');
+		fireEvent.click(menuButton);
+		const drawer = screen.getByTestId('drawer');
+		expect(drawer).toBeVisible();
+		const backButton = screen.getByTestId('back-button');
+		fireEvent.click(backButton);
+		expect(screen.getByTestId('menu-icon-button')).toBeInTheDocument();
+	});
 });

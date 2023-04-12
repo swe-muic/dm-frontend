@@ -14,6 +14,7 @@ export default function checkIsLogin(
 	handleSaveIconClick: () => void,
 	isSave: boolean,
 	handleLoginRegisClick: () => void,
+	graphId: number,
 ): React.ReactElement {
 	return isLogIn ? (
 		<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
@@ -28,7 +29,7 @@ export default function checkIsLogin(
 			>
 				<SaveOutlinedIcon />
 			</IconButton>
-			{isSave ? <DeleteIcon data-testid='delete-icon-buttons' /> : null}
+			{isSave ? <DeleteIcon data-testid='delete-icon-buttons' graphId={graphId} /> : null}
 			<UserIcon />
 		</Stack>
 	) : (

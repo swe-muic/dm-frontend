@@ -7,6 +7,9 @@ import React from 'react';
 import DeleteIconButton from './NavBarButton/DeleteIconButton';
 import HomeIconButton from './NavBarButton/HomeIconButton';
 import MenuIconButton from './NavBarButton/MenuIconButton';
+
+jest.mock('../../services/minio/InsertObjectService');
+
 describe('Navbar', () => {
 	test('navigates to login page on login/register click', () => {
 		render(
@@ -47,7 +50,7 @@ describe('Navbar', () => {
 
 		render(
 			<BrowserRouter>
-				<MenuIconButton />
+				<MenuIconButton equations={[]} setEquations={jest.fn} />
 			</BrowserRouter>,
 		);
 		const homeButton = screen.getByTestId('menu-icon-button');
@@ -64,7 +67,7 @@ describe('Navbar', () => {
 		fireEvent.click(saveButton);
 		render(
 			<BrowserRouter>
-				<DeleteIconButton />
+				<DeleteIconButton graphId={0} />
 			</BrowserRouter>,
 		);
 		const deleteButton = screen.getByTestId('delete-icon-button');

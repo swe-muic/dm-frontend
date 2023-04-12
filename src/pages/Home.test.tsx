@@ -1,9 +1,8 @@
 /* eslint-env jest */
-
+import React from 'react';
 import { render } from '@testing-library/react';
 import Home from './Home';
 import Plot from '../components/Graph/GraphComponent';
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../components/NavBar/NavBar';
 
@@ -11,6 +10,9 @@ jest.mock('function-plot', () => ({
 	__esModule: true,
 	default: jest.fn(),
 }));
+
+jest.mock('../services/api/RetrieveParsedEquationsService');
+jest.mock('../services/minio/InsertObjectService');
 
 describe('Home component', () => {
 	const data = [
@@ -39,6 +41,15 @@ describe('Home component', () => {
 			</BrowserRouter>,
 		);
 
+		expect(container).toBeInTheDocument();
+	});
+
+	it('renders the Home component without crashing', () => {
+		const { container } = render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>,
+		);
 		expect(container).toBeInTheDocument();
 	});
 

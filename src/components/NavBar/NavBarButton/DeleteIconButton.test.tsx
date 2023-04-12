@@ -1,25 +1,24 @@
 /* eslint-env jest */
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
+import { fireEvent, render, screen } from '@testing-library/react';
 import DeleteIconButton from './DeleteIconButton';
 import React from 'react';
+import DeleteGraph from '../../../services/api/DeleteGraphService';
 
-describe('Navbar Delete Icon Button', () => {
-	test('open and close modal', () => {
-		render(
-			<BrowserRouter>
-				<DeleteIconButton />
-			</BrowserRouter>,
-		);
+jest.mock('../../../services/api/DeleteGraphService');
 
-		act(() => {
-			screen.getByTestId('delete-icon-button').click();
-		});
-		act(() => {
-			screen.getByTestId('delete-button').click();
-		});
-		// eslint-disable-next-line no-undef
-		expect(screen.queryByTestId('delete-button')).not.toBeInTheDocument();
+describe('DeleteIconButton', () => {
+	it('displays the delete modal when delete icon button is clicked', () => {
+		render(<DeleteIconButton graphId={1} />);
+		fireEvent.click(screen.getByTestId('delete-icon-button'));
+		expect(screen.getByTestId('delete-modal')).toBeInTheDocument();
+		fireEvent.click(screen.getByTestId('cancel-button'));
+		expect(screen.queryByTestId('delete-modal')).not.toBeInTheDocument();
+	});
+
+	it('calls the DeleteGraph function and reloads the page when delete button is clicked', () => {
+		render(<DeleteIconButton graphId={1} />);
+		fireEvent.click(screen.getByTestId('delete-icon-button'));
+		fireEvent.click(screen.getByTestId('delete-button'));
+		expect(DeleteGraph).toBeCalled();
 	});
 });
