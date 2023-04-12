@@ -6,7 +6,7 @@ function splitExpression(expression: string): string {
 	return splittedExpression[splittedExpression.length - 1].replace(/\s/g, '');
 }
 
-function isPlottableHelper(fn: string, x: number): boolean {
+export function isPlottableHelper(fn: string, x: number): boolean {
 	try {
 		// Try to evaluate the function with x = 0
 		// eslint-disable-next-line no-eval
