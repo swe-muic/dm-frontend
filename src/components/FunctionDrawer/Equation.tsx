@@ -25,6 +25,7 @@ function Equation(props: FunctionProp): React.ReactElement | null {
 
 	const deleteField = (): void => {
 		console.log('delete');
+		handleInputChange('');
 		setIsDeleted(true);
 	};
 

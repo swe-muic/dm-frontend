@@ -42,6 +42,21 @@ const Home: React.FunctionComponent = () => {
 		const parsedEquationResponse = await RetrieveParsedEquationsService(equationsString);
 		if (parsedEquationResponse == null || isErrorResponseInterface(parsedEquationResponse)) {
 			console.log(`Error: ${parsedEquationResponse?.message ?? 'Unknown error'}`);
+			setPlotData(
+				equations
+					.map((equation, index) => ({
+						...equation,
+						index,
+						stringEquation: splitExpression('error'),
+					}))
+					.filter((equation) => equation.stringEquation.length === 0 || isPlottable(equation.stringEquation))
+					.map((equation) => ({
+						fn: splitExpression('error'),
+						color: equation.color,
+						graphType: equation.lineStyle,
+						nSamples: equation.lineStyle === LineStyleEnum.DOTTED ? 150 : undefined,
+					})),
+			);
 			return;
 		}
 		setPlotData(

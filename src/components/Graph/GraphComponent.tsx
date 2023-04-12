@@ -43,7 +43,7 @@ export interface PlotProps {
 }
 
 // Define the Plot component
-export default function Plot({ data, options }: PlotProps): React.ReactElement {
+export default function Plot({ data, options }: PlotProps): React.ReactElement | null {
 	const [mounted, setMounted] = useState(false); // State to keep track of whether the component is mounted
 
 	// Effect to set the mounted state to true when the component is mounted and false when it is unmounted
@@ -53,6 +53,12 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement {
 			setMounted(false);
 		};
 	}, []);
+
+	console.log(data);
+
+	if (data.fn === 'error') {
+		return null;
+	}
 
 	// Return the container for the plot, and render the PlotContainer component inside it when mounted is true
 	return (
