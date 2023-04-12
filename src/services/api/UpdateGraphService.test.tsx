@@ -50,6 +50,21 @@ describe('UpdateGraph', () => {
 		expect(result).toBe(true);
 	});
 
+	it('should return false if the response is not ok', async () => {
+		const errorResponse = {
+			status: 400,
+			message: 'Bad Request',
+			data: {},
+		};
+		global.fetch = jest.fn().mockResolvedValue({
+			ok: false,
+			json: jest.fn().mockResolvedValue(errorResponse),
+		});
+
+		const result = await UpdateGraph('graph_name', 1, '1', 'minio_bucket_name');
+		expect(result).toBe(false);
+	});
+
 	it('should return false if there is an error', async () => {
 		global.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
 
