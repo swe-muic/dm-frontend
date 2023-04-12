@@ -5,6 +5,8 @@ interface ErrorResponseInterface extends BaseResponse {
 		detail: string;
 	};
 }
+
+// is Error Response Interface
 export function isErrorResponseInterface(object: BaseResponse): object is ErrorResponseInterface {
 	return 'detail' in object.data || false;
 }
