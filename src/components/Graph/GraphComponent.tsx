@@ -54,12 +54,6 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement |
 		};
 	}, []);
 
-	console.log(data);
-
-	if (data.fn === 'error') {
-		return null;
-	}
-
 	// Return the container for the plot, and render the PlotContainer component inside it when mounted is true
 	return (
 		<div
