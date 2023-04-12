@@ -1,9 +1,8 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphInterface from '../../interfaces/schema/GraphObjectInterface';
+import type GraphInterface from '../../interface/schema/GraphObjectInterface';
+import type BaseResponse from '../../interfaces/response/BaseResponse';
 
-interface GraphResponse {
-	status: number;
-	message: string;
+interface GraphResponse extends BaseResponse {
 	data: GraphInterface[];
 }
 
