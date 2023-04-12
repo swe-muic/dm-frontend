@@ -5,6 +5,7 @@ export default {
 		'^.+\\.svg$': 'jest-transform-stub',
 		'^.+\\.scss$': '<rootDir>/sassTransform.cjs',
 		'^.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub',
+		'^.+\\.(png|jpg|jpeg|gif|svg|ttf|woff|woff2)$': 'jest-transform-stub',
 	},
 	collectCoverage: true,
 	coverageReporters: ['lcov', 'text', 'cobertura'],

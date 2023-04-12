@@ -14,6 +14,7 @@ export const Primary: Story = {
 	args: {
 		image: 'https://via.placeholder.com/300',
 		title: 'Example Title',
-		description: 'Example description.',
+		linkUrl:
+			'https://example.com/?gclid=CjwKCAjwitShBhA6EiwAq3RqAxmfJUdD82AaTq3VdoSi0b1y1rnCZQKtbmPQLumvXJXGULsV13IAZRoCFdEQAvD_BwE',
 	},
 };
