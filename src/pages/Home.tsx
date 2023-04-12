@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Plot from '../components/Graph/GraphComponent';
 import Navbar from '../components/NavBar/NavBar';
-import type FunctionInterface from '@/interfaces/FunctionInterface';
+import type FunctionInterface from '../interfaces/FunctionInterface';
 import { type FunctionPlotDatum } from 'function-plot/dist/types';
 import LineStyleEnum from '../enum/LineStyleEnum';
 import RetrieveParsedEquationsService from '../services/api/RetrieveParsedEquationsService';
@@ -19,7 +19,6 @@ const Home: React.FunctionComponent = () => {
 	};
 
 	function splitExpression(expression: string): string {
-		console.log(expression);
 		const splittedExpression = expression.split('=');
 		return splittedExpression[splittedExpression.length - 1].replace(/\s/g, '');
 	}
@@ -27,12 +26,10 @@ const Home: React.FunctionComponent = () => {
 	const handlePlotData: () => Promise<void> = async () => {
 		const equationsString = equations.map((equation) => equation.equation);
 		const parsedEquationResponse = await RetrieveParsedEquationsService(equationsString);
-		console.log(parsedEquationResponse);
 		if (parsedEquationResponse == null || isErrorResponseInterface(parsedEquationResponse)) {
 			console.log(`Error: ${parsedEquationResponse?.message ?? 'Unknown error'}`);
 			return;
 		}
-		console.log(parsedEquationResponse.data.parsed_expressions);
 		setPlotData(
 			equations
 				.filter((equations) => equations.equation.length > 0)
@@ -43,7 +40,6 @@ const Home: React.FunctionComponent = () => {
 					nSamples: equation.lineStyle === LineStyleEnum.DOTTED ? 150 : undefined,
 				})),
 		);
-		console.log(plotData);
 	};
 
 	const handleSetEquations: (newEquations: FunctionInterface[]) => void = (newEquations) => {

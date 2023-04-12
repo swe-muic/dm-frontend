@@ -1,12 +1,7 @@
 import { BASE_URL } from '../../config/Constants';
-import type BaseEquationInterface from '../../interfaces/schema/BaseEquationInterface';
 import getRequestOptions from './requestOptions/GetRequestOptions';
-import type BaseResponse from '../../interfaces/response/BaseResponse';
-import type ErrorResponseInterface from '@/interfaces/response/ErrorResponseInterface';
-
-interface ParseEquationsResponse extends BaseResponse {
-	data: BaseEquationInterface;
-}
+import type ErrorResponseInterface from '../../interfaces/response/ErrorResponseInterface';
+import type ParseEquationsResponse from '../../interfaces/response/ParsedEquationsResponse';
 
 /*
 This function retrieves the parsed equations from the server

@@ -10,7 +10,7 @@ import chekIsItEdit from './SubComponentFromNavBar/EditOrTextField';
 import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
 import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
-import type FunctionInterface from '@/interfaces/FunctionInterface';
+import type FunctionInterface from '../../interfaces/FunctionInterface';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));

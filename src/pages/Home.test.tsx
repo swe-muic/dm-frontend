@@ -12,6 +12,8 @@ jest.mock('function-plot', () => ({
 	default: jest.fn(),
 }));
 
+jest.mock('../services/api/RetrieveParsedEquationsService');
+
 describe('Home component', () => {
 	const data = [
 		{ fn: 'x', color: 'red' },
