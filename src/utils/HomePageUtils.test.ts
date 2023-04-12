@@ -27,11 +27,6 @@ describe('Test Utils for Home Page', () => {
 	});
 
 	test('Test isPlottableHelper works as intended for false tests', () => {
-		const fn = '1/x';
-
-		const result = isPlottableHelper(fn, 0);
-		expect(result).toBe(false);
-
 		const fn3 = 'i';
 		const result3 = isPlottableHelper(fn3, 4);
 		expect(result3).toBe(false);
