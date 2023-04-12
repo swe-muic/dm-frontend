@@ -16,7 +16,6 @@ export default function checkIsLogin(
 	handleLoginRegisClick: () => void,
 	graphId: number,
 ): React.ReactElement {
-	console.log(`the graphID in authenOrsave is ${graphId}`);
 	return isLogIn ? (
 		<Stack direction='row' style={{ position: 'absolute', right: '1.25%' }}>
 			<IconButton
