@@ -6,11 +6,19 @@ import { type FunctionPlotDatum } from 'function-plot/dist/types';
 import LineStyleEnum from '../enum/LineStyleEnum';
 import RetrieveParsedEquationsService from '../services/api/RetrieveParsedEquationsService';
 import { isErrorResponseInterface } from '../interfaces/response/ErrorResponseInterface';
+import { useSearchParams } from 'react-router-dom';
 
 const Home: React.FunctionComponent = () => {
 	const [equations, setEquations] = useState<FunctionInterface[]>([]);
 	const [plotData, setPlotData] = useState<FunctionPlotDatum[]>([]);
 	const [showPlot, setShowPlot] = useState<boolean>(true);
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const searchParams = useSearchParams()[0];
+	const gid = searchParams.get('gid') ?? -1;
+
+	// Grid id
+	console.log(`GID: ${gid}`);
 
 	const newEquation: FunctionInterface = {
 		equation: '',
