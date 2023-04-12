@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphDetailResponse from '../../interface/schema/GraphDetailResponseInterface';
-import type GraphValidationErrorResponse from '../../interface/schema/GraphErrorResponseInterface';
+import type GraphDetailResponse from '../../interfaces/response/GraphDetailResponseInterface';
+import type GraphValidationErrorResponse from '../../interfaces/response/GraphErrorResponseInterface';
 
 const CreateGraph = async (buttonText: string, ownerId: string): Promise<number> => {
 	const graphReq = {

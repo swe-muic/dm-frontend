@@ -1,4 +1,4 @@
-import type GraphInterface from './GraphObjectInterface';
+import type GraphInterface from '../../interfaces/schema/GraphObjectInterface';
 
 interface GraphValidationErrorResponse {
 	status: number;

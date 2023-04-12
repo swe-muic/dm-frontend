@@ -18,6 +18,8 @@ import UploadScreenshotToMinio from '../../services/minio/InsertObjectService';
 import GetGraphInformation from '../../services/api/GetGraphInformationService';
 import { isErrorResponseInterface } from '../../interfaces/response/ErrorResponseInterface';
 import GetAllGraphEquations from '../../services/api/GetAllGraphEquationsService';
+import { mapToFunctionInterface } from '../../interfaces/schema/EquationInterface';
+import AddAllGraphEquationsService from '../../services/api/AddAllGraphEquationsService';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -45,6 +47,9 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 
 	const handleCheckGraphExists = (): void => {
 		setIsDirty(true);
+		if (gid === 0) {
+			setGid(-1);
+		}
 		GetGraphInformation(gid)
 			.then((res) => {
 				if (!isErrorResponseInterface(res)) {
@@ -53,8 +58,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					GetAllGraphEquations(gid)
 						.then((equations) => {
 							if (setEquations != null) {
-								// map to Function
-								console.log(equations);
+								setEquations(equations.map((equation, index) => mapToFunctionInterface(equation, index)));
 							}
 						})
 						.catch((e) => {
@@ -110,6 +114,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					});
 			});
 		});
+		await AddAllGraphEquationsService(equations ?? [], gid);
 	};
 
 	const handleSaveIconClick = async (): Promise<void> => {
@@ -125,7 +130,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					.then(async (newGraphId) => {
 						await handleUpdateGraph(uid, newGraphId);
 						setGid(newGraphId);
-						navigate(`${gid}`);
+						// navigate(`${gid}`);
 					})
 					.catch((e) => {
 						console.log(e);
