@@ -3,7 +3,7 @@ import Brightness1Icon from '@mui/icons-material/Brightness1';
 import { FormControl, FormControlLabel, FormLabel, Popover, Radio, RadioGroup } from '@mui/material';
 import LineStyling from '../../../style/LineStyling';
 import IconButton from '@mui/material/IconButton';
-import { HexColorPicker } from 'react-colorful';
+import { HexColorInput, HexColorPicker } from 'react-colorful';
 import Box from '@mui/material/Box';
 import LineStyleEnum from '../../../enum/LineStyleEnum';
 
@@ -54,6 +54,13 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 				<Box sx={{ p: 2 }}>
 					<HexColorPicker
 						data-testid={'color-wheel'}
+						color={color}
+						onChange={(newColor) => {
+							handleColorChange(newColor);
+						}}
+					/>
+					<HexColorInput
+						data-testid={'color-input'}
 						color={color}
 						onChange={(newColor) => {
 							handleColorChange(newColor);
