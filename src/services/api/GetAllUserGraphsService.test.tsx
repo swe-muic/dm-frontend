@@ -28,7 +28,7 @@ describe('GetAllUserGraphs', () => {
 		expect(result).toBeInstanceOf(Promise);
 	});
 
-	it('should return an array of graphs', async () => {
+	it('should return an error response', async () => {
 		const userGraphs = await GetAllUserGraphs(1);
 		expect(userGraphs).toEqual([
 			{

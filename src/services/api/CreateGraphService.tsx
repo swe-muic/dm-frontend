@@ -1,27 +1,32 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphDetailResponse from '../../interface/schema/GraphDetailResponseInterface';
-import type GraphValidationErrorResponse from '../../interface/schema/GraphErrorResponseInterface';
+import type GraphDetailResponse from '../../interfaces/schema/GraphDetailResponseInterface';
+import type GraphValidationErrorResponse from '../../interfaces/schema/GraphErrorResponseInterface';
 
 const CreateGraph = async (buttonText: string, ownerId: string): Promise<number> => {
-	const graphReq = {
-		name: buttonText,
-		preview: 'minio_bucket_test',
-		owner: ownerId,
-	};
-	const response = await fetch(`${BASE_URL}/api/viewset/graphs/`, {
-		method: 'POST',
-		mode: 'cors',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(graphReq),
-	});
-	if (!response.ok) {
-		const errorResponse: GraphValidationErrorResponse = await response.json();
-		throw new Error(errorResponse.message);
+	try {
+		const graphReq = {
+			name: buttonText,
+			preview: 'minio_bucket_test',
+			owner: ownerId,
+		};
+		const response = await fetch(`${BASE_URL}/api/viewset/graphs/`, {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(graphReq),
+		});
+		if (!response.ok) {
+			const errorResponse: GraphValidationErrorResponse = await response.json();
+			throw new Error(errorResponse.message);
+		}
+		const graphDetail: GraphDetailResponse = await response.json();
+		return graphDetail.data.id;
+	} catch (e) {
+		console.log(e);
+		return -1;
 	}
-	const graphDetail: GraphDetailResponse = await response.json();
-	return graphDetail.data.id;
 };
 
 export default CreateGraph;
