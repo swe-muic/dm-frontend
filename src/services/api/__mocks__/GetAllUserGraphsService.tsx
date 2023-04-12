@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import type GraphInterface from '../../../interface/schema/GraphObjectInterface';
+import type GraphInterface from '../../../interfaces/schema/GraphObjectInterface';
 
 const mockedGraphs: GraphInterface[] = [
 	{

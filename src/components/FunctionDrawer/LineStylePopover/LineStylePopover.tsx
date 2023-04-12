@@ -21,7 +21,12 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 	const [checked, setChecked] = React.useState(false);
 
 	const handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void = (event) => {
-		setAnchorEl(event.currentTarget);
+		if (anchorEl != null) {
+			// eslint-disable-next-line no-use-before-define
+			handleClose();
+		} else {
+			setAnchorEl(event.currentTarget);
+		}
 	};
 
 	const handleClose: () => void = () => {
@@ -32,14 +37,15 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 
 	return (
 		<Box>
-			<IconButton onClick={handleClick}>
+			<IconButton onClick={handleClick} data-testid={'selector-button'}>
 				<Brightness1Icon style={{ ...LineStyling, color: `${color}` }} />
 			</IconButton>
 			<Popover
+				data-testid={'color-pick'}
 				id={id}
-				open={open}
-				anchorEl={anchorEl}
+				open={Boolean(anchorEl)}
 				onClose={handleClose}
+				anchorEl={anchorEl}
 				anchorOrigin={{
 					vertical: 'bottom',
 					horizontal: 'right',
@@ -47,6 +53,7 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 			>
 				<Box sx={{ p: 2 }}>
 					<HexColorPicker
+						data-testid={'color-wheel'}
 						color={color}
 						onChange={(newColor) => {
 							handleColorChange(newColor);

@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import MenuIconButton from './MenuIconButton';
 import type FunctionInterface from '../../../interfaces/FunctionInterface';
+
 describe('MenuIconButton', () => {
 	const component = <MenuIconButton equations={[]} setEquations={jest.fn} />;
 

@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphInterface from '../../interface/schema/GraphObjectInterface';
 import type BaseResponse from '../../interfaces/response/BaseResponse';
+import type GraphInterface from '../../interfaces/schema/GraphObjectInterface';
 
 interface GraphResponse extends BaseResponse {
 	data: GraphInterface[];
