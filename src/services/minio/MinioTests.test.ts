@@ -6,8 +6,7 @@ import RetrieveObjectService from './RetrieveObjectService';
 import { S3 } from '@aws-sdk/client-s3';
 import { MinioConfig } from '../../config/MinioConfig';
 
-// TODO: remove .skip
-describe.skip('Test MinIo', () => {
+describe('Test MinIo', () => {
 	const bucketName = 'test-bucket';
 	let blob: Blob;
 

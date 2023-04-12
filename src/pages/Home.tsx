@@ -6,6 +6,7 @@ import { type FunctionPlotDatum } from 'function-plot/dist/types';
 import LineStyleEnum from '../enum/LineStyleEnum';
 import RetrieveParsedEquationsService from '../services/api/RetrieveParsedEquationsService';
 import { isErrorResponseInterface } from '../interfaces/response/ErrorResponseInterface';
+
 const Home: React.FunctionComponent = () => {
 	const [equations, setEquations] = useState<FunctionInterface[]>([]);
 	const [plotData, setPlotData] = useState<FunctionPlotDatum[]>([]);
@@ -23,6 +24,19 @@ const Home: React.FunctionComponent = () => {
 		return splittedExpression[splittedExpression.length - 1].replace(/\s/g, '');
 	}
 
+	function isPlottable(fn: string): boolean {
+		try {
+			// Try to evaluate the function with x = 0
+			// eslint-disable-next-line no-eval
+			const result = eval(`(function(x) { return ${fn}; })(0)`);
+			// Check whether the result is a number
+			return typeof result === 'number' && isFinite(result);
+		} catch (error) {
+			// If there was an error evaluating the function, it is not plottable
+			return false;
+		}
+	}
+
 	const handlePlotData: () => Promise<void> = async () => {
 		const equationsString = equations.map((equation) => equation.equation);
 		const parsedEquationResponse = await RetrieveParsedEquationsService(equationsString);
@@ -33,6 +47,11 @@ const Home: React.FunctionComponent = () => {
 		setPlotData(
 			equations
 				.filter((equations) => equations.equation.length > 0)
+				.map((equation) => ({
+					...equation,
+					stringEquation: splitExpression(parsedEquationResponse.data.parsed_expressions[equation.index]),
+				}))
+				.filter((equation) => isPlottable(equation.stringEquation))
 				.map((equation) => ({
 					fn: splitExpression(parsedEquationResponse.data.parsed_expressions[equation.index]),
 					color: equation.color,

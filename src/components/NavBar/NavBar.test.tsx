@@ -53,8 +53,8 @@ describe('Navbar', () => {
 		const homeButton = screen.getByTestId('menu-icon-button');
 		expect(homeButton).toBeInTheDocument();
 	});
-	// TODO :remove skip
-	test.skip('delete and modal test', () => {
+
+	test('delete and modal test', () => {
 		render(
 			<BrowserRouter>
 				<Navbar currentPage='home' forceLogin={true} />
