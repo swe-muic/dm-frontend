@@ -17,6 +17,10 @@ const PlotContainer: React.FC<PlotContainerProps> = ({ data, options }) => {
 	// hen the container ref or the data/options props change
 	React.useEffect(() => {
 		// Check that the container ref is not null
+		const legendItems = document.getElementsByClassName('top-right-legend');
+		Array.from(legendItems).forEach((legendItem) => {
+			(legendItem as HTMLElement).style.display = 'none';
+		});
 		if (containerRef.current != null) {
 			// Create the function-plot chart with the specified options and data, and render it inside the container ref
 			functionPlot({
