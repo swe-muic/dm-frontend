@@ -132,7 +132,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					.then(async (newGraphId) => {
 						await handleUpdateGraph(uid, newGraphId);
 						setGid(newGraphId);
-						// navigate(`${gid}`);
+						navigate(`${gid}`);
 					})
 					.catch((e) => {
 						console.log(e);
