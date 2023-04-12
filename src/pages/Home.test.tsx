@@ -13,6 +13,7 @@ jest.mock('function-plot', () => ({
 }));
 
 jest.mock('../services/api/RetrieveParsedEquationsService');
+jest.mock('../services/minio/InsertObjectService');
 
 describe('Home component', () => {
 	const data = [

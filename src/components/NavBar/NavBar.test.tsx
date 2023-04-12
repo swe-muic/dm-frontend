@@ -7,6 +7,9 @@ import React from 'react';
 import DeleteIconButton from './NavBarButton/DeleteIconButton';
 import HomeIconButton from './NavBarButton/HomeIconButton';
 import MenuIconButton from './NavBarButton/MenuIconButton';
+
+jest.mock('../../services/minio/InsertObjectService');
+
 describe('Navbar', () => {
 	test('navigates to login page on login/register click', () => {
 		render(
