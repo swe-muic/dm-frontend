@@ -15,24 +15,20 @@ const PlotContainer: React.FC<PlotContainerProps> = ({ data, options }) => {
 	// Effect to create and render the function-plot chart when the container ref or the data/options props change
 	React.useEffect(() => {
 		// Check that the container ref is not null
-		try {
-			if (containerRef.current != null) {
-				// Create the function-plot chart with the specified options and data, and render it inside the container ref
-				functionPlot({
-					...options,
-					tip: {
-						xLine: true,
-						yLine: true,
-					},
-					target: containerRef.current,
-					grid: true,
-					width: window.innerWidth,
-					height: window.innerHeight,
-					data,
-				});
-			}
-		} catch (error) {
-			console.warn(error);
+		if (containerRef.current != null) {
+			// Create the function-plot chart with the specified options and data, and render it inside the container ref
+			functionPlot({
+				...options,
+				tip: {
+					xLine: true,
+					yLine: true,
+				},
+				target: containerRef.current,
+				grid: true,
+				width: window.innerWidth,
+				height: window.innerHeight,
+				data,
+			});
 		}
 	}, [data, options]);
 

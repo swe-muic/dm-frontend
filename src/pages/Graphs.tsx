@@ -24,7 +24,6 @@ const Graphs: React.FunctionComponent = () => {
 		const fetchImages = async (): Promise<void> => {
 			try {
 				const userGraphs = await GetAllUserGraphs(1);
-				console.log(userGraphs);
 				const imagesWithUrls: Image[] = await Promise.all(
 					userGraphs.map(async (graph) => {
 						const url = await RetrieveObjectService(`user-${graph.owner}-bucket`, graph.preview);
@@ -72,7 +71,6 @@ const Graphs: React.FunctionComponent = () => {
 							navigate('/');
 						})
 						.catch((error) => {
-							/* istanbul ignore next */
 							console.warn(error);
 						});
 				}}

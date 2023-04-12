@@ -64,7 +64,7 @@ describe('Navbar', () => {
 		fireEvent.click(saveButton);
 		render(
 			<BrowserRouter>
-				<DeleteIconButton />
+				<DeleteIconButton graphId={0} />
 			</BrowserRouter>,
 		);
 		const deleteButton = screen.getByTestId('delete-icon-button');
