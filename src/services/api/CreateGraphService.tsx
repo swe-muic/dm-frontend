@@ -1,31 +1,14 @@
-interface Graph {
-	id: number;
-	name: string;
-	preview: string;
-	owner: string;
-	created: string;
-	updated: string;
-}
-
-interface GraphDetailResponse {
-	status: number;
-	message: string;
-	data: Graph;
-}
-
-interface GraphValidationErrorResponse {
-	status: number;
-	message: string;
-	data: Graph;
-}
+import { BASE_URL } from '../../config/Constants';
+import type GraphDetailResponse from '../../interface/schema/GraphDetailResponseInterface';
+import type GraphValidationErrorResponse from '../../interface/schema/GraphErrorResponseInterface';
 
 const CreateGraph = async (buttonText: string, ownerId: string): Promise<number> => {
 	const graphReq = {
 		name: buttonText,
 		preview: 'minio_bucket_test',
-		owner: ownerId, // auth.currentUser?.uid
+		owner: ownerId,
 	};
-	const response = await fetch('http://127.0.0.1:8000/api/viewset/graphs/', {
+	const response = await fetch(`${BASE_URL}/api/viewset/graphs/`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -38,7 +21,6 @@ const CreateGraph = async (buttonText: string, ownerId: string): Promise<number>
 		throw new Error(errorResponse.message);
 	}
 	const graphDetail: GraphDetailResponse = await response.json();
-	console.log(graphDetail.data);
 	return graphDetail.data.id;
 };
 
