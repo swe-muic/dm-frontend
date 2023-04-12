@@ -1,5 +1,5 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphValidationErrorResponse from '../../interface/schema/GraphErrorResponseInterface';
+import type GraphValidationErrorResponse from '../../interfaces/response/GraphErrorResponseInterface';
 
 const UpdateGraph = async (buttonText: string, graphId: number, ownerId: string, preview: string): Promise<boolean> => {
 	try {

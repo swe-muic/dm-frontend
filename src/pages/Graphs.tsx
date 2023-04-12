@@ -30,7 +30,7 @@ const Graphs: React.FunctionComponent = () => {
 						return {
 							image: url.length === 0 ? 'https://via.placeholder.com/500x500.png' : url,
 							title: graph.name,
-							linkUrl: `/?graph_id=${graph.id}`,
+							linkUrl: `/?gid=${graph.id}`,
 						};
 					}),
 				);

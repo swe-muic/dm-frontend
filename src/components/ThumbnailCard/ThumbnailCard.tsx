@@ -16,7 +16,7 @@ const ThumbnailCard: React.FC<Props> = ({ image, title, linkUrl }) => {
 	const navigate = useNavigate();
 
 	const handleCardClick = (): void => {
-		navigate(`/?graph_id=${1}`);
+		navigate(linkUrl);
 	};
 
 	return (
