@@ -32,6 +32,15 @@ describe('Test Utils for Home Page', () => {
 		expect(result3).toBe(false);
 	});
 
+	test('Test isPlottableHelper correctly returns false for invalid functions', () => {
+		const fn = '\\';
+		const result = isPlottableHelper(fn, 4);
+		expect(result).toBe(false);
+
+		const fn2 = 'j=k+l';
+		const result2 = isPlottableHelper(fn2, 4);
+		expect(result2).toBe(false);
+	});
 	test('Test isPlottableHelper logs and returns false when passed an invalid input', () => {
 		const fn = 'invalid input';
 		const result = isPlottableHelper(fn, 0);

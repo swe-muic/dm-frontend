@@ -10,7 +10,6 @@ const DeleteGraph = async (graphId: number): Promise<void> => {
 			},
 		});
 		if (!response.ok) {
-			// const errorMessage = await response.json();
 			throw new Error('NOT FOUND');
 		}
 	} catch (e) {
