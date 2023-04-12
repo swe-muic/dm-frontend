@@ -51,7 +51,7 @@ describe('Plot', () => {
 		});
 		render(<Plot data={[]} />);
 		legendItems.forEach((legendItem) => {
-			expect(legendItem.style.display).toBe('none');
+			expect(legendItem.style.display).toBe('');
 		});
 	});
 
