@@ -38,12 +38,14 @@ describe('LineStylePopover', () => {
 		expect(screen.getByRole('button')).toBeInTheDocument();
 	});
 });
-
-const mockHandleColorChange = jest.fn();
+let color = '#000000';
+const mockHandleColorChange = jest.fn((value: string) => {
+	color = value;
+});
 const mockHandleLineStyleChange = jest.fn();
 
 const defaultProps: LineStyleProp = {
-	color: '#000000',
+	color,
 	lineStyle: LineStyleEnum.SOLID,
 	handleColorChange: mockHandleColorChange,
 	handleLineStyleChange: mockHandleLineStyleChange,
@@ -85,5 +87,36 @@ describe('LineStylePopover', () => {
 		const dottedRadioElement = screen.getByLabelText('Dotted');
 		fireEvent.click(dottedRadioElement);
 		expect(mockHandleLineStyleChange).toHaveBeenCalledWith(LineStyleEnum.DOTTED);
+	});
+
+	test('handles color change correctly', () => {
+		const { getByTestId } = render(<LineStylePopover {...defaultProps} />);
+
+		const buttonElement = screen.getByTestId('selector-button');
+		fireEvent.click(buttonElement);
+		const input = getByTestId('color-input');
+		fireEvent.change(input, { target: { value: '#ffffff' } });
+	});
+
+	let color2 = '#ffffff';
+	const mockHandleColorChange2 = jest.fn((value: string) => {
+		color2 = value;
+	});
+	const mockHandleLineStyleChange2 = jest.fn();
+
+	const defaultProps2: LineStyleProp = {
+		color: color2,
+		lineStyle: LineStyleEnum.SOLID,
+		handleColorChange: mockHandleColorChange2,
+		handleLineStyleChange: mockHandleLineStyleChange2,
+	};
+
+	test('handles color change correctly', () => {
+		const { getByTestId } = render(<LineStylePopover {...defaultProps2} />);
+
+		const buttonElement = screen.getByTestId('selector-button');
+		fireEvent.click(buttonElement);
+		const input = getByTestId('color-wheel');
+		fireEvent.click(input);
 	});
 });

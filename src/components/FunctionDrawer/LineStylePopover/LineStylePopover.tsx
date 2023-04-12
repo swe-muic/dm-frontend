@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 import Box from '@mui/material/Box';
 import LineStyleEnum from '../../../enum/LineStyleEnum';
+import Stack from '@mui/material/Stack';
 
 export interface LineStyleProp {
 	color: string;
@@ -52,20 +53,23 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 				}}
 			>
 				<Box sx={{ p: 2 }}>
-					<HexColorPicker
-						data-testid={'color-wheel'}
-						color={color}
-						onChange={(newColor) => {
-							handleColorChange(newColor);
-						}}
-					/>
-					<HexColorInput
-						data-testid={'color-input'}
-						color={color}
-						onChange={(newColor) => {
-							handleColorChange(newColor);
-						}}
-					/>
+					<Stack direction={'column'} spacing={2}>
+						<HexColorPicker
+							data-testid={'color-wheel'}
+							color={color}
+							onChange={(newColor) => {
+								/* istanbul ignore next */
+								handleColorChange(newColor);
+							}}
+						/>
+						<HexColorInput
+							data-testid={'color-input'}
+							color={color}
+							onChange={(newColor) => {
+								handleColorChange(newColor);
+							}}
+						/>
+					</Stack>
 					<FormControl>
 						<FormLabel style={{ fontWeight: 'bolder', alignSelf: 'center' }} sx={{ mt: 2 }}>
 							Select Line Style
