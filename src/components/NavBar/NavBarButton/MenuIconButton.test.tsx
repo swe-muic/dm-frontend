@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import MenuIconButton from './MenuIconButton';
 import type FunctionInterface from '../../../interfaces/FunctionInterface';
-
+import LineStyleEnum from '../../../enum/LineStyleEnum';
 describe('MenuIconButton', () => {
 	const component = <MenuIconButton equations={[]} setEquations={jest.fn} />;
 
@@ -40,5 +40,23 @@ describe('MenuIconButton', () => {
 		const backButton = screen.getByTestId('back-button');
 		fireEvent.click(backButton);
 		expect(screen.getByTestId('menu-icon-button')).toBeInTheDocument();
+	});
+});
+
+describe('EquationList', () => {
+	const mockSetEquations = jest.fn();
+	const mockEquations = [
+		{ equation: 'y = x', color: 'black', lineStyle: LineStyleEnum.SOLID, index: 0 },
+		{ equation: 'y = 2x', color: 'red', lineStyle: LineStyleEnum.DOTTED, index: 1 },
+	];
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	test('renders the correct number of equations', () => {
+		render(<MenuIconButton equations={mockEquations} setEquations={mockSetEquations} />);
+		expect(screen.getByTestId('equation-1')).toBeInTheDocument();
+		expect(screen.getByTestId('equation-2')).toBeInTheDocument();
 	});
 });

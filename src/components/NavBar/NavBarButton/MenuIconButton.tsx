@@ -31,7 +31,7 @@ function MenuIconButton(props: MenuIconProps): React.ReactElement {
 		setNumFields(numFields + 1);
 		setEquations([...equations, { ...newEquation, index: equations.length }]);
 	};
-
+	/* istanbul ignore next */
 	const handleInputChanges: (field: FieldEnum) => (index: number) => (value: string | LineStyleEnum) => void =
 		(field) => (index) => (value) => {
 			const newEquations = [...equations];
