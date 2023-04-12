@@ -48,7 +48,6 @@ const Home: React.FunctionComponent = () => {
 					nSamples: equation.lineStyle === LineStyleEnum.DOTTED ? 150 : undefined,
 				})),
 		);
-		console.table(plotData);
 	};
 
 	const handleSetEquations: (newEquations: FunctionInterface[]) => void = (newEquations) => {
