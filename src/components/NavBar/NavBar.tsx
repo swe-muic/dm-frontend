@@ -15,12 +15,9 @@ import UpdateGraph from '../../services/api/UpdateGraphService';
 import type FunctionInterface from '../../interfaces/FunctionInterface';
 import html2canvas from 'html2canvas';
 import UploadScreenshotToMinio from '../../services/minio/InsertObjectService';
-import GetGraphInformation from '../../services/api/GetGraphInformationService';
-import { isErrorResponseInterface } from '../../interfaces/response/ErrorResponseInterface';
-import GetAllGraphEquations from '../../services/api/GetAllGraphEquationsService';
-import { mapToFunctionInterface } from '../../interfaces/schema/EquationInterface';
 import AddAllGraphEquationsService from '../../services/api/AddAllGraphEquationsService';
 import DeleteAllGraphEquationsService from '../../services/api/DeleteAllGraphEquationsService';
+import handleCheckGraphExists from '../../utils/NavBarUtils';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -46,35 +43,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
 	const [isDirty, setIsDirty] = useState(false);
 
-	const handleCheckGraphExists = (): void => {
-		setIsDirty(true);
-		if (gid === 0) {
-			setGid(-1);
-		}
-		GetGraphInformation(gid)
-			.then((res) => {
-				if (!isErrorResponseInterface(res)) {
-					console.log(res);
-					setDisplayText(res.data.name);
-					setIsSave(true);
-					GetAllGraphEquations(gid)
-						.then((equations) => {
-							if (setEquations != null) {
-								setEquations(equations.map((equation, index) => mapToFunctionInterface(equation, index)));
-							}
-						})
-						.catch((e) => {
-							console.log(e);
-						});
-				}
-			})
-			.catch((e) => {
-				console.log(e);
-			});
-	};
-
 	if (!isDirty) {
-		handleCheckGraphExists();
+		handleCheckGraphExists(setIsDirty, gid, setGid, setDisplayText, setIsSave, setEquations);
 	}
 
 	// eslint-disable-next-line no-undef

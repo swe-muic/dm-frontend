@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import MenuIconButton from './MenuIconButton';
 import type FunctionInterface from '../../../interfaces/FunctionInterface';
+import LineStyleEnum from '../../../enum/LineStyleEnum';
 
 describe('MenuIconButton', () => {
 	const component = <MenuIconButton equations={[]} setEquations={jest.fn} />;
@@ -29,6 +30,23 @@ describe('MenuIconButton', () => {
 		fireEvent.click(getByLabelText('menu'));
 		fireEvent.click(getByTestId('add-button'));
 		expect(mockSetEquation).toHaveBeenCalled();
+	});
+
+	it('should render function properly', () => {
+		const { getByTestId } = render(
+			<MenuIconButton
+				equations={[
+					{
+						equation: '',
+						color: '#000000',
+						lineStyle: LineStyleEnum.SOLID,
+						index: 1,
+					},
+				]}
+				setEquations={mockSetEquation}
+			/>,
+		);
+		expect(getByTestId('equation-1')).toBeInTheDocument();
 	});
 
 	it('drawer should close when back button is clicked', () => {

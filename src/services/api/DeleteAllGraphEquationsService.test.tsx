@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import DeleteAllGraphEquationsService from './DeleteAllGraphEquationsService';
 
-jest.mock('../../services/api/GetAllGraphEquationsService', () =>
+jest.mock('../../services/api/GetAllGraphEquationsService.tsx', () =>
 	jest.fn().mockResolvedValue([
 		{
 			id: 2,
