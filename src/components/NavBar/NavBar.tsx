@@ -11,9 +11,13 @@ import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
 import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
 import CreateGraph from '../../services/api/CreateGraphService';
-import GraphExists from '../../services/api/CheckGraphExistsService';
 import UpdateGraph from '../../services/api/UpdateGraphService';
 import type FunctionInterface from '../../interfaces/FunctionInterface';
+import html2canvas from 'html2canvas';
+import UploadScreenshotToMinio from '../../services/minio/InsertObjectService';
+import GetGraphInformation from '../../services/api/GetGraphInformationService';
+import { isErrorResponseInterface } from '../../interfaces/response/ErrorResponseInterface';
+import GetAllGraphEquations from '../../services/api/GetAllGraphEquationsService';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -26,16 +30,41 @@ export interface NavbarProps {
 	forceLogin?: boolean;
 	equations?: FunctionInterface[];
 	setEquations?: (equations: FunctionInterface[]) => void;
+	actualGid?: number;
 }
 
 export default function Navbar(props: NavbarProps): React.ReactElement {
-	const { currentPage, forceLogin, setEquations, equations } = props;
+	const { currentPage, forceLogin, setEquations, equations, actualGid } = props;
 	const navigate = useNavigate();
-	const [gid, setGid] = useState(-1);
+	const [gid, setGid] = useState(actualGid ?? -1);
 	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
 	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
+
+	const handleCheckGraphExists = (): void => {
+		GetGraphInformation(gid)
+			.then((res) => {
+				if (!isErrorResponseInterface(res)) {
+					setDisplayText(res.data.name);
+					GetAllGraphEquations(gid)
+						.then((equations) => {
+							if (setEquations != null) {
+								// map to Function
+								setEquations(equations.map((equation, index) => ({ ...equation, index })));
+							}
+						})
+						.catch((e) => {
+							console.log(e);
+						});
+				}
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	handleCheckGraphExists();
 
 	// eslint-disable-next-line no-undef
 	/* istanbul ignore next */
@@ -58,17 +87,44 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsLogin(!isLogIn);
 	};
 
+	const handleUpdateGraph = async (uid: string, gid: number): Promise<void> => {
+		await html2canvas(document.body).then((canvas) => {
+			const bucketName = `user-${uid}-bucket`;
+			const preview = `graph-${gid}-preview`;
+			canvas.toBlob((blob) => {
+				UploadScreenshotToMinio(blob ?? new Blob(), bucketName, preview)
+					.then((canUpload) => {
+						if (canUpload) {
+							UpdateGraph(buttonText, gid, uid, preview).catch((e) => {
+								console.log(e);
+							});
+						}
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			});
+		});
+	};
+
 	const handleSaveIconClick = async (): Promise<void> => {
 		const user = auth.currentUser;
 		setIsSave(true);
 		if (user != null) {
 			const uid = user.uid;
-			const isExist = await GraphExists(gid);
+			const isExist = gid !== -1;
 			if (isExist) {
-				await UpdateGraph(buttonText, gid, uid);
+				await handleUpdateGraph(uid, gid);
 			} else {
-				const newGraphId = await CreateGraph(buttonText, uid);
-				setGid(newGraphId);
+				CreateGraph(buttonText, uid)
+					.then(async (newGraphId) => {
+						await handleUpdateGraph(uid, newGraphId);
+						setGid(newGraphId);
+						navigate(`${gid}`);
+					})
+					.catch((e) => {
+						console.log(e);
+					});
 			}
 		} else {
 			console.log('null user');

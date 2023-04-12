@@ -1,11 +1,11 @@
 import { BASE_URL } from '../../config/Constants';
 import type GraphValidationErrorResponse from '../../interface/schema/GraphErrorResponseInterface';
 
-const UpdateGraph = async (buttonText: string, graphId: number, ownerId: string): Promise<void> => {
+const UpdateGraph = async (buttonText: string, graphId: number, ownerId: string, preview: string): Promise<boolean> => {
 	try {
 		const graphReq = {
 			name: buttonText,
-			preview: 'minio_bucket_test2',
+			preview,
 			updated: new Date().toDateString(),
 			owner: ownerId,
 		};
@@ -21,8 +21,10 @@ const UpdateGraph = async (buttonText: string, graphId: number, ownerId: string)
 			const errorResponse: GraphValidationErrorResponse = await response.json();
 			throw new Error(errorResponse.message);
 		}
+		return true;
 	} catch (e) {
 		console.log(e);
+		return false;
 	}
 };
 export default UpdateGraph;

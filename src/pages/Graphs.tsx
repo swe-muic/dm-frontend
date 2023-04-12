@@ -23,7 +23,7 @@ const Graphs: React.FunctionComponent = () => {
 	useEffect(() => {
 		const fetchImages = async (): Promise<void> => {
 			try {
-				const userGraphs = await GetAllUserGraphs(1);
+				const userGraphs = await GetAllUserGraphs(auth.currentUser?.uid ?? '');
 				const imagesWithUrls: Image[] = await Promise.all(
 					userGraphs.map(async (graph) => {
 						const url = await RetrieveObjectService(`user-${graph.owner}-bucket`, graph.preview);

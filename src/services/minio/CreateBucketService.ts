@@ -9,6 +9,7 @@ This function creates a bucket if it does not exist
  */
 const CreateBucket: (bucketName: string, client?: S3) => Promise<boolean> = async (bucketName: string, client?: S3) => {
 	client = client ?? minioClient;
+	bucketName = bucketName.toLowerCase();
 	try {
 		await client.headBucket({ Bucket: bucketName });
 		return false;

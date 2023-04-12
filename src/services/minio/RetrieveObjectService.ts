@@ -14,8 +14,8 @@ const RetrieveObjectService: (bucketName: string, fileName: string) => Promise<s
 ) => {
 	try {
 		const objectParams = {
-			Bucket: bucketName,
-			Key: `${fileName}.png`,
+			Bucket: bucketName.toLowerCase(),
+			Key: `${fileName.toLowerCase()}.png`,
 		};
 		const { Body } = await minioClient.send(new GetObjectCommand(objectParams));
 		const stream = Body as ReadableStream<Uint8Array>;

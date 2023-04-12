@@ -2,7 +2,7 @@ interface GraphInterface {
 	id: number;
 	name: string;
 	preview: string;
-	owner: number;
+	owner: string;
 	created: string;
 	updated: string;
 }
