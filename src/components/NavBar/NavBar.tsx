@@ -56,6 +56,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 				if (!isErrorResponseInterface(res)) {
 					console.log(res);
 					setDisplayText(res.data.name);
+					setIsSave(true);
 					GetAllGraphEquations(gid)
 						.then((equations) => {
 							if (setEquations != null) {

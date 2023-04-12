@@ -1,4 +1,4 @@
-import type GraphInterface from '../../interfaces/schema/GraphObjectInterface';
+import type GraphInterface from '../schema/GraphObjectInterface';
 
 interface GraphDetailResponse {
 	status: number;

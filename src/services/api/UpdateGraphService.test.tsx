@@ -9,7 +9,7 @@ const mockResponse = {
 		id: 1,
 		name: 'sample_graph',
 		preview: 'minio_bucket_name',
-		owner: 1,
+		owner: '1',
 		created: '2023-04-12T14:43:45.905Z',
 		updated: '2023-04-12T14:43:45.905Z',
 	},
