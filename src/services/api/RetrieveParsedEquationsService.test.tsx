@@ -1,38 +1,43 @@
 /* eslint-env jest */
 import RetrieveParsedEquationsService from './RetrieveParsedEquationsService';
-import { isErrorResponseInterface } from '../../interfaces/response/ErrorResponseInterface';
+import type ErrorResponseInterface from '@/interfaces/response/ErrorResponseInterface';
 
-jest.mock('./RetrieveParsedEquationsService');
+const mockResults = {
+	status: 200,
+	message: 'success',
+	data: {
+		expressions: ['x^2'],
+		parsed_expressions: ['2x'],
+	},
+};
+
+global.fetch = jest.fn().mockResolvedValue({
+	json: jest.fn().mockResolvedValue(mockResults),
+});
 
 describe('Test Retrieve Parsed Equation Service', () => {
-	test('Test receive 200 response', async () => {
-		RetrieveParsedEquationsService(['2x'])
-			.then((response) => {
-				expect(response).not.toBeUndefined();
-				if (response != null) {
-					expect(response.status).toBe(200);
-					if (!isErrorResponseInterface(response)) {
-						expect(response.data.parsed_expressions).toEqual(['x^2']);
-					} else {
-						expect(response.data).toBeUndefined();
-					}
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+	it('should return a Promise', () => {
+		const result = RetrieveParsedEquationsService(['x^2']);
+		expect(result).toBeInstanceOf(Promise);
 	});
 
-	test('Test receive 400 response', async () => {
-		RetrieveParsedEquationsService(['x^2', '2x+3'])
-			.then((response) => {
-				expect(response).not.toBeUndefined();
-				if (response != null) {
-					expect(response.status).toBe(400);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+	it('should return an array of graphs', async () => {
+		const userGraphs = await RetrieveParsedEquationsService(['x^2']);
+		expect(userGraphs).toEqual(mockResults);
+	});
+
+	it('should return error response when failed', async () => {
+		const failedResults: ErrorResponseInterface = {
+			status: 400,
+			message: 'Bad Request',
+			data: {
+				detail: 'Invalid expression',
+			},
+		};
+		global.fetch = jest.fn().mockResolvedValue({
+			json: jest.fn().mockResolvedValue(failedResults),
+		});
+		const userGraphs = await RetrieveParsedEquationsService(['x^2']);
+		expect(userGraphs).toEqual(failedResults);
 	});
 });
