@@ -23,9 +23,8 @@ const mockedGraphs: EquationInterface[] = [
 	},
 ];
 
-const GetAllGraphEquations = jest.fn().mockImplementation(async (graphId: number) => {
-	console.log('mockedGraphs', mockedGraphs);
-	mockedGraphs.filter((equation) => equation.graph === graphId);
-});
+const GetAllGraphEquations = jest
+	.fn()
+	.mockImplementation(async (graphId: number) => mockedGraphs.filter((equation) => equation.graph === graphId));
 
 export default GetAllGraphEquations;
