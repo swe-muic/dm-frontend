@@ -15,20 +15,24 @@ export default function Plot({ data, options }: PlotProps): React.ReactElement {
 		Array.from(legendItems).forEach((legendItem) => {
 			(legendItem as HTMLElement).style.display = 'none';
 		});
-		if (containerRef.current != null && mounted) {
-			functionPlot({
-				...options,
-				tip: {
-					xLine: true,
-					yLine: true,
-				},
-				target: containerRef.current,
-				grid: true,
-				width: window.innerWidth,
-				height: window.innerHeight,
+		try {
+			if (containerRef.current != null && mounted) {
+				functionPlot({
+					...options,
+					tip: {
+						xLine: true,
+						yLine: true,
+					},
+					target: containerRef.current,
+					grid: true,
+					width: window.innerWidth,
+					height: window.innerHeight,
 
-				data,
-			});
+					data,
+				});
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	}, [data, options, mounted]);
 

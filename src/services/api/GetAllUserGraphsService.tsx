@@ -1,5 +1,5 @@
 import { BASE_URL } from '../../config/Constants';
-import type GraphInterface from '../../interface/schema/GraphObjectInterface';
+import type GraphInterface from '../../interfaces/schema/GraphObjectInterface';
 
 interface GraphResponse {
 	status: number;
@@ -15,8 +15,7 @@ This function returns all of the specified user's graphs
 const GetAllUserGraphs = async (ownerId: number): Promise<GraphInterface[]> => {
 	const response = await fetch(`${BASE_URL}/api/viewset/graphs/`);
 	const graphData: GraphResponse = await response.json();
-	const filteredGraphs: GraphInterface[] = graphData.data.filter((graph) => Number(graph.owner) === ownerId);
-	return filteredGraphs;
+	return graphData.data.filter((graph) => Number(graph.owner) === ownerId);
 };
 
 export default GetAllUserGraphs;
