@@ -20,6 +20,7 @@ import { isErrorResponseInterface } from '../../interfaces/response/ErrorRespons
 import GetAllGraphEquations from '../../services/api/GetAllGraphEquationsService';
 import { mapToFunctionInterface } from '../../interfaces/schema/EquationInterface';
 import AddAllGraphEquationsService from '../../services/api/AddAllGraphEquationsService';
+import DeleteAllGraphEquationsService from '../../services/api/DeleteAllGraphEquationsService';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 const HomeIconButton = loadable(() => import('./NavBarButton/HomeIconButton'));
@@ -114,6 +115,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					});
 			});
 		});
+		await DeleteAllGraphEquationsService(gid);
 		await AddAllGraphEquationsService(equations ?? [], gid);
 	};
 

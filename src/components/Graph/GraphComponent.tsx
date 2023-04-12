@@ -12,7 +12,9 @@ interface PlotContainerProps {
 const PlotContainer: React.FC<PlotContainerProps> = ({ data, options }) => {
 	const containerRef = React.useRef<HTMLDivElement>(null); // Create a ref for the container element
 
-	// Effect to create and render the function-plot chart when the container ref or the data/options props change
+	// data = data.filter((datum) => datum.);
+	// Effect to create and render the function-plot chart w)
+	// hen the container ref or the data/options props change
 	React.useEffect(() => {
 		// Check that the container ref is not null
 		if (containerRef.current != null) {

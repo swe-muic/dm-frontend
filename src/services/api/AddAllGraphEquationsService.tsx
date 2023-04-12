@@ -10,7 +10,6 @@ const AddAllGraphEquationsService = async (equations: FunctionInterface[], graph
 		mapFromFunctionInterface(equation, -1, graphNumber),
 	);
 	for (const equation of equationBody) {
-		console.log(equation);
 		await fetch(`${BASE_URL}/api/viewset/equations/`, getRequestOptions(equation));
 	}
 };

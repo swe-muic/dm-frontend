@@ -25,7 +25,7 @@ function MenuIconButton(props: MenuIconProps): React.ReactElement {
 	const { equations, setEquations } = props;
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [numFields, setNumFields] = useState(1);
-	const newEquation: FunctionInterface = { equation: '', color: 'black', lineStyle: LineStyleEnum.SOLID, index: 0 };
+	const newEquation: FunctionInterface = { equation: '', color: '#000000', lineStyle: LineStyleEnum.SOLID, index: 0 };
 
 	const addField = (): void => {
 		setNumFields(numFields + 1);
@@ -40,7 +40,7 @@ function MenuIconButton(props: MenuIconProps): React.ReactElement {
 			} else {
 				newEquations[index][field] = value;
 			}
-			setEquations(newEquations);
+			setEquations([...newEquations]);
 		};
 
 	return (

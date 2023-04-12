@@ -18,12 +18,9 @@ const Home: React.FunctionComponent = () => {
 	const gid = Number(searchParams.get('gid')) ?? -1;
 	// conver gid to number
 
-	// Grid id
-	console.log(`GID: ${gid}`);
-
 	const newEquation: FunctionInterface = {
 		equation: '',
-		color: 'black',
+		color: '#000000',
 		lineStyle: LineStyleEnum.SOLID,
 		index: equations.length,
 	};
@@ -81,7 +78,7 @@ const Home: React.FunctionComponent = () => {
 	};
 
 	if (equations.length === 0) {
-		setEquations([newEquation]);
+		setEquations([{ ...newEquation }]);
 	}
 
 	return (
