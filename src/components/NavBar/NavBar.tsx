@@ -60,9 +60,7 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsSave(true);
 		if (user != null) {
 			const uid = user.uid;
-			// console.log(user);
 			const isExist = await GraphExists(gid);
-			// console.log(isExist);
 			if (isExist) {
 				await UpdateGraph(buttonText, gid, uid);
 			} else {
