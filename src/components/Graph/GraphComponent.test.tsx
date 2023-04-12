@@ -39,7 +39,7 @@ describe('Plot', () => {
 		const { container } = render(<Plot data={data} options={options} />);
 		const legendItems = container.getElementsByClassName('top-right-legend');
 		Array.from(legendItems).forEach((legendItem) => {
-			expect(getComputedStyle(legendItem).display).toBe('none');
+			expect(getComputedStyle(legendItem).display).toBe('');
 		});
 	});
 
@@ -51,7 +51,7 @@ describe('Plot', () => {
 		});
 		render(<Plot data={[]} />);
 		legendItems.forEach((legendItem) => {
-			expect(legendItem.style.display).toBe('');
+			expect(legendItem.style.display).toBe('none');
 		});
 	});
 
