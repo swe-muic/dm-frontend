@@ -37,7 +37,7 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 
 	return (
 		<Box>
-			<IconButton onClick={handleClick}>
+			<IconButton onClick={handleClick} data-testid={'selector-button'}>
 				<Brightness1Icon style={{ ...LineStyling, color: `${color}` }} />
 			</IconButton>
 			<Popover
@@ -53,6 +53,7 @@ function LineStylePopover(props: LineStyleProp): React.ReactElement {
 			>
 				<Box sx={{ p: 2 }}>
 					<HexColorPicker
+						data-testid={'color-wheel'}
 						color={color}
 						onChange={(newColor) => {
 							handleColorChange(newColor);
