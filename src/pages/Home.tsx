@@ -15,7 +15,8 @@ const Home: React.FunctionComponent = () => {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const searchParams = useSearchParams()[0];
-	const gid = searchParams.get('gid') ?? -1;
+	const gid = Number(searchParams.get('gid')) ?? -1;
+	// conver gid to number
 
 	// Grid id
 	console.log(`GID: ${gid}`);
@@ -85,7 +86,7 @@ const Home: React.FunctionComponent = () => {
 
 	return (
 		<div data-testid={'home-page'}>
-			<Navbar currentPage={'home'} equations={equations} setEquations={handleSetEquations} />
+			<Navbar currentPage={'home'} equations={equations} setEquations={handleSetEquations} actualGid={gid} />
 			{showPlot && <Plot data={plotData} key={'plot-graph'} />}
 		</div>
 	);

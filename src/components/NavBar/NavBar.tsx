@@ -41,17 +41,20 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
 	const [buttonText, setDisplayText] = useState('GRAPH TITLE');
+	const [isDirty, setIsDirty] = useState(false);
 
 	const handleCheckGraphExists = (): void => {
+		setIsDirty(true);
 		GetGraphInformation(gid)
 			.then((res) => {
 				if (!isErrorResponseInterface(res)) {
+					console.log(res);
 					setDisplayText(res.data.name);
 					GetAllGraphEquations(gid)
 						.then((equations) => {
 							if (setEquations != null) {
 								// map to Function
-								setEquations(equations.map((equation, index) => ({ ...equation, index })));
+								console.log(equations);
 							}
 						})
 						.catch((e) => {
@@ -64,7 +67,9 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 			});
 	};
 
-	handleCheckGraphExists();
+	if (!isDirty) {
+		handleCheckGraphExists();
+	}
 
 	// eslint-disable-next-line no-undef
 	/* istanbul ignore next */
