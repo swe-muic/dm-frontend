@@ -17,7 +17,7 @@ const ParseAllEquations = async (
 	equations: string[],
 ): Promise<ParseEquationsResponse | ErrorResponseInterface | undefined> => {
 	const requestOptions = getRequestOptions({ expressions: equations });
-	const response = await fetch(`${BASE_URL}api/viewset/equations/parser/parse_expressions/`, requestOptions);
+	const response = await fetch(`${BASE_URL}/api/viewset/equations/parser/parse_expressions/`, requestOptions);
 	return await response.json();
 };
 

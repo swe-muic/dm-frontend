@@ -6,10 +6,13 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/FirebaseConfig';
 import getBackgroundColor from './NavBarColor/NavBarBackGroundSelector';
-import chekIsItEdit from './SubComponentFromNavBar/EditOrTextField';
+import checkIsItEdit from './SubComponentFromNavBar/EditOrTextField';
 import checkIsItLogin from './SubComponentFromNavBar/LoginOrEmpty';
 import checkIsLogin from './SubComponentFromNavBar/AuthenOrSave';
 import loadable from '@loadable/component';
+import CreateGraph from '../../services/api/CreateGraphService';
+import GraphExists from '../../services/api/CheckGraphExistsService';
+import UpdateGraph from '../../services/api/UpdateGraphService';
 import type FunctionInterface from '../../interfaces/FunctionInterface';
 
 /* eslint-disable @typescript-eslint/promise-function-async */
@@ -28,6 +31,7 @@ export interface NavbarProps {
 export default function Navbar(props: NavbarProps): React.ReactElement {
 	const { currentPage, forceLogin, setEquations, equations } = props;
 	const navigate = useNavigate();
+	const [gid, setGid] = useState(-1);
 	const [isLogIn, setIsLogin] = useState(forceLogin ?? false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isSave, setIsSave] = useState(false);
@@ -54,8 +58,21 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 		setIsLogin(!isLogIn);
 	};
 
-	const handleSaveIconClick = (): void => {
+	const handleSaveIconClick = async (): Promise<void> => {
+		const user = auth.currentUser;
 		setIsSave(true);
+		if (user != null) {
+			const uid = user.uid;
+			const isExist = await GraphExists(gid);
+			if (isExist) {
+				await UpdateGraph(buttonText, gid, uid);
+			} else {
+				const newGraphId = await CreateGraph(buttonText, uid);
+				setGid(newGraphId);
+			}
+		} else {
+			console.log('null user');
+		}
 	};
 
 	const handleEditGraphName = (): void => {
@@ -82,12 +99,12 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					<HomeIconButton />
 				)}
 
-				{currentPage === 'home' ? chekIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
+				{currentPage === 'home' ? checkIsItEdit(isEdit, handleEditGraphName, buttonText, handleChange) : null}
 
 				{currentPage === 'home' ? checkIsItLogin(isLogIn, handleEditGraphName) : null}
 
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }} style={{ position: 'absolute', right: '50%' }}>
-					Deezmos
+					Deezmoz
 				</Typography>
 
 				{currentPage === 'graphs' ? (
@@ -96,7 +113,8 @@ export default function Navbar(props: NavbarProps): React.ReactElement {
 					</Stack>
 				) : null}
 
-				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick) : null}
+				{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+				{currentPage === 'home' ? checkIsLogin(isLogIn, handleSaveIconClick, isSave, handleLoginRegisClick, gid) : null}
 			</Toolbar>
 		</AppBar>
 	);
