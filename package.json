@@ -126,7 +126,7 @@
     "jest-transform-stub": "^2.0.0",
     "jest-watch-typeahead": "^2.2.2",
     "jsdom": "^21.1.1",
-    "json-schema-traverse": "^0.4.1",
+    "json-schema-traverse": "^1.0.0",
     "lint-staged": "^13.1.2",
     "nth-check": "^2.0.1",
     "prettier": "2.8.4",
