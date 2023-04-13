@@ -9,4 +9,5 @@ export const MinioConfig = {
 		accessKeyId: process.env.REACT_APP_MINIO_ROOT_USER ?? '',
 		secretAccessKey: process.env.REACT_APP_MINIO_ROOT_PASSWORD ?? '',
 	},
+	useSSL: false,
 };
