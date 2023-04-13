@@ -9,5 +9,6 @@ export const MinioConfig = {
 		accessKeyId: process.env.REACT_APP_MINIO_ROOT_USER ?? '',
 		secretAccessKey: process.env.REACT_APP_MINIO_ROOT_PASSWORD ?? '',
 	},
-	useSSL: false,
+	s3ForcePathStyle: true, // Force the use of path-style URLs
+	tls: false, // Set this to true if you want to use HTTPS
 };
